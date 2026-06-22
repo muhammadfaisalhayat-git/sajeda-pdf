@@ -58,6 +58,12 @@ function generateLocaleEntries(locale: Locale, lastModified: Date): MetadataRout
       lastModified,
       changeFrequency: page.changeFrequency as 'daily' | 'weekly' | 'monthly',
       priority: page.priority,
+      alternates: {
+        languages: locales.reduce((acc, l) => {
+          acc[l] = `${siteConfig.url}/${l}${page.path}`;
+          return acc;
+        }, {} as Record<string, string>),
+      },
     });
   }
   
@@ -69,6 +75,12 @@ function generateLocaleEntries(locale: Locale, lastModified: Date): MetadataRout
       lastModified,
       changeFrequency: CHANGE_FREQUENCY.toolPage,
       priority: PRIORITY.toolPage,
+      alternates: {
+        languages: locales.reduce((acc, l) => {
+          acc[l] = `${siteConfig.url}/${l}/tools/${tool.slug}`;
+          return acc;
+        }, {} as Record<string, string>),
+      },
     });
   }
   
