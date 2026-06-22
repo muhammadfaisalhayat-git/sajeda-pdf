@@ -14,7 +14,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "postbuild": "node scripts/decompress-wasm.mjs && node scripts/chunk-assets.mjs && node -e \"const fs = require('fs'); if (fs.existsSync('.htaccess')) { fs.copyFileSync('.htaccess', 'out/.htaccess'); console.log('Copied .htaccess to out/'); }\"",
+    "postbuild": "node scripts/decompress-wasm.mjs && node scripts/chunk-assets.mjs && node -e \"const fs = require('fs'); if (fs.existsSync('.htaccess')) { fs.copyFileSync('.htaccess', 'out/.htaccess'); console.log('Copied .htaccess to out/'); }\" && node scripts/inject-sitemap-xsl.cjs",
     "postinstall": "node scripts/sync-pdfjs-workers.js"
   },
   "dependencies": {
