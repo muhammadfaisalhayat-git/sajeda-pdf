@@ -561,143 +561,159 @@ export function EditPDFTool({ className = '' }: EditPDFToolProps) {
           </Card>
 
           {/* Floating Sejda-style Toolbar */}
-          <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-white dark:bg-zinc-900 border border-[hsl(var(--color-border))] rounded-xl shadow-md z-10 relative">
+          <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-zinc-900 border border-zinc-800 rounded-xl shadow-md z-10 relative">
             <div className="flex flex-wrap items-center gap-1.5">
-              <Button
-                variant={activeTool === 'select' ? 'primary' : 'ghost'}
-                size="sm"
+              <button
                 onClick={() => setTool('select')}
-                className="flex items-center gap-1.5 text-xs font-semibold h-9 px-3 rounded-lg"
+                className={`flex items-center gap-1.5 text-xs font-bold h-9 px-3 rounded-lg transition-colors cursor-pointer border-0 outline-none ${
+                  activeTool === 'select'
+                    ? 'bg-[hsl(var(--color-primary))] text-white'
+                    : 'text-zinc-300 hover:bg-zinc-800 hover:text-white bg-transparent'
+                }`}
               >
                 <MousePointer className="w-4 h-4" />
                 <span>{tTools('toolbar.select') || 'Select'}</span>
-              </Button>
+              </button>
 
-              <Button
-                variant={activeTool === 'text' ? 'primary' : 'ghost'}
-                size="sm"
+              <button
                 onClick={() => setTool('text')}
-                className="flex items-center gap-1.5 text-xs font-semibold h-9 px-3 rounded-lg"
+                className={`flex items-center gap-1.5 text-xs font-bold h-9 px-3 rounded-lg transition-colors cursor-pointer border-0 outline-none ${
+                  activeTool === 'text'
+                    ? 'bg-[hsl(var(--color-primary))] text-white'
+                    : 'text-zinc-300 hover:bg-zinc-800 hover:text-white bg-transparent'
+                }`}
               >
                 <Type className="w-4 h-4" />
                 <span>{tTools('toolbar.text') || 'Text'}</span>
-              </Button>
+              </button>
 
-              <Button
-                variant={activeTool === 'link' ? 'primary' : 'ghost'}
-                size="sm"
+              <button
                 onClick={() => setTool('link')}
-                className="flex items-center gap-1.5 text-xs font-semibold h-9 px-3 rounded-lg"
+                className={`flex items-center gap-1.5 text-xs font-bold h-9 px-3 rounded-lg transition-colors cursor-pointer border-0 outline-none ${
+                  activeTool === 'link'
+                    ? 'bg-[hsl(var(--color-primary))] text-white'
+                    : 'text-zinc-300 hover:bg-zinc-800 hover:text-white bg-transparent'
+                }`}
               >
                 <LinkIcon className="w-4 h-4" />
                 <span>{tTools('toolbar.link') || 'Link'}</span>
-              </Button>
+              </button>
 
               {/* Forms Dropdown */}
               <div className="relative group">
-                <Button
-                  variant={activeTool === 'forms' ? 'primary' : 'ghost'}
-                  size="sm"
-                  className="flex items-center gap-1.5 text-xs font-semibold h-9 px-3 rounded-lg"
+                <button
+                  className={`flex items-center gap-1.5 text-xs font-bold h-9 px-3 rounded-lg transition-colors cursor-pointer border-0 outline-none ${
+                    activeTool === 'forms'
+                      ? 'bg-[hsl(var(--color-primary))] text-white'
+                      : 'text-zinc-300 hover:bg-zinc-800 hover:text-white bg-transparent'
+                  }`}
                 >
                   <CheckSquare className="w-4 h-4" />
                   <span>Forms</span>
                   <ChevronDown className="w-3.5 h-3.5" />
-                </Button>
-                <div className="absolute left-0 mt-1 hidden group-hover:block hover:block bg-white dark:bg-zinc-800 border dark:border-zinc-700 rounded-md shadow-lg z-50 py-1 min-w-[150px]">
+                </button>
+                <div className="absolute left-0 mt-1 hidden group-hover:block hover:block bg-zinc-800 border border-zinc-700 rounded-md shadow-lg z-50 py-1 min-w-[150px]">
                   <button
                     onClick={() => setSubTool('forms', 'form-text')}
-                    className="flex items-center w-full px-3 py-2 text-xs text-left hover:bg-gray-100 dark:hover:bg-zinc-700 font-medium cursor-pointer"
+                    className="flex items-center w-full px-3 py-2 text-xs text-left hover:bg-zinc-700 text-zinc-200 font-bold transition-colors cursor-pointer border-0 bg-transparent outline-none"
                   >
                     Text Field
                   </button>
                   <button
                     onClick={() => setSubTool('forms', 'form-checkbox')}
-                    className="flex items-center w-full px-3 py-2 text-xs text-left hover:bg-gray-100 dark:hover:bg-zinc-700 font-medium cursor-pointer"
+                    className="flex items-center w-full px-3 py-2 text-xs text-left hover:bg-zinc-700 text-zinc-200 font-bold transition-colors cursor-pointer border-0 bg-transparent outline-none"
                   >
                     Checkbox
                   </button>
                   <button
                     onClick={() => setSubTool('forms', 'form-radio')}
-                    className="flex items-center w-full px-3 py-2 text-xs text-left hover:bg-gray-100 dark:hover:bg-zinc-700 font-medium cursor-pointer"
+                    className="flex items-center w-full px-3 py-2 text-xs text-left hover:bg-zinc-700 text-zinc-200 font-bold transition-colors cursor-pointer border-0 bg-transparent outline-none"
                   >
                     Radio Button
                   </button>
                   <button
                     onClick={() => setSubTool('forms', 'form-dropdown')}
-                    className="flex items-center w-full px-3 py-2 text-xs text-left hover:bg-gray-100 dark:hover:bg-zinc-700 font-medium cursor-pointer"
+                    className="flex items-center w-full px-3 py-2 text-xs text-left hover:bg-zinc-700 text-zinc-200 font-bold transition-colors cursor-pointer border-0 bg-transparent outline-none"
                   >
                     Dropdown
                   </button>
                 </div>
               </div>
 
-              <Button
-                variant={activeTool === 'image' ? 'primary' : 'ghost'}
-                size="sm"
+              <button
                 onClick={() => setTool('image')}
-                className="flex items-center gap-1.5 text-xs font-semibold h-9 px-3 rounded-lg"
+                className={`flex items-center gap-1.5 text-xs font-bold h-9 px-3 rounded-lg transition-colors cursor-pointer border-0 outline-none ${
+                  activeTool === 'image'
+                    ? 'bg-[hsl(var(--color-primary))] text-white'
+                    : 'text-zinc-300 hover:bg-zinc-800 hover:text-white bg-transparent'
+                }`}
               >
                 <ImageIcon className="w-4 h-4" />
                 <span>{tTools('toolbar.image') || 'Images'}</span>
-              </Button>
+              </button>
 
-              <Button
-                variant={activeTool === 'sign' ? 'primary' : 'ghost'}
-                size="sm"
+              <button
                 onClick={() => setTool('sign')}
-                className="flex items-center gap-1.5 text-xs font-semibold h-9 px-3 rounded-lg"
+                className={`flex items-center gap-1.5 text-xs font-bold h-9 px-3 rounded-lg transition-colors cursor-pointer border-0 outline-none ${
+                  activeTool === 'sign'
+                    ? 'bg-[hsl(var(--color-primary))] text-white'
+                    : 'text-zinc-300 hover:bg-zinc-800 hover:text-white bg-transparent'
+                }`}
               >
                 <Signature className="w-4 h-4" />
                 <span>Sign</span>
-              </Button>
+              </button>
 
-              <Button
-                variant={activeTool === 'whiteout' ? 'primary' : 'ghost'}
-                size="sm"
+              <button
                 onClick={() => setTool('whiteout')}
-                className="flex items-center gap-1.5 text-xs font-semibold h-9 px-3 rounded-lg"
+                className={`flex items-center gap-1.5 text-xs font-bold h-9 px-3 rounded-lg transition-colors cursor-pointer border-0 outline-none ${
+                  activeTool === 'whiteout'
+                    ? 'bg-[hsl(var(--color-primary))] text-white'
+                    : 'text-zinc-300 hover:bg-zinc-800 hover:text-white bg-transparent'
+                }`}
               >
                 <Eraser className="w-4 h-4" />
                 <span>Whiteout</span>
-              </Button>
+              </button>
 
               {/* Shapes Dropdown */}
               <div className="relative group">
-                <Button
-                  variant={['rect', 'circle', 'line', 'arrow'].includes(activeTool) ? 'primary' : 'ghost'}
-                  size="sm"
-                  className="flex items-center gap-1.5 text-xs font-semibold h-9 px-3 rounded-lg"
+                <button
+                  className={`flex items-center gap-1.5 text-xs font-bold h-9 px-3 rounded-lg transition-colors cursor-pointer border-0 outline-none ${
+                    ['rect', 'circle', 'line', 'arrow'].includes(activeTool)
+                      ? 'bg-[hsl(var(--color-primary))] text-white'
+                      : 'text-zinc-300 hover:bg-zinc-800 hover:text-white bg-transparent'
+                  }`}
                 >
                   <Square className="w-4 h-4" />
                   <span>Shapes</span>
                   <ChevronDown className="w-3.5 h-3.5" />
-                </Button>
-                <div className="absolute left-0 mt-1 hidden group-hover:block hover:block bg-white dark:bg-zinc-800 border dark:border-zinc-700 rounded-md shadow-lg z-50 py-1 min-w-[150px]">
+                </button>
+                <div className="absolute left-0 mt-1 hidden group-hover:block hover:block bg-zinc-800 border border-zinc-700 rounded-md shadow-lg z-50 py-1 min-w-[150px]">
                   <button
                     onClick={() => setTool('rect')}
-                    className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left hover:bg-gray-100 dark:hover:bg-zinc-700 font-medium cursor-pointer"
+                    className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left hover:bg-zinc-700 text-zinc-200 font-bold transition-colors cursor-pointer border-0 bg-transparent outline-none"
                   >
                     <Square className="w-3.5 h-3.5 text-slate-500" />
                     Rectangle
                   </button>
                   <button
                     onClick={() => setTool('circle')}
-                    className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left hover:bg-gray-100 dark:hover:bg-zinc-700 font-medium cursor-pointer"
+                    className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left hover:bg-zinc-700 text-zinc-200 font-bold transition-colors cursor-pointer border-0 bg-transparent outline-none"
                   >
                     <Circle className="w-3.5 h-3.5 text-slate-500" />
                     Circle
                   </button>
                   <button
                     onClick={() => setTool('line')}
-                    className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left hover:bg-gray-100 dark:hover:bg-zinc-700 font-medium cursor-pointer"
+                    className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left hover:bg-zinc-700 text-zinc-200 font-bold transition-colors cursor-pointer border-0 bg-transparent outline-none"
                   >
                     <Minus className="w-3.5 h-3.5 text-slate-500" />
                     Line
                   </button>
                   <button
                     onClick={() => setTool('arrow')}
-                    className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left hover:bg-gray-100 dark:hover:bg-zinc-700 font-medium cursor-pointer"
+                    className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left hover:bg-zinc-700 text-zinc-200 font-bold transition-colors cursor-pointer border-0 bg-transparent outline-none"
                   >
                     <ArrowRight className="w-3.5 h-3.5 text-slate-500" />
                     Arrow
@@ -707,40 +723,42 @@ export function EditPDFTool({ className = '' }: EditPDFToolProps) {
 
               {/* Annotate Dropdown */}
               <div className="relative group">
-                <Button
-                  variant={['highlight', 'underline', 'strikeout', 'draw'].includes(activeTool) ? 'primary' : 'ghost'}
-                  size="sm"
-                  className="flex items-center gap-1.5 text-xs font-semibold h-9 px-3 rounded-lg"
+                <button
+                  className={`flex items-center gap-1.5 text-xs font-bold h-9 px-3 rounded-lg transition-colors cursor-pointer border-0 outline-none ${
+                    ['highlight', 'underline', 'strikeout', 'draw'].includes(activeTool)
+                      ? 'bg-[hsl(var(--color-primary))] text-white'
+                      : 'text-zinc-300 hover:bg-zinc-800 hover:text-white bg-transparent'
+                  }`}
                 >
                   <Highlighter className="w-4 h-4" />
                   <span>Annotate</span>
                   <ChevronDown className="w-3.5 h-3.5" />
-                </Button>
-                <div className="absolute left-0 mt-1 hidden group-hover:block hover:block bg-white dark:bg-zinc-800 border dark:border-zinc-700 rounded-md shadow-lg z-50 py-1 min-w-[150px]">
+                </button>
+                <div className="absolute left-0 mt-1 hidden group-hover:block hover:block bg-zinc-800 border border-zinc-700 rounded-md shadow-lg z-50 py-1 min-w-[150px]">
                   <button
                     onClick={() => setTool('highlight')}
-                    className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left hover:bg-gray-100 dark:hover:bg-zinc-700 font-medium cursor-pointer"
+                    className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left hover:bg-zinc-700 text-zinc-200 font-bold transition-colors cursor-pointer border-0 bg-transparent outline-none"
                   >
                     <Highlighter className="w-3.5 h-3.5 text-yellow-500" />
                     Highlight
                   </button>
                   <button
                     onClick={() => setTool('underline')}
-                    className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left hover:bg-gray-100 dark:hover:bg-zinc-700 font-medium cursor-pointer"
+                    className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left hover:bg-zinc-700 text-zinc-200 font-bold transition-colors cursor-pointer border-0 bg-transparent outline-none"
                   >
                     <Underline className="w-3.5 h-3.5 text-blue-500" />
                     Underline
                   </button>
                   <button
                     onClick={() => setTool('strikeout')}
-                    className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left hover:bg-gray-100 dark:hover:bg-zinc-700 font-medium cursor-pointer"
+                    className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left hover:bg-zinc-700 text-zinc-200 font-bold transition-colors cursor-pointer border-0 bg-transparent outline-none"
                   >
                     <Strikethrough className="w-3.5 h-3.5 text-red-500" />
                     Strikeout
                   </button>
                   <button
                     onClick={() => setTool('draw')}
-                    className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left hover:bg-gray-100 dark:hover:bg-zinc-700 font-medium cursor-pointer"
+                    className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left hover:bg-zinc-700 text-zinc-200 font-bold transition-colors cursor-pointer border-0 bg-transparent outline-none"
                   >
                     <Paintbrush className="w-3.5 h-3.5 text-purple-500" />
                     Freehand Draw
@@ -768,13 +786,13 @@ export function EditPDFTool({ className = '' }: EditPDFToolProps) {
 
           {/* Sub-formatting Toolbar for Text Editing */}
           {activeTool === 'text' && (
-            <div className="flex flex-wrap items-center gap-4 px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900 border border-[hsl(var(--color-border))] rounded-xl text-sm animate-in fade-in slide-in-from-top-1 duration-200">
+            <div className="flex flex-wrap items-center gap-4 px-4 py-2.5 bg-zinc-900 border border-zinc-800 rounded-xl text-sm animate-in fade-in slide-in-from-top-1 duration-200">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-semibold text-[hsl(var(--color-muted-foreground))]">Font:</span>
+                <span className="text-xs font-semibold text-zinc-400">Font:</span>
                 <select
                   value={currentFontFamily}
                   onChange={(e) => handleFontFamilyChange(e.target.value)}
-                  className="px-2 py-1 rounded border dark:border-zinc-700 bg-white dark:bg-zinc-800 text-xs font-semibold focus:outline-none"
+                  className="px-2 py-1 rounded border border-zinc-700 bg-zinc-800 text-zinc-200 text-xs font-semibold focus:outline-none"
                 >
                   <option value="Helvetica, sans-serif">Sans-Serif (Helvetica)</option>
                   <option value="Times New Roman, Times, serif">Serif (Times)</option>
@@ -783,18 +801,18 @@ export function EditPDFTool({ className = '' }: EditPDFToolProps) {
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="text-xs font-semibold text-[hsl(var(--color-muted-foreground))]">Size:</span>
-                <div className="flex items-center border dark:border-zinc-700 rounded bg-white dark:bg-zinc-800 h-7 overflow-hidden">
+                <span className="text-xs font-semibold text-zinc-400">Size:</span>
+                <div className="flex items-center border border-zinc-700 rounded bg-zinc-800 h-7 overflow-hidden">
                   <button
                     onClick={() => handleFontSizeChange(currentFontSize - 1)}
-                    className="px-2.5 py-1 hover:bg-gray-100 dark:hover:bg-zinc-700 text-xs font-bold border-r dark:border-zinc-700 cursor-pointer"
+                    className="px-2.5 py-1 hover:bg-zinc-700 text-zinc-200 text-xs font-bold border-r border-zinc-700 cursor-pointer"
                   >
                     -
                   </button>
-                  <span className="px-3 text-xs font-bold">{currentFontSize}px</span>
+                  <span className="px-3 text-xs font-bold text-zinc-200">{currentFontSize}px</span>
                   <button
                     onClick={() => handleFontSizeChange(currentFontSize + 1)}
-                    className="px-2.5 py-1 hover:bg-gray-100 dark:hover:bg-zinc-700 text-xs font-bold border-l dark:border-zinc-700 cursor-pointer"
+                    className="px-2.5 py-1 hover:bg-zinc-700 text-zinc-200 text-xs font-bold border-l border-zinc-700 cursor-pointer"
                   >
                     +
                   </button>
@@ -802,7 +820,7 @@ export function EditPDFTool({ className = '' }: EditPDFToolProps) {
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="text-xs font-semibold text-[hsl(var(--color-muted-foreground))]">Color:</span>
+                <span className="text-xs font-semibold text-zinc-400">Color:</span>
                 <div className="flex items-center gap-1.5">
                   {['rgb(0, 0, 0)', 'rgb(220, 38, 38)', 'rgb(37, 99, 235)', 'rgb(22, 163, 74)', 'rgb(255, 255, 255)'].map((c) => (
                     <button
@@ -824,7 +842,7 @@ export function EditPDFTool({ className = '' }: EditPDFToolProps) {
                   variant="ghost"
                   size="sm"
                   onClick={handleDeleteTextEdit}
-                  className="ml-auto text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20 flex items-center gap-1 text-xs font-bold h-8 px-2.5"
+                  className="ml-auto text-red-400 hover:text-red-500 hover:bg-red-950/20 flex items-center gap-1 text-xs font-bold h-8 px-2.5"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                   <span>Delete Box</span>
@@ -834,7 +852,7 @@ export function EditPDFTool({ className = '' }: EditPDFToolProps) {
           )}
 
           {/* Active Tool Status Helpers */}
-          <div className="text-xs font-medium text-[hsl(var(--color-muted-foreground))] bg-zinc-50 dark:bg-zinc-900 border border-[hsl(var(--color-border))] rounded-lg px-3 py-2">
+          <div className="text-xs font-medium text-zinc-400 bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2">
             {activeTool === 'select' && "Mode: Select. You can scroll, view, and interact with the PDF document."}
             {activeTool === 'text' && "Mode: Text. Click on any text to edit it, or click on empty space to type new text."}
             {['rect', 'circle', 'line', 'arrow'].includes(activeTool) && `Mode: Draw Shape (${activeTool}). Click and drag on pages to draw.`}
