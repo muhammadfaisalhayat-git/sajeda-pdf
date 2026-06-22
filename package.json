@@ -8,13 +8,13 @@
     "tauri": "tauri",
     "dev:tauri": "TAURI_ENV=true tauri dev",
     "build:tauri": "TAURI_ENV=true tauri build",
-    "build": "rm -rf out && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "postbuild": "node scripts/decompress-wasm.mjs && node scripts/chunk-assets.mjs",
+    "postbuild": "node scripts/decompress-wasm.mjs && node scripts/chunk-assets.mjs && node -e \"const fs = require('fs'); if (fs.existsSync('.htaccess')) { fs.copyFileSync('.htaccess', 'out/.htaccess'); console.log('Copied .htaccess to out/'); }\"",
     "postinstall": "node scripts/sync-pdfjs-workers.js"
   },
   "dependencies": {
