@@ -36,10 +36,8 @@ See https://github.com/adobe-type-tools/cmap-resources
 
   <!-- Note: pdfjs-annotation-extension provides its own toolbar with Save/Export buttons -->
   <style>
-    /* Hide save button from pdfjs-annotation-extension CustomToolbar */
-    /* Only target buttons with data-action="save" attribute */
-    .CustomToolbar .buttons>li[data-action="save"],
-    .CustomToolbar button[data-action="save"] {
+    /* Hide the entire CustomToolbar from pdfjs-annotation-extension */
+    .CustomToolbar {
       display: none !important;
     }
   </style>
@@ -109,6 +107,7 @@ See https://github.com/adobe-type-tools/cmap-resources
 
   </script>
   <script src="./pdfjs-annotation-extension/pdfjs-annotation-extension.js" type="module"></script>
+  <script src="./pdfjs-annotation-extension/iframe-bridge.js" type="module"></script>
 </head>
 
 <body tabindex="1">
