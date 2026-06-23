@@ -37,7 +37,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-background text-foreground antialiased" suppressHydrationWarning>
+      <body className="min-h-screen bg-[hsl(var(--color-background))] text-[hsl(var(--color-foreground))] antialiased" suppressHydrationWarning>
         {children}
       </body>
     </html>
