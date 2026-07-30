@@ -27,6 +27,15 @@ export interface PageMetadataOptions extends BaseMetadataOptions {
   keywords?: string[];
   image?: string;
   noIndex?: boolean;
+  /**
+   * Locale the page's copy is actually written in. Defaults to `locale`.
+   *
+   * Set this when a page renders another language's text (e.g. /zh-TW/ showing
+   * Simplified Chinese, or /pt/ showing English) so the canonical points at the
+   * original instead of self-referencing. Without it, every untranslated locale
+   * publishes a duplicate of the same article as an original.
+   */
+  canonicalLocale?: Locale;
 }
 
 /**
@@ -35,6 +44,8 @@ export interface PageMetadataOptions extends BaseMetadataOptions {
 export interface ToolMetadataOptions extends BaseMetadataOptions {
   tool: Tool;
   content: ToolContent;
+  /** Locale the tool copy is actually written in. See PageMetadataOptions. */
+  canonicalLocale?: Locale;
 }
 
 /**
@@ -66,13 +77,17 @@ export function getAlternateUrls(path: string = ''): Record<string, string> {
  * Generate base metadata for any page
  */
 export function generateBaseMetadata(options: PageMetadataOptions): Metadata {
-  const { locale, path = '', title, description, keywords = [], image, noIndex = false } = options;
+  const { locale, path = '', title, description, keywords = [], image, noIndex = false, canonicalLocale } = options;
 
   const fullTitle = title.includes(siteConfig.name)
     ? title
     : `${title} | ${siteConfig.name}`;
 
-  const canonicalUrl = getCanonicalUrl(locale, path);
+  // Canonical points at the locale the copy was written in. For fully translated
+  // pages that is the current locale; for fallback pages it is the source locale,
+  // which consolidates duplicates onto one indexable URL. hreflang alternates stay
+  // complete either way so users still land on their own language.
+  const canonicalUrl = getCanonicalUrl(canonicalLocale ?? locale, path);
   const ogImage = image || siteConfig.ogImage;
   const ogLocale = getOpenGraphLocale(locale);
 
@@ -170,45 +185,24 @@ function getLocalizedSuffix(locale: Locale): string {
 }
 
 /**
- * Get optimized keyword-rich title for tool pages
+ * Get the title tag for a tool page.
+ *
+ * Preference order:
+ *   1. `metaTitle` from the tool's content entry - unique per tool, per locale.
+ *   2. The content title plus a localised suffix.
+ *
+ * The suffix fallback is identical for every tool in a locale, so any tool
+ * relying on it shares its title shape with every other one. Set `metaTitle` in
+ * the locale's tool-content file to give a page a distinct title. English has
+ * `metaTitle` on all 99 tools; other locales fall back until translated.
+ *
+ * A hardcoded English title map used to live here and silently overrode
+ * `metaTitle` for 26 tools. It has been removed - tool-content is the single
+ * source of truth.
  */
-function getOptimizedToolTitle(toolId: string, title: string, locale: Locale, metaTitleOverride?: string): string {
+function getOptimizedToolTitle(_toolId: string, title: string, locale: Locale, metaTitleOverride?: string): string {
   if (metaTitleOverride) {
     return metaTitleOverride;
-  }
-
-  if (locale === 'en') {
-    const enTitles: Record<string, string> = {
-      'pdf-multi-tool': 'PDF Multi Tool Online - Merge, Split & Edit PDF Free',
-      'merge-pdf': 'Merge PDF Online - Combine PDF Files Free',
-      'split-pdf': 'Split PDF Online - Extract Pages from PDF Free',
-      'compress-pdf': 'Compress PDF Online - Reduce PDF File Size',
-      'edit-pdf': 'Free PDF Editor - Edit PDF Files Online',
-      'jpg-to-pdf': 'JPG to PDF Converter - Convert Images to PDF Online',
-      'png-to-pdf': 'PNG to PDF Converter - Convert PNG to PDF Online',
-      'pdf-to-jpg': 'PDF to JPG Converter - Extract Images from PDF',
-      'pdf-to-png': 'PDF to PNG Converter - Convert PDF Pages to Images',
-      'word-to-pdf': 'Convert Word to PDF Online - Free Docx to PDF',
-      'pdf-to-docx': 'Convert PDF to Word Online - Free PDF to Docx',
-      'excel-to-pdf': 'Convert Excel to PDF Online - Free XLS to PDF',
-      'pdf-to-excel': 'Convert PDF to Excel Online - Free PDF to Spreadsheet',
-      'ocr-pdf': 'OCR PDF Online - Convert Scanned PDF to Searchable Text',
-      'sign-pdf': 'Sign PDF Online - Secure Electronic Signature for PDF',
-      'encrypt-pdf': 'Protect PDF Online - Encrypt PDF with Password',
-      'decrypt-pdf': 'Unlock PDF Online - Remove Password from PDF',
-      'add-watermark': 'Add Watermark to PDF - Watermark PDF Online',
-      'crop-pdf': 'Crop PDF Online - Crop PDF Pages Free',
-      'organize-pdf': 'Organize PDF Pages - Rearrange PDF Online',
-      'delete-pages': 'Delete Pages from PDF Online - Remove PDF Pages',
-      'rotate-pdf': 'Rotate PDF Online - Rotate and Save PDF Pages',
-      'repair-pdf': 'Repair PDF Online - Fix Damaged PDF Files',
-      'sanitize-pdf': 'Sanitize PDF - Remove Hidden Meta Data from PDF',
-      'find-and-redact': 'Redact PDF Online - Black Out PDF Text Securely',
-      'flatten-pdf': 'Flatten PDF Online - Flatten Forms and Fields in PDF',
-    };
-    if (enTitles[toolId]) {
-      return enTitles[toolId];
-    }
   }
 
   const suffix = getLocalizedSuffix(locale);
@@ -219,7 +213,7 @@ function getOptimizedToolTitle(toolId: string, title: string, locale: Locale, me
  * Generate metadata for tool pages
  */
 export function generateToolMetadata(options: ToolMetadataOptions): Metadata {
-  const { locale, tool, content } = options;
+  const { locale, tool, content, canonicalLocale } = options;
   const path = `/tools/${tool.slug}`;
 
   // Enhance keywords with common PDF-related terms
@@ -239,6 +233,7 @@ export function generateToolMetadata(options: ToolMetadataOptions): Metadata {
 
   return generateBaseMetadata({
     locale,
+    canonicalLocale,
     path,
     title: seoTitle,
     description: content.metaDescription,

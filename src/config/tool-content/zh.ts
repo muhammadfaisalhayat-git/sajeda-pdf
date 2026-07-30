@@ -2133,30 +2133,6 @@ export const toolContentZh: Record<string, ToolContent> = {
     ],
   },
 
-  'remove-metadata-full': {
-    title: '元数据的完全删除',
-    metaDescription: '从 PDF 文件中剥离所有元数据和属性。清理以增加匿名性。',
-    keywords: ['pdf 元数据 删除', 'pdf 属性 清除', 'pdf 匿名化', 'pdf 隐私'],
-    description: `
-      <p>删除 PDF 文件中隐藏的所有信息，如作者、创建软件和创建日期/时间。这在从公开发布的材料中清除内部信息时非常重要。</p>
-    `,
-    howToUse: [
-      { step: 1, title: '选择 PDF', description: '上传您想要清理的 PDF 文件。' },
-      { step: 2, title: '执行删除', description: '点击“删除元数据”按钮。' },
-      { step: 3, title: '保存', description: '下载属性为空的 PDF。' },
-    ],
-    useCases: [
-      { title: '公共文档分发', description: '在互联网上发布之前删除作者的个人姓名。', icon: 'shield' },
-      { title: '企业对企业交易', description: '清除不必要的元数据（如创建历史记录）以保持机密性。', icon: 'briefcase' },
-      { title: '匿名材料创建', description: '确保无法通过属性识别身份。', icon: 'user-x' },
-    ],
-    faq: [
-      { question: '文件内容会改变吗？', answer: '不会，任何可见内容（如文本或图像）都不会改变。' },
-      { question: '哪些项目会消失？', answer: '标题、作者、主题、关键词、创建日期、修改日期、PDF 创建程序名称等将被删除。' },
-      { question: '可以恢复吗？', answer: '删除后的文件中的元数据无法恢复。' },
-    ],
-  },
-
   'remove-metadata': {
     title: '删除元数据',
     metaDescription: '从PDF文件中去除元数据。删除作者、日期和文档属性。',
@@ -2236,31 +2212,6 @@ export const toolContentZh: Record<string, ToolContent> = {
 
 
 
-  'pdf-to-txt': {
-    title: 'PDF转文本',
-    metaDescription: '从PDF中提取纯文本。移除所有格式和图像，获取最简洁的文字内容。',
-    keywords: ['pdf转txt', 'pdf提取文本', '获取pdf文字', 'pdf纯文本'],
-    description: `
-      <p>PDF转文本工具旨在为您提供最纯粹的文字提取体验。它会剥离文档中的背景、图像、链接和复杂的排版，仅保留最核心的文字内容。</p>
-      <p>适合需要将PDF内容导入文本编辑器、进行代码分析或准备机器翻译语料的用户。</p>
-    `,
-    howToUse: [
-      { step: 1, title: '上传PDF文件', description: '拖放PDF文件到此处。' },
-      { step: 2, title: '提取文字', description: '系统将快速扫描所有页面的字符流。' },
-      { step: 3, title: '下载文本文件', description: '获取.txt格式的纯文本文件。' },
-    ],
-    useCases: [
-      { title: '电子书转文本', description: '将PDF格式的小说转换为纯文本，方便在旧款电子书阅读器上使用。', icon: 'book' },
-      { title: '语料库建设', description: '批量从PDF文档中提取文字内容，用于AI训练或大数据分析。', icon: 'code' },
-      { title: '翻译准备', description: '提取纯文本内容，方便导入CAT工具或网页翻译器。', icon: 'languages' },
-    ],
-    faq: [
-      { question: '扫描件能转成文本吗？', answer: '普通转换工具无法处理扫描件，请点击导航栏中的"OCR PDF"进行识别。' },
-      { question: '排版会乱吗？', answer: 'TXT不支持样式，但我们会尽力通过空格和换行保留原始文本的逻辑顺序。' },
-      { question: '支持特殊字符吗？', answer: '支持。提取出的文本默认采用UTF-8编码，兼容中文、韩文、日文等全球语言。' },
-    ],
-  },
-
   'deskew-pdf': {
     title: '校正PDF倾斜',
     metaDescription: '自动校正扫描或倾斜的PDF页面。使用精确的角度检测修复倾斜文档。',
@@ -2310,31 +2261,6 @@ export const toolContentZh: Record<string, ToolContent> = {
       { question: 'PDF/A有什么好处？', answer: '它具有自包含性，这意味着显示文档所需的所有信息（如字体）都已保存在文件内，不依赖外部链接。' },
       { question: '普通PDF查看器能打开吗？', answer: '完全可以。PDF/A与所有现有的PDF阅读器完美兼容。' },
       { question: '转换后文件会变大吗？', answer: '通常会，因为必须嵌入所有字体文件以确保长期显示的准确性。' },
-    ],
-  },
-
-  'pdf-to-html': {
-    title: 'PDF转HTML',
-    metaDescription: '将PDF页面转换为网页格式（HTML）。支持自适应布局和跨平台浏览。',
-    keywords: ['pdf转html', 'pdf转网页', 'pdf在线发布', 'pdf发布为网页'],
-    description: `
-      <p>PDF转HTML工具可以将您的静态PDF文档转化为可直接在浏览器中浏览的网页。转换后的内容支持文字检索，并能自适应不同的屏幕尺寸。</p>
-      <p>非常适合将PDF手册、宣传册或研究论文发布到网站上，提供比下载PDF文件更好的用户体验。</p>
-    `,
-    howToUse: [
-      { step: 1, title: '上传PDF', description: '选择要网页化的PDF文件。' },
-      { step: 2, title: '生成HTML', description: '系统将页面结构、样式和图片重新编码为HTML/CSS。' },
-      { step: 3, title: '下载或查看', description: '下载包含HTML文件和资源的压缩包。' },
-    ],
-    useCases: [
-      { title: '在线展示手册', description: '将产品手册转换为网页，方便客户直接通过手机浏览器查阅。', icon: 'monitor' },
-      { title: 'SEO增强', description: '将PDF内容转为HTML页面，更容易被搜索引擎索引，提高网站流量。', icon: 'search' },
-      { title: '内容分发', description: '制作可以在不安装PDF阅读器的情况下就能查看的轻量化内容。', icon: 'share-2' },
-    ],
-    faq: [
-      { question: '转换后的网页支持响应式吗？', answer: '是的，我们生成的代码能适应手机、平板和桌面设备。' },
-      { question: '图片能保留吗？', answer: '可以，PDF中的所有插图和照片都会被优化并保存为网页适用的图像格式。' },
-      { question: 'HTML文件里会有乱码吗？', answer: '不会。系统会正确映射编码，确保转换后的文字内容准确无误。' },
     ],
   },
 

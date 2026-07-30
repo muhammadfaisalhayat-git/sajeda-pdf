@@ -1620,30 +1620,6 @@ export const toolContentJa: Record<string, ToolContent> = {
   // ==================== ADDITIONAL UTILITIES ====================
   // 补全由于翻译分段可能遗漏的关键词或模块
 
-  'remove-metadata-full': {
-    title: 'メタデータの完全削除',
-    metaDescription: 'PDFファイルからすべてのメタデータとプロパティをストリップ。匿名性を高めるためのクリーンアップ。',
-    keywords: ['pdf メタデータ 削除', 'pdf プロパティ 消去', 'pdf 匿名化', 'pdf プライバシー'],
-    description: `
-      <p>PDFファイルに隠されている作成者、作成ソフト、作成日時などの情報をすべて削除します。外部へ公開する資料から内部情報を消去する際に非常に重要です。</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'PDFを選択', description: 'クリーンアップしたいPDFファイルをアップロードします。' },
-      { step: 2, title: '削除実行', description: '「メタデータを削除」ボタンをクリックします。' },
-      { step: 3, title: '保存', description: 'プロパティが空になったPDFをダウンロードします。' },
-    ],
-    useCases: [
-      { title: '公的書類の配布', description: '作成者の個人名を消してからインターネットで公開します。', icon: 'shield' },
-      { title: '企業間取引', description: '作成履歴などの不要なメタデータを消去して機密性を保ちます。', icon: 'briefcase' },
-      { title: '匿名資料の作成', description: 'プロパティから身元が特定されないようにします。', icon: 'user-x' },
-    ],
-    faq: [
-      { question: 'ファイルの中身は変わりますか？', answer: 'いいえ、テキストや画像などの目に見えるコンテンツは一切変更されません。' },
-      { question: 'どの項目が消えますか？', answer: 'タイトル、作成者、件名、キーワード、作成日、更新日、PDF作成プログラム名などが消去されます。' },
-      { question: '復元はできますか？', answer: '削除後のファイルからメタデータを復元することはできません。' },
-    ],
-  },
-
   'psd-to-pdf': {
     title: 'PSDをPDFに変換',
     metaDescription: 'PhotoshopのPSDファイルをPDFに変換します。レイヤーが統合された高品質なPDFを作成。',

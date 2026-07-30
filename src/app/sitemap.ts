@@ -9,6 +9,8 @@ import { MetadataRoute } from 'next';
 import { siteConfig } from '@/config/site';
 import { locales, type Locale } from '@/lib/i18n/config';
 import { getAllTools } from '@/config/tools';
+import { isToolContentFallback } from '@/config/tool-content';
+import { TOOL_CATEGORIES } from '@/types/tool';
 
 // Required for static export
 export const dynamic = 'force-static';
@@ -20,6 +22,7 @@ const PRIORITY = {
   home: 1.0,
   tools: 0.9,
   toolPage: 0.8,
+  category: 0.7,
   static: 0.6,
 } as const;
 
@@ -30,6 +33,7 @@ const CHANGE_FREQUENCY = {
   home: 'daily',
   tools: 'weekly',
   toolPage: 'weekly',
+  category: 'weekly',
   static: 'monthly',
 } as const;
 
@@ -39,6 +43,7 @@ const CHANGE_FREQUENCY = {
 const STATIC_PAGES = [
   { path: '', priority: PRIORITY.home, changeFrequency: CHANGE_FREQUENCY.home },
   { path: '/tools', priority: PRIORITY.tools, changeFrequency: CHANGE_FREQUENCY.tools },
+  { path: '/workflow', priority: PRIORITY.tools, changeFrequency: CHANGE_FREQUENCY.tools },
   { path: '/about', priority: PRIORITY.static, changeFrequency: CHANGE_FREQUENCY.static },
   { path: '/faq', priority: PRIORITY.static, changeFrequency: CHANGE_FREQUENCY.static },
   { path: '/privacy', priority: PRIORITY.static, changeFrequency: CHANGE_FREQUENCY.static },
@@ -67,9 +72,33 @@ function generateLocaleEntries(locale: Locale, lastModified: Date): MetadataRout
     });
   }
   
-  // Add tool pages
+  // Add category pages
+  for (const category of TOOL_CATEGORIES) {
+    entries.push({
+      url: `${siteConfig.url}/${locale}/tools/category/${category}`,
+      lastModified,
+      changeFrequency: CHANGE_FREQUENCY.category,
+      priority: PRIORITY.category,
+      alternates: {
+        languages: locales.reduce((acc, l) => {
+          acc[l] = `${siteConfig.url}/${l}/tools/category/${category}`;
+          return acc;
+        }, {} as Record<string, string>),
+      },
+    });
+  }
+
+  // Add tool pages.
+  //
+  // Tools whose copy for this locale falls back to another language are skipped:
+  // their canonical points at the source locale, and listing a canonicalised
+  // duplicate in the sitemap sends search engines a contradictory signal.
   const tools = getAllTools();
   for (const tool of tools) {
+    if (isToolContentFallback(locale, tool.id)) {
+      continue;
+    }
+
     entries.push({
       url: `${siteConfig.url}/${locale}/tools/${tool.slug}`,
       lastModified,
@@ -83,7 +112,7 @@ function generateLocaleEntries(locale: Locale, lastModified: Date): MetadataRout
       },
     });
   }
-  
+
   return entries;
 }
 
@@ -106,12 +135,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 /**
  * Get total number of URLs in sitemap
  * Useful for testing and validation
+ *
+ * Counts actual emitted entries rather than multiplying, because tool pages whose
+ * copy falls back to another locale are deliberately excluded.
  */
 export function getSitemapUrlCount(): number {
-  const tools = getAllTools();
-  const staticPagesCount = STATIC_PAGES.length;
-  const toolPagesCount = tools.length;
-  const localesCount = locales.length;
-  
-  return (staticPagesCount + toolPagesCount) * localesCount;
+  return sitemap().length;
 }

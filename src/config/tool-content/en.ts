@@ -1,1193 +1,1381 @@
 /**
  * English tool content for SEO
- * Contains detailed descriptions, how-to steps, use cases, and FAQs for all 67 tools
- * Requirements: 4.2-4.5 - Tool page content (description, how-to, use cases, FAQ)
+ *
+ * One entry per tool in config/tools.ts. Every entry owns its own `metaTitle`
+ * so no two pages share a title tag, and its own `metaDescription` (kept under
+ * 160 characters so it is never truncated by generateBaseMetadata).
+ *
+ * This file is also the fallback source for locales that have not been translated
+ * yet, so the copy here has to stand on its own.
  */
 
 import { ToolContent } from '@/types/tool';
 
 /**
  * English tool content map
- * Each tool has: title, metaDescription, keywords, description, howToUse (3+ steps), useCases (3+ scenarios), faq (3+ questions)
+ * Each tool has: title, metaTitle, metaDescription, keywords, description,
+ * howToUse (3+ steps), useCases (3+ scenarios), faq (3+ questions)
  */
 export const toolContentEn: Record<string, ToolContent> = {
-  // ==================== POPULAR TOOLS ====================
+  // ==================== ORGANIZE & MANAGE ====================
+
   'pdf-multi-tool': {
     title: 'PDF Multi Tool',
-    metaDescription: 'All-in-one PDF editor: merge, split, organize, delete, rotate, and extract pages in one powerful tool.',
-    keywords: ['pdf multi tool', 'pdf editor', 'merge pdf', 'split pdf', 'organize pdf', 'all in one pdf'],
+    metaTitle: 'PDF Multi Tool - Merge, Split & Rotate Pages',
+    metaDescription: 'Merge, split, reorder, rotate, delete and extract PDF pages in one workspace. Nothing uploads anywhere - the work happens in your browser.',
+    keywords: ['pdf multi tool', 'pdf page editor', 'merge split pdf', 'reorder pdf pages', 'all in one pdf tool'],
     description: `
-      <p>The PDF Multi Tool is your comprehensive solution for all PDF page management tasks. This powerful all-in-one tool combines multiple PDF operations into a single, intuitive interface, saving you time and effort.</p>
-      <p>Whether you need to merge multiple documents, split a large PDF into smaller files, reorganize pages, delete unwanted content, rotate pages, or extract specific sections, this tool handles it all without switching between different applications.</p>
-      <p>All processing happens directly in your browser, ensuring your documents remain private and secure. No files are uploaded to any server.</p>
+      <p>Most PDF jobs are not one operation. You get a scanned contract where page 3 is upside down, pages 8 and 9 are blank, and the signature page needs to move to the front. Doing that across three separate tools means three uploads and three downloads.</p>
+      <p>The Multi Tool puts every page operation on one screen. You see thumbnails of the whole document, drag pages into a new order, rotate the ones that came in sideways, delete what you do not need, drop in a blank page, or pull a range out into its own file. Changes stack up and you export once at the end.</p>
+      <p>Everything runs in the browser tab. Your file is read by JavaScript on your own machine and never sent to a server, which matters when the document is a signed contract or a medical record.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file into the upload area, or click to browse and select files from your device.' },
-      { step: 2, title: 'Choose Your Operation', description: 'Select from the available operations: merge, split, organize, delete pages, rotate, add blank pages, or extract pages.' },
-      { step: 3, title: 'Configure Options', description: 'Adjust settings specific to your chosen operation, such as page ranges, rotation angles, or merge order.' },
-      { step: 4, title: 'Process and Download', description: 'Click the process button and download your modified PDF once the operation completes.' },
+      { step: 1, title: 'Open your PDF', description: 'Drag the file onto the page, or click to browse. You can load up to 10 files if you plan to merge them.' },
+      { step: 2, title: 'Work on the page thumbnails', description: 'Drag to reorder, click the rotate handle on a crooked page, select pages to delete, or mark a range to extract.' },
+      { step: 3, title: 'Stack up as many changes as you need', description: 'Reorder, then rotate, then delete. Nothing is committed until you export, so you can undo as you go.' },
+      { step: 4, title: 'Export the result', description: 'Click Process and save the finished PDF. Extracted ranges come out as separate files.' },
     ],
     useCases: [
-      { title: 'Document Preparation', description: 'Prepare documents for submission by removing unnecessary pages, reordering content, and combining multiple files.', icon: 'file-check' },
-      { title: 'Report Assembly', description: 'Combine multiple report sections, add cover pages, and organize chapters into a single professional document.', icon: 'book-open' },
-      { title: 'Archive Management', description: 'Split large archive files into manageable sections, extract relevant pages, and reorganize historical documents.', icon: 'archive' },
+      { title: 'Fixing a fresh scan', description: 'A batch scanner produced 40 pages with three sideways and two blank. Rotate, delete, export - one pass instead of three tools.', icon: 'file-check' },
+      { title: 'Assembling a submission', description: 'Combine a cover letter, a signed form and an appendix, then move the signature page to the front where the reviewer expects it.', icon: 'book-open' },
+      { title: 'Splitting an archive', description: 'A 300-page scanned ledger becomes twelve monthly files, each extracted by page range in one sitting.', icon: 'archive' },
     ],
     faq: [
-      { question: 'How many PDFs can I process at once?', answer: 'You can upload and process up to 10 PDF files simultaneously, with a combined maximum size of 500MB.' },
-      { question: 'Will my bookmarks be preserved?', answer: 'Yes, when merging PDFs, the tool preserves existing bookmarks and can optionally combine them into a unified bookmark structure.' },
-      { question: 'Is there a page limit?', answer: 'There is no strict page limit. The tool can handle documents with hundreds of pages, though very large files may take longer to process.' },
+      { question: 'How many files can I load at once?', answer: 'Up to 10 documents when merging. There is no file size cap, though anything over a few hundred megabytes will depend on how much memory your browser can spare.' },
+      { question: 'Do bookmarks survive?', answer: 'When merging, bookmarks from each source document are carried over into the combined file. Deleting a page removes any bookmark that pointed only at that page.' },
+      { question: 'Can I undo a change before exporting?', answer: 'Yes. Nothing is written until you click Process, so reordering and deletions can be reversed while you work.' },
+      { question: 'Is there a page limit?', answer: 'No hard limit. Documents in the hundreds of pages work fine; thumbnail rendering for a 1,000-page file takes a few seconds to settle.' },
     ],
   },
 
   'merge-pdf': {
     title: 'Merge PDF',
-    metaDescription: 'Combine multiple PDF files into one document. Free online PDF merger with drag-and-drop reordering.',
-    keywords: ['merge pdf', 'combine pdf', 'join pdf', 'pdf merger', 'concatenate pdf'],
+    metaTitle: 'Merge PDF - Combine PDF Files Into One',
+    metaDescription: 'Combine PDF files into a single document and drag them into the order you want. Bookmarks are preserved and nothing is uploaded to a server.',
+    keywords: ['merge pdf', 'combine pdf', 'join pdf files', 'pdf merger', 'concatenate pdf'],
     description: `
-      <p>Merge PDF allows you to combine multiple PDF documents into a single file quickly and easily. Whether you're consolidating reports, combining scanned documents, or assembling a presentation, this tool makes the process seamless.</p>
-      <p>Simply upload your files, arrange them in your desired order using drag-and-drop, and merge them into one cohesive document. The tool preserves the quality of your original files and can optionally maintain bookmarks from each source document.</p>
-      <p>All merging happens locally in your browser, ensuring complete privacy for your sensitive documents.</p>
+      <p>Merging is the most common PDF task there is, usually because a document arrived in pieces: a scanned signature page from one person, an invoice from accounting, and a cover sheet you wrote yourself.</p>
+      <p>Load the files, drag the thumbnails until the order is right, and merge. Page content is copied across untouched, so text stays selectable and image quality is unchanged - there is no re-compression step. Bookmarks from each source file are kept and nested under the document they came from.</p>
+      <p>The merge runs locally in your browser. Nothing is transmitted, which is the difference that matters when you are combining bank statements or HR paperwork.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload PDF Files', description: 'Drag and drop multiple PDF files into the upload area, or click to select files from your device.' },
-      { step: 2, title: 'Arrange Order', description: 'Drag and drop the file thumbnails to arrange them in your desired order.' },
-      { step: 3, title: 'Merge and Download', description: 'Click the Merge button to combine all files, then download your merged PDF.' },
+      { step: 1, title: 'Add your files', description: 'Drop in up to 100 PDFs at once, or add them a few at a time. Files appear as cards in the order they were loaded.' },
+      { step: 2, title: 'Set the order', description: 'Drag the cards to rearrange. The number on each card shows where its pages will land in the finished document.' },
+      { step: 3, title: 'Merge and save', description: 'Click Merge. The combined file downloads with the page count shown on the button so you can sanity-check it.' },
     ],
     useCases: [
-      { title: 'Combine Reports', description: 'Merge monthly or quarterly reports into a single annual document for easier distribution and archiving.', icon: 'file-text' },
-      { title: 'Assemble Portfolios', description: 'Combine multiple project documents, certificates, or work samples into a professional portfolio.', icon: 'briefcase' },
-      { title: 'Consolidate Invoices', description: 'Merge multiple invoices or receipts into one document for accounting and record-keeping purposes.', icon: 'receipt' },
+      { title: 'Rebuilding a signed contract', description: 'The other party returned only pages 4 and 5 with signatures. Merge them back into your original in the right position.', icon: 'file-text' },
+      { title: 'One PDF for an expense claim', description: 'Twelve receipt scans become a single attachment, because most expense systems accept one file per claim.', icon: 'receipt' },
+      { title: 'Bundling a portfolio', description: 'Combine project write-ups, certificates and reference letters into one document a hiring manager can scroll through.', icon: 'briefcase' },
     ],
     faq: [
-      { question: 'How many PDFs can I merge?', answer: 'You can merge up to 100 PDF files at once, with a total combined size of up to 500MB.' },
-      { question: 'Will the merged PDF maintain the original quality?', answer: 'Yes, the merging process preserves the original quality of all documents without any compression or quality loss.' },
-      { question: 'Can I merge password-protected PDFs?', answer: 'Password-protected PDFs need to be decrypted first. Use our Decrypt PDF tool to remove the password before merging.' },
-    ],
-  },
-
-  'rotate-custom': {
-    title: 'Rotate by Custom Degrees',
-    metaDescription: 'Rotate PDF pages by any angle. Precise custom rotation for straightening scanned documents.',
-    keywords: ['rotate pdf custom angle', 'straighten pdf', 'deskew pdf', 'pdf custom rotation'],
-    description: `
-      <p>Rotate by Custom Degrees gives you precise control over your PDF page orientation. Unlike standard rotation tools that only support 90-degree increments, this tool allows you to rotate pages by any specific angle.</p>
-      <p>Perfect for straightening scanned documents that were fed slightly askew, or adjusting diagrams and charts to their correct orientation. You can correct individual pages or apply the same rotation to the entire document.</p>
-      <p>All processing happens locally in your browser, ensuring your documents remain private while achieving perfect alignment.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload PDF', description: 'Upload the PDF file containing pages you need to rotate.' },
-      { step: 2, title: 'Set Rotation Angle', description: 'Enter the exact degree of rotation for each page, or set a batch angle for all pages.' },
-      { step: 3, title: 'Preview and Adjust', description: 'Use the real-time preview to ensure pages are perfectly aligned.' },
-      { step: 4, title: 'Apply and Download', description: 'Click Rotate to apply the changes and download your straightened PDF.' },
-    ],
-    useCases: [
-      { title: 'Scanned Documents', description: 'Straighten scanned pages that were fed into the scanner at an angle.', icon: 'scan' },
-      { title: 'Technical Drawings', description: 'Adjust the orientation of technical diagrams and plans with precision.', icon: 'ruler' },
-      { title: 'Creative Layouts', description: 'Create unique layouts by rotating pages to specific artistic angles.', icon: 'pen-tool' },
-    ],
-    faq: [
-      { question: 'Can I rotate by decimals, e.g., 45.5 degrees?', answer: 'Currently the tool supports integer degrees, but we are working on enabling decimal precision.' },
-      { question: 'Does this affect the page content?', answer: 'The content is visually rotated. The page size is automatically adjusted to fit the rotated content.' },
-      { question: 'Can I rotate just one page?', answer: 'Yes, you can set a custom rotation angle for any individual page while leaving others unchanged.' },
-    ],
-  },
-
-  'grid-combine': {
-    title: 'Grid Combine PDF',
-    metaDescription: 'Combine multiple PDF files onto single pages with a flexible grid layout. Arrange 2, 4, 6, 9 or more PDFs per page with borders and spacing.',
-    keywords: ['grid combine', 'merge pdf grid', 'pdf collage', 'multiple pdfs one page', 'pdf n-up', 'combine pdfs grid'],
-    description: `
-      <p>The Grid Combine tool offers a unique way to merge multiple separate PDF files onto single pages. Unlike the standard "Merge PDF" tool which simply appends pages, or the "N-Up" tool which rearranges pages from a single document, Grid Combine takes multiple input files and arranges them side-by-side in a customizable grid layout.</p>
-      <p>You can choose from various grid configurations such as 2x1, 2x2, 3x3, etc. This is perfect for comparing multiple documents, creating handouts from different sources, or printing compact versions of several files.</p>
-      <p>Customize the output with control over page size, orientation, margins, spacing, and borders. All processing happens locally in your browser for maximum privacy.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload PDF Files', description: 'Upload two or more PDF files you want to combine. You can rearrange them in your desired order.' },
-      { step: 2, title: 'Choose Grid Layout', description: 'Select your desired grid layout (e.g., 2x2 for 4 files per page, 3x3 for 9 files per page).' },
-      { step: 3, title: 'Customize Appearance', description: 'Adjust settings like page size (A4, Letter), orientation, spacing between items, and borders.' },
-      { step: 4, title: 'Combine and Download', description: 'Click "Combine PDFs" to generate your new grid layout document and download the result.' },
-    ],
-    useCases: [
-      { title: 'Visual Comparison', description: 'Place different versions of a design or document side-by-side on a single page for easy comparison.', icon: 'layout-grid' },
-      { title: 'Printing Handouts', description: 'Combine multiple short documents or slides onto a single sheet of paper to save printing costs.', icon: 'printer' },
-      { title: 'Portfolio Creation', description: 'Showcase multiple project files in a clean, organized grid overview.', icon: 'image' },
-    ],
-    faq: [
-      { question: 'How is this different from N-Up?', answer: 'N-Up takes pages from ONE PDF and puts them on a sheet. Grid Combine takes MULTIPLE DIFFERENT PDF files and puts them on a sheet.' },
-      { question: 'How many files can I combine?', answer: 'You can combine up to 100 files depending on your browser memory, but layouts like 4x4 accommodate up to 16 files per page.' },
-      { question: 'Can I add borders?', answer: 'Yes, you can add borders around each PDF file and customize the border color.' },
+      { question: 'Does merging reduce quality?', answer: 'No. Pages are copied at their original resolution with no re-encoding, so a merged file is usually close to the sum of its inputs in size.' },
+      { question: 'What happens to bookmarks and links?', answer: 'Bookmarks are preserved and grouped by source document. Internal links that pointed within a source file are remapped to the new page numbers.' },
+      { question: 'Can I merge files that are password protected?', answer: 'Not directly. Remove the password first with the Unlock PDF tool, then merge.' },
+      { question: 'How many files at once?', answer: 'Up to 100. Beyond that, merge in groups and then merge the groups.' },
     ],
   },
 
   'split-pdf': {
     title: 'Split PDF',
-    metaDescription: 'Split PDF files into multiple documents. Extract specific pages or divide by page ranges.',
-    keywords: ['split pdf', 'divide pdf', 'separate pdf', 'extract pages', 'pdf splitter'],
+    metaTitle: 'Split PDF - Separate Pages Into New Files',
+    metaDescription: 'Split a PDF by page range, at fixed intervals, or into single pages. Preview thumbnails before you commit and download the pieces separately.',
+    keywords: ['split pdf', 'separate pdf pages', 'divide pdf', 'pdf splitter', 'break up pdf'],
     description: `
-      <p>Split PDF enables you to divide a single PDF document into multiple smaller files. This is perfect for extracting specific chapters, separating combined documents, or creating individual files from a multi-page PDF.</p>
-      <p>You can split by specific page ranges, extract individual pages, or divide the document at regular intervals. The tool provides a visual preview of your pages, making it easy to select exactly what you need.</p>
-      <p>All processing is done locally in your browser, ensuring your documents remain private and secure.</p>
+      <p>Splitting solves two different problems. Sometimes you want one section out of a long document - chapter 4 of a manual, or the pages a lawyer actually asked for. Sometimes you want a big file broken into predictable chunks because an upload form rejects anything over 10 MB.</p>
+      <p>This tool handles both. Enter explicit ranges like 1-3, 7, 12-20 to carve out specific sections, split every N pages for even chunks, or burst the document into one file per page. Thumbnails show you where each cut lands before you run it.</p>
+      <p>Output pages keep their original text layer, embedded fonts and images. Splitting a searchable PDF gives you searchable pieces.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to browse and select the file you want to split.' },
-      { step: 2, title: 'Select Split Method', description: 'Choose how to split: by page ranges, extract specific pages, or split at regular intervals.' },
-      { step: 3, title: 'Define Page Ranges', description: 'Enter the page numbers or ranges you want to extract (e.g., 1-5, 8, 10-15).' },
-      { step: 4, title: 'Split and Download', description: 'Click Split to create your new PDF files and download them individually or as a ZIP archive.' },
+      { step: 1, title: 'Load the document', description: 'Drop in the PDF. A thumbnail strip appears with page numbers so you can find your cut points.' },
+      { step: 2, title: 'Choose how to split', description: 'Type page ranges, split every N pages, or select one file per page.' },
+      { step: 3, title: 'Check the preview', description: 'The tool lists exactly which pages go into which output file. Adjust the ranges if a boundary is off by one.' },
+      { step: 4, title: 'Download the pieces', description: 'Split and save. Multiple outputs arrive as a ZIP so you are not clicking through ten downloads.' },
     ],
     useCases: [
-      { title: 'Extract Chapters', description: 'Split a book or manual into individual chapters for easier reading or distribution.', icon: 'book' },
-      { title: 'Separate Combined Scans', description: 'Divide a batch-scanned document into individual files for each original document.', icon: 'copy' },
-      { title: 'Create Handouts', description: 'Extract specific slides or pages from a presentation to create focused handouts.', icon: 'presentation' },
+      { title: 'Sending only what was asked for', description: 'A request for the insurance section means pages 22-31 of a 90-page policy, not the whole thing.', icon: 'scissors' },
+      { title: 'Getting under an upload limit', description: 'A portal caps attachments at 10 MB. Split every 25 pages and submit the parts.', icon: 'upload' },
+      { title: 'Breaking up a batch scan', description: 'One scanner run produced 60 invoices in a single PDF. One file per page gives you 60 filable documents.', icon: 'files' },
     ],
     faq: [
-      { question: 'Can I split a PDF into individual pages?', answer: 'Yes, you can split a PDF into individual single-page files by selecting the "Split every page" option.' },
-      { question: 'What happens to bookmarks when splitting?', answer: 'Bookmarks that fall within the extracted page range are preserved in the resulting PDF files.' },
-      { question: 'Can I split password-protected PDFs?', answer: 'You need to decrypt the PDF first using our Decrypt PDF tool before splitting.' },
+      { question: 'How do I write page ranges?', answer: 'Comma-separated, with hyphens for spans: 1-3, 7, 12-20. Each comma-separated group becomes its own output file.' },
+      { question: 'Do I get one file or several?', answer: 'One output per range or interval. When there is more than one, they are bundled into a ZIP.' },
+      { question: 'Is the text still searchable afterwards?', answer: 'Yes. The text layer and embedded fonts are copied across, so search and copy-paste keep working.' },
+      { question: 'What if I enter a page number that does not exist?', answer: 'The tool flags the range as out of bounds instead of silently producing an empty file.' },
     ],
   },
 
   'compress-pdf': {
     title: 'Compress PDF',
-    metaDescription: 'Reduce PDF file size while maintaining quality. Free online PDF compressor for smaller files.',
-    keywords: ['compress pdf', 'reduce pdf size', 'pdf compressor', 'shrink pdf', 'optimize pdf'],
+    metaTitle: 'Compress PDF - Reduce File Size Online',
+    metaDescription: 'Shrink PDF file size by downsampling images and stripping unused data. Pick a quality level, see the before and after, and keep text sharp.',
+    keywords: ['compress pdf', 'reduce pdf size', 'shrink pdf', 'pdf optimizer', 'make pdf smaller'],
     description: `
-      <p>Compress PDF reduces the file size of your PDF documents while maintaining acceptable quality. This is essential for email attachments, web uploads, or saving storage space.</p>
-      <p>The tool offers multiple compression levels to balance between file size reduction and quality preservation. You can choose aggressive compression for maximum size reduction or light compression to maintain higher quality.</p>
-      <p>All compression happens in your browser, ensuring your documents never leave your device.</p>
+      <p>An oversized PDF is almost always an image problem. A phone photo of a document lands at 4,000 pixels wide, gets embedded at full resolution, and a three-page file balloons to 30 MB. The text itself contributes almost nothing.</p>
+      <p>Compression here works on the images: they are downsampled to a sensible DPI for reading or printing and re-encoded, while the text layer and vector graphics are left alone. Unused objects, orphaned fonts and stale metadata get dropped too, which often accounts for a surprising amount of a file grown over many edit-and-resave cycles.</p>
+      <p>You choose the trade-off. Low compression is safe for anything going to a printer; high is for email attachments and web upload forms where a slightly softer scan is fine. The tool reports both sizes so you can judge whether the result was worth it.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select the document you want to compress.' },
-      { step: 2, title: 'Choose Compression Level', description: 'Select your preferred compression level: Low (best quality), Medium (balanced), or High (smallest size).' },
-      { step: 3, title: 'Compress and Download', description: 'Click Compress to reduce the file size, then download your optimized PDF.' },
+      { step: 1, title: 'Add your PDFs', description: 'Drop in up to 10 files. Each is compressed independently with the same settings.' },
+      { step: 2, title: 'Pick a quality level', description: 'Low for print-safe savings, medium for general use, high when you need to hit an attachment limit.' },
+      { step: 3, title: 'Compress and compare', description: 'The result shows original size, new size and the percentage saved before you download.' },
     ],
     useCases: [
-      { title: 'Email Attachments', description: 'Reduce PDF size to meet email attachment limits and ensure faster delivery.', icon: 'mail' },
-      { title: 'Web Publishing', description: 'Optimize PDFs for web download to improve page load times and user experience.', icon: 'globe' },
-      { title: 'Storage Optimization', description: 'Compress archived documents to save disk space while maintaining accessibility.', icon: 'hard-drive' },
+      { title: 'Getting past an email limit', description: 'A 28 MB scanned lease will not send. High compression typically brings that under 5 MB with the text still legible.', icon: 'mail' },
+      { title: 'Publishing to a website', description: 'A brochure that loads in two seconds instead of fifteen, because the images no longer carry print resolution nobody will use.', icon: 'globe' },
+      { title: 'Cleaning up after many edits', description: 'A file edited and resaved twenty times carries dead objects. Compressing rebuilds it and drops the debris.', icon: 'zap' },
     ],
     faq: [
-      { question: 'How much can I reduce the file size?', answer: 'Compression results vary based on the PDF content. Image-heavy PDFs can often be reduced by 50-80%, while text-only PDFs may see smaller reductions.' },
-      { question: 'Will compression affect text quality?', answer: 'Text remains sharp and readable at all compression levels. Only images and graphics are affected by compression.' },
-      { question: 'Can I compress multiple PDFs at once?', answer: 'Yes, you can upload and compress up to 10 PDF files simultaneously.' },
-    ],
-  },
-
-  'edit-pdf': {
-    title: 'Edit PDF',
-    metaDescription: 'Edit PDF files online. Add text, images, annotations, highlights, and shapes to your documents.',
-    keywords: ['edit pdf', 'pdf editor', 'annotate pdf', 'add text to pdf', 'pdf markup'],
-    description: `
-      <p>Edit PDF provides a comprehensive set of tools for modifying and annotating your PDF documents. Add text, images, shapes, highlights, comments, and more without needing expensive desktop software.</p>
-      <p>The intuitive editor interface makes it easy to mark up documents for review, add notes for collaboration, redact sensitive information, or enhance documents with additional content.</p>
-      <p>All editing happens locally in your browser, ensuring complete privacy for your sensitive documents.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select the document you want to edit.' },
-      { step: 2, title: 'Select Editing Tool', description: 'Choose from the toolbar: text, highlight, shapes, images, comments, or redaction tools.' },
-      { step: 3, title: 'Make Your Edits', description: 'Click on the document to add annotations, drag to position elements, and use the properties panel to customize.' },
-      { step: 4, title: 'Save and Download', description: 'Click Save to apply your changes and download the edited PDF.' },
-    ],
-    useCases: [
-      { title: 'Document Review', description: 'Add comments, highlights, and markup to documents for collaborative review processes.', icon: 'message-square' },
-      { title: 'Form Completion', description: 'Fill in text fields, add signatures, and complete PDF forms without printing.', icon: 'edit-3' },
-      { title: 'Content Redaction', description: 'Permanently remove sensitive information from documents before sharing.', icon: 'eye-off' },
-    ],
-    faq: [
-      { question: 'Can I edit the original text in the PDF?', answer: 'This tool focuses on adding annotations and new content. For editing existing text, you may need to use the original source document.' },
-      { question: 'Are my edits permanent?', answer: 'Annotations can be flattened to make them permanent, or kept as editable layers depending on your preference.' },
-      { question: 'Can I undo my changes?', answer: 'Yes, the editor supports undo/redo functionality. You can also reset to the original document at any time before saving.' },
-    ],
-  },
-
-  'jpg-to-pdf': {
-    title: 'JPG to PDF',
-    metaDescription: 'Convert JPG images to PDF. Combine multiple JPG files into a single PDF document.',
-    keywords: ['jpg to pdf', 'jpeg to pdf', 'convert jpg', 'image to pdf', 'photo to pdf'],
-    description: `
-      <p>JPG to PDF converts your JPEG images into PDF documents quickly and easily. Whether you have a single photo or multiple images, this tool creates professional-looking PDF files.</p>
-      <p>You can combine multiple JPG files into a single PDF, arrange them in any order, and customize page size and orientation. The conversion preserves image quality while creating compact, shareable PDF files.</p>
-      <p>All conversion happens in your browser, ensuring your photos remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload JPG Images', description: 'Drag and drop your JPG files or click to select images from your device.' },
-      { step: 2, title: 'Arrange and Configure', description: 'Reorder images by dragging, and select page size and orientation options.' },
-      { step: 3, title: 'Convert and Download', description: 'Click Convert to create your PDF and download the result.' },
-    ],
-    useCases: [
-      { title: 'Photo Albums', description: 'Create PDF photo albums from vacation pictures or event photos for easy sharing.', icon: 'image' },
-      { title: 'Document Scanning', description: 'Convert phone camera photos of documents into proper PDF files.', icon: 'camera' },
-      { title: 'Portfolio Creation', description: 'Compile photography work or design samples into a professional PDF portfolio.', icon: 'folder' },
-    ],
-    faq: [
-      { question: 'How many images can I convert?', answer: 'You can convert up to 100 JPG images into a single PDF document.' },
-      { question: 'Will the image quality be preserved?', answer: 'Yes, images are embedded at their original quality. You can optionally compress them to reduce file size.' },
-      { question: 'Can I set different page sizes for different images?', answer: 'The tool applies a uniform page size to all pages. Each image is scaled to fit the selected page size while maintaining aspect ratio.' },
-    ],
-  },
-
-  'sign-pdf': {
-    title: 'Sign PDF',
-    metaDescription: 'Add electronic signatures to PDF documents. Draw, type, or upload your signature.',
-    keywords: ['sign pdf', 'electronic signature', 'e-signature', 'pdf signature', 'digital signature'],
-    description: `
-      <p>Sign PDF allows you to add electronic signatures to your PDF documents quickly and securely. Create your signature by drawing, typing, or uploading an image, then place it anywhere on your document.</p>
-      <p>You can add multiple signatures to a single document, resize and position them precisely, and save your signature for future use. The tool is perfect for contracts, agreements, forms, and any document requiring your signature.</p>
-      <p>All signing happens locally in your browser, ensuring your documents and signature remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select the document you need to sign.' },
-      { step: 2, title: 'Create Your Signature', description: 'Draw your signature with mouse or touch, type your name to generate a signature, or upload a signature image.' },
-      { step: 3, title: 'Place and Adjust', description: 'Click on the document to place your signature, then drag to position and resize as needed.' },
-      { step: 4, title: 'Save and Download', description: 'Click Save to apply your signature and download the signed PDF.' },
-    ],
-    useCases: [
-      { title: 'Contract Signing', description: 'Sign contracts and agreements electronically without printing and scanning.', icon: 'file-signature' },
-      { title: 'Form Completion', description: 'Add your signature to application forms, consent forms, and official documents.', icon: 'clipboard' },
-      { title: 'Approval Workflows', description: 'Sign off on documents as part of review and approval processes.', icon: 'check-circle' },
-    ],
-    faq: [
-      { question: 'Is an electronic signature legally binding?', answer: 'Electronic signatures are legally recognized in most countries. However, some documents may require specific types of digital signatures. Check your local regulations.' },
-      { question: 'Can I save my signature for future use?', answer: 'Yes, you can save your signature to your browser\'s local storage for quick access when signing future documents.' },
-      { question: 'Can I add multiple signatures to one document?', answer: 'Yes, you can add as many signatures as needed, positioning each one independently on any page.' },
-    ],
-  },
-
-  'crop-pdf': {
-    title: 'Crop PDF',
-    metaDescription: 'Crop PDF pages to remove margins and unwanted areas. Trim PDF documents precisely.',
-    keywords: ['crop pdf', 'trim pdf', 'cut pdf margins', 'resize pdf pages', 'pdf cropper'],
-    description: `
-      <p>Crop PDF allows you to trim margins and remove unwanted areas from your PDF pages. This is useful for removing excess whitespace, focusing on specific content areas, or standardizing page dimensions.</p>
-      <p>You can crop all pages uniformly or adjust each page individually. The visual interface shows exactly what will be kept, making it easy to achieve precise results.</p>
-      <p>All cropping happens locally in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select the document you want to crop.' },
-      { step: 2, title: 'Define Crop Area', description: 'Drag the crop handles to define the area you want to keep, or enter precise measurements.' },
-      { step: 3, title: 'Apply to Pages', description: 'Choose to apply the crop to all pages or select specific pages to crop.' },
-      { step: 4, title: 'Crop and Download', description: 'Click Crop to apply the changes and download your cropped PDF.' },
-    ],
-    useCases: [
-      { title: 'Remove Margins', description: 'Trim excessive margins from scanned documents or PDFs with large borders.', icon: 'maximize-2' },
-      { title: 'Focus Content', description: 'Crop to highlight specific content areas, removing headers, footers, or sidebars.', icon: 'target' },
-      { title: 'Standardize Pages', description: 'Make all pages the same size by cropping to uniform dimensions.', icon: 'square' },
-    ],
-    faq: [
-      { question: 'Does cropping permanently remove content?', answer: 'Yes, cropping removes the content outside the crop area. Make sure to keep a backup of your original file.' },
-      { question: 'Can I crop different pages differently?', answer: 'Yes, you can apply different crop settings to individual pages or groups of pages.' },
-      { question: 'Will cropping affect the text quality?', answer: 'No, cropping only removes areas outside the crop boundary. The remaining content maintains its original quality.' },
+      { question: 'How much smaller will my file get?', answer: 'It depends entirely on what is inside. Image-heavy scans often drop 60-90%. A text-only PDF may barely change, because there was nothing bulky to remove.' },
+      { question: 'Will the text get blurry?', answer: 'No. Text is stored as vectors and fonts, not pixels, and is not touched. Only embedded images are downsampled.' },
+      { question: 'Can I still print the result?', answer: 'At low or medium settings, yes. High compression targets screen reading, so a large-format print may show softness in photos.' },
+      { question: 'Is compression reversible?', answer: 'No. Image data that is thrown away is gone, so keep your original if you may need the full-resolution version.' },
     ],
   },
 
   'extract-pages': {
     title: 'Extract Pages',
-    metaDescription: 'Extract specific pages from PDF files. Select and save individual pages as new documents.',
-    keywords: ['extract pdf pages', 'save pdf pages', 'copy pdf pages', 'pdf page extractor'],
+    metaTitle: 'Extract PDF Pages Into a New File',
+    metaDescription: 'Select the PDF pages you want and save them as a new document. Pick pages from thumbnails or type a range. The original stays untouched.',
+    keywords: ['extract pdf pages', 'pull pages from pdf', 'save pdf pages', 'copy pdf pages', 'select pdf pages'],
     description: `
-      <p>Extract Pages allows you to select and save specific pages from a PDF document as new files. This is perfect for pulling out relevant sections, creating excerpts, or separating combined documents.</p>
-      <p>You can extract individual pages, page ranges, or multiple non-consecutive pages. The visual page preview makes it easy to identify and select exactly the pages you need.</p>
-      <p>All extraction happens locally in your browser, ensuring your documents remain private.</p>
+      <p>Extracting is the opposite of deleting. Instead of naming the pages you do not want, you name the ones you do - useful when you need five pages out of two hundred and counting the rest would be tedious.</p>
+      <p>Click page thumbnails to build a selection, or type a range if you already know the numbers. The pages come out in the order you selected them, so you can reorder while extracting: choosing 5, 2, 9 gives you a three-page file in exactly that sequence.</p>
+      <p>Your source file is never modified. Extraction reads it and writes a new document, so the original is still sitting there if you picked the wrong pages.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select the document from which you want to extract pages.' },
-      { step: 2, title: 'Select Pages', description: 'Click on page thumbnails to select them, or enter page numbers and ranges in the input field.' },
-      { step: 3, title: 'Extract and Download', description: 'Click Extract to create a new PDF with your selected pages and download it.' },
+      { step: 1, title: 'Open the PDF', description: 'Drop in the file. Every page appears as a numbered thumbnail.' },
+      { step: 2, title: 'Pick your pages', description: 'Click thumbnails to select, or type ranges like 4-8, 15. Selected pages are highlighted with their position in the output.' },
+      { step: 3, title: 'Choose one file or many', description: 'Combine the selection into a single PDF, or write each selected page to its own file.' },
+      { step: 4, title: 'Extract and download', description: 'Save the result. Multiple files arrive as a ZIP.' },
     ],
     useCases: [
-      { title: 'Create Excerpts', description: 'Extract relevant pages from reports or books to create focused reference documents.', icon: 'file-minus' },
-      { title: 'Share Specific Content', description: 'Pull out specific pages to share without sending the entire document.', icon: 'share-2' },
-      { title: 'Archive Important Pages', description: 'Extract and save key pages from documents for long-term archival.', icon: 'archive' },
+      { title: 'Answering a records request', description: 'Someone asked for the pages mentioning their account. Extract those eleven pages and send nothing else.', icon: 'ungroup' },
+      { title: 'Pulling a chapter for a class', description: 'Twenty pages out of a textbook scan, saved as a standalone handout.', icon: 'book-open' },
+      { title: 'Isolating the signature pages', description: 'Extract the executed pages of a contract to file with the registry, leaving the exhibits behind.', icon: 'pen-tool' },
     ],
     faq: [
-      { question: 'Can I extract non-consecutive pages?', answer: 'Yes, you can select any combination of pages, whether consecutive or scattered throughout the document.' },
-      { question: 'Will bookmarks be preserved?', answer: 'Bookmarks that point to extracted pages are preserved in the new document.' },
-      { question: 'Can I extract pages from multiple PDFs?', answer: 'This tool works with one PDF at a time. For combining pages from multiple PDFs, use the Merge PDF tool.' },
+      { question: 'What is the difference between this and Split PDF?', answer: 'Split cuts a document into consecutive chunks. Extract picks arbitrary pages, in any order, into one new file. Use Extract when your selection is not a clean run of pages.' },
+      { question: 'Does the original file change?', answer: 'No. A new document is written and your source PDF is left exactly as it was.' },
+      { question: 'Can I control the page order in the output?', answer: 'Yes. Pages appear in the order you clicked them, so selecting 9, 3, 1 produces that sequence.' },
+      { question: 'Are form fields and annotations carried over?', answer: 'Annotations on the extracted pages come across. Form fields are copied, though a field that was part of a group spanning removed pages may lose its grouping.' },
     ],
   },
 
   'organize-pdf': {
     title: 'Organize PDF',
-    metaDescription: 'Reorder, duplicate, and delete PDF pages. Drag and drop to reorganize your documents.',
-    keywords: ['organize pdf', 'reorder pdf pages', 'rearrange pdf', 'pdf page organizer'],
+    metaTitle: 'Organize PDF - Reorder & Rearrange Pages',
+    metaDescription: 'Drag PDF pages into a new order, duplicate the ones you need twice, and delete the rest. A visual page manager that runs in your browser.',
+    keywords: ['organize pdf', 'reorder pdf pages', 'rearrange pdf', 'move pdf pages', 'sort pdf pages'],
     description: `
-      <p>Organize PDF provides an intuitive drag-and-drop interface for rearranging pages in your PDF documents. Reorder pages, duplicate important sections, or remove unwanted pages with ease.</p>
-      <p>The visual page thumbnails make it easy to identify content and arrange pages exactly as you need them. Perfect for restructuring documents, creating custom page orders, or cleaning up scanned files.</p>
-      <p>All organization happens locally in your browser, ensuring your documents remain private.</p>
+      <p>Page order goes wrong in predictable ways. A duplex scanner puts all the fronts first and all the backs after. Someone appends the cover page at the end. A form needs its instruction sheet moved behind the part people actually fill in.</p>
+      <p>This is a drag-and-drop page manager. Every page is a thumbnail you can pick up and drop somewhere else. You can duplicate a page when the same terms sheet needs to appear in two places, and delete pages you no longer want, all in the same session.</p>
+      <p>The layout is a grid, so a 60-page document is still navigable - you are not scrolling through a single long column looking for page 47.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select the document you want to organize.' },
-      { step: 2, title: 'Rearrange Pages', description: 'Drag page thumbnails to reorder them. Click the duplicate or delete buttons on each page as needed.' },
-      { step: 3, title: 'Save and Download', description: 'Click Save to apply your changes and download the reorganized PDF.' },
+      { step: 1, title: 'Load the document', description: 'Drop in your PDF. Pages render as a thumbnail grid with page numbers.' },
+      { step: 2, title: 'Drag pages where they belong', description: 'Pick up a thumbnail and drop it at its new position. The rest shift to make room.' },
+      { step: 3, title: 'Duplicate or delete as needed', description: 'Use the copy handle to repeat a page, or the delete handle to drop it from the output.' },
+      { step: 4, title: 'Save the new order', description: 'Click Process. The rebuilt PDF downloads with pages in the sequence shown on screen.' },
     ],
     useCases: [
-      { title: 'Fix Page Order', description: 'Correct the order of pages that were scanned or combined incorrectly.', icon: 'arrow-up-down' },
-      { title: 'Create Custom Order', description: 'Arrange pages in a specific sequence for presentations or reports.', icon: 'list' },
-      { title: 'Remove Unwanted Pages', description: 'Delete blank pages, duplicates, or irrelevant content from documents.', icon: 'trash-2' },
+      { title: 'Fixing a duplex scan', description: 'Pages came out as 1, 3, 5 then 2, 4, 6. Interleave them back into reading order before anyone else sees the file.', icon: 'files' },
+      { title: 'Moving the cover to the front', description: 'The designer sent the cover as the last page. One drag and the document opens correctly.', icon: 'layout' },
+      { title: 'Repeating a page in a pack', description: 'The signature block needs to appear after each of three schedules. Duplicate it twice and position the copies.', icon: 'copy' },
     ],
     faq: [
-      { question: 'Can I duplicate pages?', answer: 'Yes, you can duplicate any page and place the copy anywhere in the document.' },
-      { question: 'Is there an undo function?', answer: 'Yes, you can undo and redo changes. You can also reset to the original order at any time.' },
-      { question: 'Can I organize multiple PDFs together?', answer: 'This tool works with one PDF at a time. To combine and organize multiple PDFs, first merge them using the Merge PDF tool.' },
+      { question: 'Can I duplicate the same page more than once?', answer: 'Yes. Each duplicate is an independent copy you can position separately.' },
+      { question: 'Do internal links still work after reordering?', answer: 'Links that pointed to a page within the document are remapped to follow that page to its new position.' },
+      { question: 'Is there a limit on document length?', answer: 'No fixed limit. Very long documents take a moment to render all thumbnails, after which dragging is responsive.' },
+      { question: 'Can I undo a drag?', answer: 'Yes. Nothing is written until you click Process, so you can keep rearranging or reload to start over.' },
     ],
   },
 
   'delete-pages': {
     title: 'Delete Pages',
-    metaDescription: 'Remove unwanted pages from PDF files. Select and delete specific pages easily.',
-    keywords: ['delete pdf pages', 'remove pdf pages', 'pdf page remover', 'delete pages from pdf'],
+    metaTitle: 'Delete PDF Pages - Remove Pages From a PDF',
+    metaDescription: 'Remove unwanted pages from a PDF. Click the pages to drop, or type a range, then save a clean copy. Everything runs locally in your browser.',
+    keywords: ['delete pdf pages', 'remove pdf pages', 'erase pdf page', 'drop pages from pdf', 'pdf page remover'],
     description: `
-      <p>Delete Pages allows you to remove unwanted pages from your PDF documents quickly and easily. Whether you need to remove blank pages, outdated content, or sensitive information, this tool makes it simple.</p>
-      <p>Visual page thumbnails help you identify exactly which pages to remove. You can delete individual pages or multiple pages at once.</p>
-      <p>All processing happens locally in your browser, ensuring your documents remain private.</p>
+      <p>Scanned documents collect junk: the blank back of a single-sided form, the fax cover sheet, the separator page the copier inserted between jobs. None of it belongs in the version you file or send on.</p>
+      <p>Select the pages to remove by clicking thumbnails or typing a range, and the tool writes a copy without them. Remaining pages keep their content exactly as it was - no re-compression, no shifted text.</p>
+      <p>If it turns out you want to keep more than you remove, the Extract Pages tool approaches the same job from the other direction and will be faster to use.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select the document from which you want to delete pages.' },
-      { step: 2, title: 'Select Pages to Delete', description: 'Click on page thumbnails to mark them for deletion, or enter page numbers in the input field.' },
-      { step: 3, title: 'Delete and Download', description: 'Click Delete to remove the selected pages and download your updated PDF.' },
+      { step: 1, title: 'Open the PDF', description: 'Drop in the file to see every page as a numbered thumbnail.' },
+      { step: 2, title: 'Mark pages for removal', description: 'Click the pages you want gone, or type ranges like 2, 5-7, 12. Marked pages are dimmed so you can see what will survive.' },
+      { step: 3, title: 'Check the count', description: 'The tool shows how many pages will remain. Worth a glance before committing.' },
+      { step: 4, title: 'Save the clean copy', description: 'Click Delete and download. Your original file is untouched.' },
     ],
     useCases: [
-      { title: 'Remove Blank Pages', description: 'Clean up documents by removing accidentally included blank pages.', icon: 'file-x' },
-      { title: 'Remove Sensitive Content', description: 'Delete pages containing confidential information before sharing documents.', icon: 'shield' },
-      { title: 'Streamline Documents', description: 'Remove outdated or irrelevant pages to create more focused documents.', icon: 'filter' },
+      { title: 'Stripping blank backs', description: 'A single-sided document scanned in duplex mode has 30 blank pages. Remove them and halve the file.', icon: 'trash-2' },
+      { title: 'Removing internal notes', description: 'Drop the two pages of internal commentary before sending the report to the client.', icon: 'eye-off' },
+      { title: 'Clearing separator sheets', description: 'The copier inserted a marker page between each batch. Delete them all in one selection.', icon: 'file-minus' },
     ],
     faq: [
-      { question: 'Can I recover deleted pages?', answer: 'Deletion is permanent in the output file. Keep a backup of your original document if you might need the pages later.' },
-      { question: 'Can I delete multiple pages at once?', answer: 'Yes, you can select and delete multiple pages simultaneously.' },
-      { question: 'Will deleting pages affect bookmarks?', answer: 'Bookmarks pointing to deleted pages will be removed. Bookmarks to remaining pages are preserved.' },
+      { question: 'Can I get deleted pages back?', answer: 'Not from the new file, but your original PDF is never modified - reopen it and the pages are still there.' },
+      { question: 'When should I use Extract Pages instead?', answer: 'When you are keeping fewer pages than you are removing. Naming five keepers beats naming ninety-five rejects.' },
+      { question: 'Does deleting pages shrink the file?', answer: 'Usually, especially if the removed pages held images. Run Compress PDF afterwards to reclaim any leftover unreferenced data.' },
+      { question: 'What happens to bookmarks pointing at deleted pages?', answer: 'Bookmarks that targeted a removed page are dropped. The rest are remapped to the new page positions.' },
     ],
   },
 
-
   // ==================== EDIT & ANNOTATE ====================
-  'bookmark': {
-    title: 'Edit Bookmarks',
-    metaDescription: 'Add, edit, and manage PDF bookmarks. Create navigation structure for your documents.',
-    keywords: ['pdf bookmarks', 'edit bookmarks', 'add bookmarks', 'pdf navigation', 'table of contents'],
+
+  'edit-pdf': {
+    title: 'Edit PDF',
+    metaTitle: 'Free PDF Editor - Annotate, Highlight & Redact',
+    metaDescription: 'Add text, highlights, shapes, comments and images to a PDF, or redact what should not be there. A browser-based editor with no upload step.',
+    keywords: ['edit pdf', 'pdf editor', 'annotate pdf', 'highlight pdf', 'add text to pdf'],
     description: `
-      <p>Edit Bookmarks allows you to create, modify, and organize bookmarks in your PDF documents. Bookmarks provide quick navigation to specific sections, making long documents easier to use.</p>
-      <p>You can add new bookmarks, edit existing ones, reorganize the bookmark hierarchy, or import bookmarks from external sources. This tool is essential for creating professional, navigable documents.</p>
-      <p>All editing happens locally in your browser, ensuring your documents remain private.</p>
+      <p>PDFs were designed to be final, which is exactly why editing one is awkward. Most of the time you do not need to rewrite the document - you need to mark it up: highlight the clause that matters, add a note explaining why, fill in a date that was left blank, or black out an account number.</p>
+      <p>This editor gives you those tools directly on the page. Draw highlights over text, add free text anywhere, drop in rectangles and arrows to point at something, attach comments, insert an image such as a logo or a photo of a signature, and search the text layer to find what you are looking for in a long document.</p>
+      <p>Redaction is a real removal, not a black rectangle laid on top - the underlying text is taken out so it cannot be copied back out of the file. That distinction is the one that gets organisations in trouble.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select the document you want to edit.' },
-      { step: 2, title: 'Manage Bookmarks', description: 'Add new bookmarks, edit existing ones, or drag to reorganize the hierarchy.' },
-      { step: 3, title: 'Save and Download', description: 'Click Save to apply your changes and download the PDF with updated bookmarks.' },
+      { step: 1, title: 'Open your document', description: 'Drop in the PDF. It renders page by page with a toolbar down the side.' },
+      { step: 2, title: 'Pick a tool and mark up the page', description: 'Highlight, text, shape, comment, image or redact. Click or drag directly on the page where you want it.' },
+      { step: 3, title: 'Adjust what you added', description: 'Select any annotation to move, resize, recolour or delete it. Use search to jump to the next place that needs attention.' },
+      { step: 4, title: 'Save the edited PDF', description: 'Download the result. Annotations are written into the file and redactions are applied permanently.' },
     ],
     useCases: [
-      { title: 'Create Navigation', description: 'Add bookmarks to long documents to help readers navigate to specific sections quickly.', icon: 'navigation' },
-      { title: 'Organize Chapters', description: 'Create a hierarchical bookmark structure that mirrors your document\'s chapter organization.', icon: 'book-open' },
-      { title: 'Improve Accessibility', description: 'Add bookmarks to make documents more accessible and user-friendly.', icon: 'accessibility' },
+      { title: 'Reviewing a contract', description: 'Highlight the payment terms, add a comment questioning the notice period, and send it back without printing anything.', icon: 'pocket-knife' },
+      { title: 'Filling a form that has no fields', description: 'A scanned application form has no interactive fields. Add text boxes over the blanks and type into them.', icon: 'edit' },
+      { title: 'Redacting before disclosure', description: 'Black out account numbers and home addresses so the underlying text is gone, not just hidden.', icon: 'eye-off' },
     ],
     faq: [
-      { question: 'Can I create nested bookmarks?', answer: 'Yes, you can create a hierarchical structure with parent and child bookmarks.' },
-      { question: 'Can I import bookmarks from a file?', answer: 'Yes, you can import bookmark structures from JSON or text files.' },
-      { question: 'Will bookmarks work in all PDF readers?', answer: 'Yes, bookmarks are a standard PDF feature supported by all major PDF readers.' },
+      { question: 'Can I edit the original text of the document?', answer: 'You can cover text and add your own on top, which handles most corrections. Reflowing existing paragraphs is not supported - PDFs store text as positioned glyphs, not editable flowing text.' },
+      { question: 'Is redaction actually secure?', answer: 'Yes. The text objects under the redaction are removed from the file, so the content cannot be recovered by selecting or copying. A black shape drawn in other tools can often be deleted to reveal what is underneath.' },
+      { question: 'Do my annotations open correctly in Acrobat?', answer: 'Yes. Highlights, notes and shapes are written as standard PDF annotations that any conforming reader displays.' },
+      { question: 'Can other people edit my annotations later?', answer: 'By default yes, since they remain live annotation objects. Run Flatten PDF afterwards to bake them into the page.' },
+    ],
+  },
+
+  'sign-pdf': {
+    title: 'Sign PDF',
+    metaTitle: 'Sign PDF Online - Draw or Type a Signature',
+    metaDescription: 'Sign a PDF by drawing with your mouse or finger, typing your name, or uploading an image of your signature. Place it anywhere on any page.',
+    keywords: ['sign pdf', 'electronic signature pdf', 'e-sign pdf', 'add signature to pdf', 'signature on pdf'],
+    description: `
+      <p>The print-sign-scan cycle wastes fifteen minutes and produces a worse-looking document than the one you started with. Signing on screen skips all of it.</p>
+      <p>There are three ways to produce the signature. Draw it with a mouse, trackpad or finger, which looks most like a real signature on a touchscreen. Type your name and pick from several handwriting-style fonts, which is the fastest option. Or upload a photo or scan of your existing signature, and the tool removes the white background so it sits cleanly on the page.</p>
+      <p>Once you have a signature, drag it to position, resize it to match the signature line, and place it as many times as the document needs - initials on each page and a full signature at the end is a common pattern.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Open the document', description: 'Drop in the PDF you need to sign.' },
+      { step: 2, title: 'Create your signature', description: 'Draw it, type it, or upload an image. Uploaded signatures get their background removed automatically.' },
+      { step: 3, title: 'Place and size it', description: 'Drag the signature onto the signature line and pull the corner handles until the scale looks right. Add the date alongside if needed.' },
+      { step: 4, title: 'Save the signed PDF', description: 'Download the result. The signature is drawn into the page, not left as a movable object.' },
+    ],
+    useCases: [
+      { title: 'Returning a contract same-day', description: 'Sign, date and email back in two minutes instead of finding a printer and a scanner.', icon: 'pen-tool' },
+      { title: 'Signing every page', description: 'Some agreements need initials on each page. Place the signature once and repeat it down the document.', icon: 'files' },
+      { title: 'Forms for school or a landlord', description: 'Permission slips and tenancy paperwork signed from a phone, with a finger-drawn signature that looks the part.', icon: 'file-check' },
+    ],
+    faq: [
+      { question: 'Is this legally binding?', answer: 'In many jurisdictions a typed or drawn electronic signature is valid for ordinary agreements, but it varies by country and document type. For anything where identity needs cryptographic proof, use the Digital Signature tool with a certificate instead.' },
+      { question: 'What is the difference from a digital signature?', answer: 'This places a visible image of your signature. A digital signature adds a cryptographic seal from an X.509 certificate that proves who signed and detects any later change to the file.' },
+      { question: 'Does my signature get stored anywhere?', answer: 'No. It exists only in your browser tab for the length of the session. Nothing is uploaded or saved on a server.' },
+      { question: 'Can someone move my signature after I save?', answer: 'No. It is drawn into the page content rather than left as a draggable annotation.' },
+    ],
+  },
+
+  'crop-pdf': {
+    title: 'Crop PDF',
+    metaTitle: 'Crop PDF Pages - Trim Margins Online',
+    metaDescription: 'Crop PDF pages to remove wide margins or scanner edges. Drag a crop box on the page or enter exact measurements, and apply to every page.',
+    keywords: ['crop pdf', 'trim pdf margins', 'cut pdf edges', 'resize pdf page', 'remove pdf whitespace'],
+    description: `
+      <p>Two things create the need to crop. Academic PDFs come with enormous print margins that waste half the screen on a tablet. Scans come with a black or grey border where the document did not fill the glass, plus whatever was sitting next to it on the platen.</p>
+      <p>Drag a crop box over the page preview, or type exact margin values if you need it precise and repeatable. The crop can be applied to every page at once, which is what you want for a uniform document, or to a range when the first page has a different layout.</p>
+      <p>Cropping changes the visible page box rather than deleting content, so text stays selectable and searchable right up to the new edge. Nothing is rasterised.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the file. The first page renders with a draggable crop box.' },
+      { step: 2, title: 'Set the crop area', description: 'Drag the handles, or enter top, bottom, left and right margins in millimetres or points for exact control.' },
+      { step: 3, title: 'Choose which pages', description: 'Apply to all pages, or restrict to a range if the cover needs different treatment.' },
+      { step: 4, title: 'Crop and download', description: 'Save the trimmed PDF. Text within the visible area remains fully selectable.' },
+    ],
+    useCases: [
+      { title: 'Reading papers on a tablet', description: 'Trimming the margins off a two-column journal article roughly doubles the usable text size on a 10-inch screen.', icon: 'crop' },
+      { title: 'Cleaning up scans', description: 'Remove the black border and the edge of the desk that came through when the page did not cover the scanner glass.', icon: 'scan' },
+      { title: 'Standardising a bundle', description: 'Pages from several sources cropped to one consistent size so the printed pack looks deliberate.', icon: 'layout' },
+    ],
+    faq: [
+      { question: 'Is the cropped-off content deleted?', answer: 'Cropping adjusts the page box, so hidden content technically remains in the file. If the margins contained something sensitive, redact it first, then crop.' },
+      { question: 'Can I crop each page differently?', answer: 'Apply one crop to a range, then run the tool again with different values for another range. A single pass uses one crop box.' },
+      { question: 'Does cropping reduce file size?', answer: 'Barely. The content is still there, just not displayed. Use Compress PDF if size is the goal.' },
+      { question: 'Will the text still be searchable?', answer: 'Yes. Cropping does not rasterise anything - the text layer is untouched.' },
+    ],
+  },
+
+  'bookmark': {
+    title: 'PDF Bookmarks',
+    metaTitle: 'Edit PDF Bookmarks - Add & Manage Outlines',
+    metaDescription: 'Add, rename, nest and delete PDF bookmarks so long documents are navigable. Import an outline from a text list or export the existing one.',
+    keywords: ['pdf bookmarks', 'pdf outline', 'add bookmarks to pdf', 'edit pdf bookmarks', 'pdf navigation pane'],
+    description: `
+      <p>A 200-page PDF with no bookmarks is a document people scroll through and give up on. The bookmark pane is the table of contents that actually works - one click and the reader is at section 7.3.</p>
+      <p>Here you can add bookmarks pointing at any page, rename the ones that came through as Untitled, drag them into a hierarchy so subsections sit under their parents, and delete the noise. If you already have an outline written down, import it as an indented text list instead of clicking through 80 entries.</p>
+      <p>You can also export the existing outline, which is a quick way to audit what a document claims to contain before you send it to print.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the file. Any existing bookmark tree is read and displayed.' },
+      { step: 2, title: 'Add or edit entries', description: 'Create a bookmark, give it a title, and set the page it jumps to. Double-click an existing title to rename it.' },
+      { step: 3, title: 'Build the hierarchy', description: 'Drag entries onto each other to nest them. Depth is unlimited, though two or three levels is what readers actually use.' },
+      { step: 4, title: 'Save the outline', description: 'Export the PDF with the new bookmark tree embedded. It opens in the navigation pane of any reader.' },
+    ],
+    useCases: [
+      { title: 'Making a manual usable', description: 'A 180-page product manual gets one bookmark per chapter and procedure, turning it into something support staff can navigate mid-call.', icon: 'bookmark' },
+      { title: 'Court and tender bundles', description: 'Many filing rules require a bookmarked index. Build one per tab so the reviewer can jump straight to exhibit C.', icon: 'scale' },
+      { title: 'Rebuilding a lost outline', description: 'A conversion stripped the outline. Import your chapter list as indented text and restore it in one step.', icon: 'list' },
+    ],
+    faq: [
+      { question: 'What format does the import expect?', answer: 'A plain text list where indentation sets the level and a trailing number sets the target page, for example "Introduction 1" then an indented "Background 3".' },
+      { question: 'How deep can bookmarks nest?', answer: 'There is no enforced limit. Most readers display three or four levels comfortably before the pane gets cramped.' },
+      { question: 'Are bookmarks the same as a table of contents page?', answer: 'No. Bookmarks live in the reader sidebar. A table of contents is a printed page inside the document - use the Table of Contents tool for that.' },
+      { question: 'Will bookmarks survive if I merge this file later?', answer: 'Yes. The merge tool preserves bookmark trees and nests each source outline under its own heading.' },
     ],
   },
 
   'table-of-contents': {
     title: 'Table of Contents',
-    metaDescription: 'Generate a table of contents for your PDF. Create clickable navigation from bookmarks.',
-    keywords: ['pdf table of contents', 'toc generator', 'pdf index', 'document navigation'],
+    metaTitle: 'Add a Table of Contents Page to a PDF',
+    metaDescription: 'Generate a printable table of contents page for a PDF, built from its bookmarks or from entries you type. Each line links to its page.',
+    keywords: ['pdf table of contents', 'add toc to pdf', 'generate pdf contents page', 'pdf index page', 'contents page pdf'],
     description: `
-      <p>Table of Contents generates a navigable table of contents page for your PDF documents. The TOC can be created from existing bookmarks or custom entries, providing readers with an overview and quick navigation.</p>
-      <p>Customize the appearance with different styles, fonts, and layouts. The generated TOC includes clickable links that jump directly to the referenced pages.</p>
-      <p>All processing happens locally in your browser, ensuring your documents remain private.</p>
+      <p>Bookmarks help on screen. They do nothing once a document is printed and sitting in a binder, which is why reports, tenders and dissertations still need a contents page inside the file.</p>
+      <p>This tool builds that page. If the PDF already has a bookmark tree, the entries and page numbers are pulled from it automatically. If not, type the entries yourself. The generated page is inserted at the front, with dot leaders running out to right-aligned page numbers, and each line is a live link when read on screen.</p>
+      <p>You can control the heading text, indentation per level, and whether to include page numbers - useful when the document will be repaginated later.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select the document.' },
-      { step: 2, title: 'Configure TOC', description: 'Choose to generate from bookmarks or create custom entries. Select style and positioning options.' },
-      { step: 3, title: 'Generate and Download', description: 'Click Generate to create the table of contents and download your updated PDF.' },
+      { step: 1, title: 'Load the document', description: 'Drop in the PDF. Existing bookmarks are detected and offered as the source for entries.' },
+      { step: 2, title: 'Choose or type the entries', description: 'Generate from bookmarks, or enter titles and page numbers by hand for documents with no outline.' },
+      { step: 3, title: 'Set the style', description: 'Pick the heading, indent depth for subsections, and whether dot leaders and page numbers appear.' },
+      { step: 4, title: 'Insert and download', description: 'The contents page is added at the front and the updated PDF downloads.' },
     ],
     useCases: [
-      { title: 'Academic Papers', description: 'Add a professional table of contents to theses, dissertations, and research papers.', icon: 'graduation-cap' },
-      { title: 'Business Reports', description: 'Create navigable reports with clear section listings for stakeholders.', icon: 'bar-chart' },
-      { title: 'User Manuals', description: 'Generate comprehensive TOCs for technical documentation and user guides.', icon: 'book' },
+      { title: 'Reports that get printed', description: 'A board pack goes out on paper. The contents page is the only navigation a reader in the room has.', icon: 'file-text' },
+      { title: 'Theses and formal submissions', description: 'Most style guides require a contents page with page numbers. Generate it from bookmarks instead of typing it twice.', icon: 'graduation-cap' },
+      { title: 'Merged bundles', description: 'After combining eight documents, add a contents page so readers know what the 200 pages contain.', icon: 'layers' },
     ],
     faq: [
-      { question: 'Can I customize the TOC appearance?', answer: 'Yes, you can choose from different styles, fonts, and layouts for your table of contents.' },
-      { question: 'Where is the TOC inserted?', answer: 'By default, the TOC is inserted at the beginning of the document, but you can choose a different location.' },
-      { question: 'Are the TOC entries clickable?', answer: 'Yes, each entry is a clickable link that navigates to the corresponding page.' },
+      { question: 'Does the contents page shift my page numbers?', answer: 'Yes - inserting a page pushes everything back by one. The generated entries account for this, so the numbers printed on the page are correct for the new document.' },
+      { question: 'Are the entries clickable?', answer: 'Yes. Each line links to its target page when the file is opened in a reader, and prints as plain text on paper.' },
+      { question: 'What if I have no bookmarks?', answer: 'Type the entries manually, or build a bookmark tree first with the Bookmarks tool and then generate from it.' },
+      { question: 'Can the contents run to more than one page?', answer: 'Yes. Long outlines flow onto additional pages automatically and the page numbering adjusts.' },
     ],
   },
 
   'page-numbers': {
-    title: 'Page Numbers',
-    metaDescription: 'Add page numbers to PDF documents. Customize position, format, and starting number.',
-    keywords: ['add page numbers', 'pdf page numbers', 'number pdf pages', 'pdf pagination'],
+    title: 'Add Page Numbers',
+    metaTitle: 'Add Page Numbers to a PDF Online',
+    metaDescription: 'Stamp page numbers onto a PDF. Choose position, a format such as Page 3 of 40, a starting number, and which pages to skip.',
+    keywords: ['add page numbers to pdf', 'number pdf pages', 'pdf pagination', 'page numbering pdf', 'stamp page numbers'],
     description: `
-      <p>Page Numbers adds customizable page numbering to your PDF documents. Choose from various formats, positions, and styles to match your document's design.</p>
-      <p>You can set the starting number, skip certain pages, and use different numbering formats (1, 2, 3 or i, ii, iii). Perfect for creating professional documents with proper pagination.</p>
-      <p>All processing happens locally in your browser, ensuring your documents remain private.</p>
+      <p>Merged documents almost never carry sensible page numbers. Each source file counted from 1, so the combined 120-page bundle has a dozen page 1s and no way for anyone to cite it.</p>
+      <p>This stamps a fresh, continuous sequence onto the pages. Pick a corner or centre position, choose the format - a bare numeral, 3 of 40, Page 3, or a custom pattern - and set the font size and margin so the number sits clear of existing content.</p>
+      <p>Two options matter more than they sound. Starting number lets you continue from a previous volume, and skip pages lets the cover and contents stay unnumbered while page 1 lands on the first page of real content, which is what most style guides ask for.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select the document.' },
-      { step: 2, title: 'Configure Numbering', description: 'Choose position, format, starting number, and which pages to number.' },
-      { step: 3, title: 'Apply and Download', description: 'Click Apply to add page numbers and download your updated PDF.' },
+      { step: 1, title: 'Load the PDF', description: 'Drop in the document you want numbered.' },
+      { step: 2, title: 'Place the number', description: 'Choose one of six positions and adjust the margin so the number clears any existing footer.' },
+      { step: 3, title: 'Set format and range', description: 'Pick the number format, the starting value, and any pages to leave unnumbered.' },
+      { step: 4, title: 'Apply and save', description: 'Check the preview, then stamp the numbers and download.' },
     ],
     useCases: [
-      { title: 'Professional Documents', description: 'Add page numbers to reports, proposals, and business documents.', icon: 'file-text' },
-      { title: 'Academic Papers', description: 'Number pages according to academic formatting requirements.', icon: 'graduation-cap' },
-      { title: 'Legal Documents', description: 'Add proper pagination to contracts and legal filings.', icon: 'scale' },
+      { title: 'Numbering a merged bundle', description: 'Eight documents combined into one now have a single continuous sequence a reviewer can reference.', icon: 'hash' },
+      { title: 'Court and discovery paperwork', description: 'Filings often require every page numbered consecutively across the whole bundle, exhibits included.', icon: 'scale' },
+      { title: 'Front matter that stays unnumbered', description: 'Skip the cover and contents so numbering starts at the introduction, as academic style guides require.', icon: 'book-open' },
     ],
     faq: [
-      { question: 'Can I skip the first page?', answer: 'Yes, you can specify which pages to number and which to skip, such as title pages or cover pages.' },
-      { question: 'What number formats are available?', answer: 'You can use Arabic numerals (1, 2, 3), Roman numerals (i, ii, iii or I, II, III), or letters (a, b, c).' },
-      { question: 'Can I add "Page X of Y" format?', answer: 'Yes, you can include the total page count in your numbering format.' },
+      { question: 'Can I start at a number other than 1?', answer: 'Yes. Set any starting value - useful when the document continues from an earlier volume that ended at page 84.' },
+      { question: 'Will the number sit on top of existing text?', answer: 'It can if the page already has a footer. Increase the margin or move to a different corner; the preview shows the collision before you commit.' },
+      { question: 'Can I skip the cover page?', answer: 'Yes. Excluded pages get no stamp, and you can decide whether they still consume a number in the sequence.' },
+      { question: 'Are stamped numbers editable later?', answer: 'They become part of the page content, so they are not text you can re-edit. Keep your unnumbered original if you expect to repaginate.' },
     ],
   },
 
   'add-watermark': {
     title: 'Add Watermark',
-    metaDescription: 'Add text or image watermarks to PDF files. Protect and brand your documents.',
-    keywords: ['add watermark', 'pdf watermark', 'stamp pdf', 'brand pdf', 'protect pdf'],
+    metaTitle: 'Add a Watermark to a PDF - Text or Image',
+    metaDescription: 'Stamp text or an image watermark across PDF pages. Control opacity, rotation, position and which pages get marked.',
+    keywords: ['add watermark to pdf', 'pdf watermark', 'watermark pdf online', 'draft stamp pdf', 'confidential watermark'],
     description: `
-      <p>Add Watermark allows you to place text or image watermarks on your PDF documents. Watermarks can indicate document status (Draft, Confidential), add branding, or deter unauthorized copying.</p>
-      <p>Customize the watermark's position, size, opacity, rotation, and color. Apply to all pages or select specific pages. The tool supports both text watermarks and image watermarks.</p>
-      <p>All processing happens locally in your browser, ensuring your documents remain private.</p>
+      <p>A watermark answers a question before anyone asks it: is this the final version, and am I allowed to pass it on? A diagonal DRAFT across every page stops a working copy being quoted as final, and a company logo makes an unauthorised copy obvious.</p>
+      <p>Add either text or an image. Text watermarks take any string, font size, colour and rotation angle - 45 degrees across the middle is the classic. Image watermarks accept a PNG with transparency, which is what you want for a logo.</p>
+      <p>Opacity is the setting that matters. Around 15 to 25 percent keeps the mark clearly visible while leaving the text underneath readable. You can also tile the mark across the page, or restrict it to specific pages so the cover stays clean.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select the document.' },
-      { step: 2, title: 'Create Watermark', description: 'Enter text or upload an image for your watermark. Adjust position, size, opacity, and rotation.' },
-      { step: 3, title: 'Apply and Download', description: 'Click Apply to add the watermark and download your updated PDF.' },
+      { step: 1, title: 'Open your PDF', description: 'Drop in the document you want to mark.' },
+      { step: 2, title: 'Choose text or image', description: 'Type the watermark text, or upload a PNG or JPG. Transparent PNGs work best for logos.' },
+      { step: 3, title: 'Position and fade it', description: 'Set rotation, position, size and opacity. The live preview shows exactly what lands on the page.' },
+      { step: 4, title: 'Pick pages and apply', description: 'Mark every page or a chosen range, then apply and download.' },
     ],
     useCases: [
-      { title: 'Document Protection', description: 'Add "Confidential" or "Draft" watermarks to indicate document status.', icon: 'shield' },
-      { title: 'Brand Documents', description: 'Add company logos or names to official documents.', icon: 'award' },
-      { title: 'Copyright Notice', description: 'Add copyright information to protect intellectual property.', icon: 'copyright' },
+      { title: 'Marking a draft', description: 'A diagonal DRAFT at 20 percent opacity across a contract under negotiation, so no one signs the wrong version.', icon: 'droplet' },
+      { title: 'Branding a proposal', description: 'A faint logo in the corner of every page of a client deliverable.', icon: 'image' },
+      { title: 'Discouraging redistribution', description: 'Stamp the recipient name across a licensed report so a forwarded copy traces back.', icon: 'shield' },
     ],
     faq: [
-      { question: 'Can I use an image as a watermark?', answer: 'Yes, you can upload PNG, JPG, or SVG images to use as watermarks.' },
-      { question: 'Can I make the watermark semi-transparent?', answer: 'Yes, you can adjust the opacity from fully transparent to fully opaque.' },
-      { question: 'Can I apply different watermarks to different pages?', answer: 'The tool applies the same watermark to selected pages. For different watermarks, process the document multiple times.' },
+      { question: 'What opacity should I use?', answer: 'Between 15 and 25 percent for most documents. Below 10 it disappears on screen; above 40 it starts to fight with the text underneath.' },
+      { question: 'Can a watermark be removed later?', answer: 'It is drawn into the page content, so it is not a layer that toggles off. Someone determined could still edit it out - a watermark deters casual reuse rather than enforcing anything.' },
+      { question: 'Will it sit behind the text or on top?', answer: 'You choose. Behind reads more cleanly; on top is harder to crop out of a screenshot.' },
+      { question: 'Can I watermark only some pages?', answer: 'Yes. Enter a page range, which is how most people leave the cover and contents unmarked.' },
     ],
   },
 
   'header-footer': {
-    title: 'Header & Footer',
-    metaDescription: 'Add headers and footers to PDF documents. Include page numbers, dates, and custom text.',
-    keywords: ['pdf header', 'pdf footer', 'add header footer', 'pdf letterhead'],
+    title: 'Header and Footer',
+    metaTitle: 'Add Headers & Footers to a PDF',
+    metaDescription: 'Add header and footer text to PDF pages - document titles, dates, page numbers or file references, positioned left, centre or right.',
+    keywords: ['pdf header footer', 'add header to pdf', 'add footer to pdf', 'pdf running head', 'document reference pdf'],
     description: `
-      <p>Header & Footer adds customizable headers and footers to your PDF documents. Include page numbers, dates, document titles, or any custom text in the header or footer areas.</p>
-      <p>Position content on the left, center, or right of the header/footer. Use different content for odd and even pages if needed. Perfect for creating professional documents with consistent formatting.</p>
-      <p>All processing happens locally in your browser, ensuring your documents remain private.</p>
+      <p>Headers and footers carry the information a page needs to make sense on its own once it is printed and separated from the rest: which document it belongs to, which version, which date, and who produced it.</p>
+      <p>You get three slots each in the header and footer - left, centre and right - and can put static text or a dynamic field in any of them. Dynamic fields fill themselves in per page: the page number, the total page count, or the date in your chosen format.</p>
+      <p>Font, size and margin are adjustable, so the added text can be sized down to sit unobtrusively above or below the existing layout rather than crowding it.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select the document.' },
-      { step: 2, title: 'Configure Header/Footer', description: 'Enter text for header and footer areas. Add page numbers, dates, or custom text.' },
-      { step: 3, title: 'Apply and Download', description: 'Click Apply to add headers/footers and download your updated PDF.' },
+      { step: 1, title: 'Load the PDF', description: 'Drop in the document you want to annotate.' },
+      { step: 2, title: 'Fill in the slots', description: 'Type text into any of the six positions. Insert page number, page count or date fields where you want them filled automatically.' },
+      { step: 3, title: 'Set the type', description: 'Choose font, size and margin so the text clears the existing content.' },
+      { step: 4, title: 'Apply and download', description: 'Check the preview and save the updated document.' },
     ],
     useCases: [
-      { title: 'Business Documents', description: 'Add company name and page numbers to professional documents.', icon: 'briefcase' },
-      { title: 'Legal Documents', description: 'Include case numbers, dates, and page references in legal filings.', icon: 'scale' },
-      { title: 'Academic Papers', description: 'Add running headers with paper title and author name.', icon: 'graduation-cap' },
+      { title: 'Version control on paper', description: 'A footer reading v2.4, reviewed 14 March means nobody works from last month printout.', icon: 'file-text' },
+      { title: 'Running heads in long reports', description: 'The chapter title in the header keeps readers oriented 90 pages in.', icon: 'book-open' },
+      { title: 'File references for archiving', description: 'A case or matter number in every footer, so a loose page can always be traced back.', icon: 'archive' },
     ],
     faq: [
-      { question: 'Can I have different headers on odd and even pages?', answer: 'Yes, you can configure different content for odd and even pages.' },
-      { question: 'Can I include the current date?', answer: 'Yes, you can insert dynamic date fields that show the current date.' },
-      { question: 'Can I skip the header/footer on certain pages?', answer: 'Yes, you can specify which pages should have headers/footers and which should be skipped.' },
+      { question: 'Which dynamic fields are available?', answer: 'Current page, total pages, and the date in several formats. They are resolved per page when the file is written.' },
+      { question: 'Can the header differ on the first page?', answer: 'Apply to a page range to exclude the cover, then run the tool again with different text for that page.' },
+      { question: 'Will this overlap the existing content?', answer: 'It can on tightly laid out pages. Increase the margin or reduce the font size; the preview shows the result first.' },
+      { question: 'Do I use this or the page numbers tool?', answer: 'Use Add Page Numbers if numbering is all you need - it has more control over sequences. Use this when you also want titles, dates or references.' },
     ],
   },
 
   'invert-colors': {
-    title: 'Invert Colors',
-    metaDescription: 'Invert PDF colors for dark mode reading. Convert documents to negative colors.',
-    keywords: ['invert pdf colors', 'pdf dark mode', 'negative pdf', 'reverse colors'],
+    title: 'Invert PDF Colors',
+    metaTitle: 'Invert PDF Colors - Dark Mode for PDFs',
+    metaDescription: 'Flip a PDF to light text on a dark background for comfortable night reading, with the option to leave photos and diagrams untouched.',
+    keywords: ['invert pdf colors', 'pdf dark mode', 'negative pdf', 'night mode pdf', 'white text on black pdf'],
     description: `
-      <p>Invert Colors reverses the colors in your PDF documents, creating a negative image effect. This is particularly useful for creating dark mode versions of documents for easier reading in low-light conditions.</p>
-      <p>The tool can invert all colors or selectively preserve certain elements like images. Perfect for reducing eye strain when reading documents at night.</p>
-      <p>All processing happens locally in your browser, ensuring your documents remain private.</p>
+      <p>Reading a bright white PDF on a screen at night is tiring, and unlike a web page a PDF has no dark mode of its own. Inverting the colours produces light text on a dark background you can read for an hour without squinting.</p>
+      <p>The inversion is applied to the page content, so the file itself is dark - it stays dark in any reader, on any device, including e-readers that have no dark mode setting.</p>
+      <p>The option to preserve images is worth using. Inverting a photograph turns it into a negative, which is rarely what anyone wants. Leaving images alone inverts the text and background while photos and logos keep their real colours.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select the document.' },
-      { step: 2, title: 'Configure Options', description: 'Choose whether to invert all content or preserve images.' },
-      { step: 3, title: 'Invert and Download', description: 'Click Invert to process the document and download the result.' },
+      { step: 1, title: 'Load your PDF', description: 'Drop in the document you want to darken.' },
+      { step: 2, title: 'Decide about images', description: 'Turn on preserve images to keep photos and diagrams in their original colours while the text inverts.' },
+      { step: 3, title: 'Check a page', description: 'The preview shows the inverted result so you can confirm the contrast is comfortable.' },
+      { step: 4, title: 'Convert and download', description: 'Save the dark version. Your original stays as it was.' },
     ],
     useCases: [
-      { title: 'Night Reading', description: 'Create dark mode versions of documents for comfortable reading at night.', icon: 'moon' },
-      { title: 'Reduce Eye Strain', description: 'Invert bright documents to reduce eye fatigue during extended reading.', icon: 'eye' },
-      { title: 'Print Savings', description: 'Invert documents to reduce ink usage when printing drafts.', icon: 'printer' },
+      { title: 'Reading in bed', description: 'A 400-page dark-background novel or paper, easier on the eyes than a white page at full brightness.', icon: 'moon' },
+      { title: 'E-reader comfort', description: 'Devices with no dark mode will still display a PDF that is already dark.', icon: 'tablet' },
+      { title: 'Light sensitivity', description: 'Readers with migraine or photophobia often find inverted contrast the difference between readable and not.', icon: 'eye' },
     ],
     faq: [
-      { question: 'Will images be inverted too?', answer: 'By default, yes. You can choose to preserve original images while inverting text and backgrounds.' },
-      { question: 'Can I invert only specific pages?', answer: 'Yes, you can select which pages to invert.' },
-      { question: 'Is the inversion reversible?', answer: 'You can invert the document again to return to approximately the original colors.' },
+      { question: 'Is the text still selectable?', answer: 'Yes. Only the rendered colours change; the text layer, search and copy-paste are unaffected.' },
+      { question: 'Why did my photos come out looking strange?', answer: 'They were inverted along with everything else. Re-run with preserve images enabled.' },
+      { question: 'Can I invert it back?', answer: 'Running the tool on an inverted file returns it close to the original, though any lossy image re-encoding will not undo perfectly. Keeping your original is safer.' },
+      { question: 'Should I print the inverted version?', answer: 'Almost certainly not - it would use an enormous amount of toner. Print the original and keep the inverted copy for screens.' },
     ],
   },
 
   'background-color': {
-    title: 'Background Color',
-    metaDescription: 'Change PDF background color. Add colored backgrounds to document pages.',
-    keywords: ['pdf background color', 'change pdf background', 'colored pdf', 'pdf page color'],
+    title: 'Change Background Color',
+    metaTitle: 'Change PDF Background Color Online',
+    metaDescription: 'Set a background colour behind PDF pages - a warm cream for easier reading, or a tint to mark a document as a working copy.',
+    keywords: ['pdf background color', 'change pdf background', 'add background to pdf', 'tint pdf pages', 'cream background pdf'],
     description: `
-      <p>Background Color allows you to change or add background colors to your PDF pages. This can improve readability, add visual interest, or match your branding requirements.</p>
-      <p>Choose any color for the background and apply it to all pages or selected pages. The tool preserves all existing content while adding the background layer.</p>
-      <p>All processing happens locally in your browser, ensuring your documents remain private.</p>
+      <p>Pure white at full screen brightness is the harshest background there is. A soft cream or pale grey behind the text lowers the contrast a little and makes long reading sessions noticeably easier, which is why e-readers offer sepia modes.</p>
+      <p>This tool paints a colour behind the existing page content. Text, images and vector graphics sit on top unchanged, so nothing is obscured - the white of the page simply becomes the colour you picked.</p>
+      <p>A tint also works as a quiet status marker. A pale yellow background on every page of a working draft is impossible to confuse with the white final version, even at a glance across a desk.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select the document.' },
-      { step: 2, title: 'Choose Color', description: 'Select a background color using the color picker or enter a hex code.' },
-      { step: 3, title: 'Apply and Download', description: 'Click Apply to add the background and download your updated PDF.' },
+      { step: 1, title: 'Load the PDF', description: 'Drop in the document you want to tint.' },
+      { step: 2, title: 'Choose a colour', description: 'Pick from the presets or enter a hex value. Light tints work best - anything dark will fight with black text.' },
+      { step: 3, title: 'Select the pages', description: 'Apply to the whole document or a specific range.' },
+      { step: 4, title: 'Apply and save', description: 'Check the preview and download the tinted PDF.' },
     ],
     useCases: [
-      { title: 'Improve Readability', description: 'Add a light cream or sepia background to reduce eye strain.', icon: 'eye' },
-      { title: 'Brand Documents', description: 'Use brand colors as backgrounds for marketing materials.', icon: 'palette' },
-      { title: 'Highlight Sections', description: 'Use different background colors to distinguish document sections.', icon: 'layers' },
+      { title: 'Comfortable long reading', description: 'A cream background on a 200-page report, so an afternoon of reading is less punishing than pure white.', icon: 'palette' },
+      { title: 'Marking working copies', description: 'Every draft gets a pale yellow page, so the white version on the desk is unmistakably the final one.', icon: 'file-text' },
+      { title: 'Colour-coding a bundle', description: 'Different tints per section make it easy to find the right part of a thick printed pack by flipping the edge.', icon: 'layers' },
     ],
     faq: [
-      { question: 'Will the background cover existing content?', answer: 'No, the background is added behind existing content, preserving all text and images.' },
-      { question: 'Can I use different colors for different pages?', answer: 'You would need to process the document multiple times for different colors on different pages.' },
-      { question: 'Can I remove an existing background?', answer: 'This tool adds backgrounds. To remove backgrounds, you may need to use the Edit PDF tool.' },
+      { question: 'Does this hide any content?', answer: 'No. The colour is drawn behind the existing page, so text and images stay fully visible on top.' },
+      { question: 'Which colours actually work?', answer: 'Light, low-saturation tints. Cream, pale grey and soft blue keep black text readable; mid or dark tones do not.' },
+      { question: 'Will printing use more ink?', answer: 'Yes - a tinted background means full page coverage on every sheet. Print the original and keep the tinted copy for screen reading.' },
+      { question: 'How is this different from inverting colours?', answer: 'Inverting flips every colour to its opposite. This only changes what sits behind the content, leaving the text its original colour.' },
     ],
   },
 
   'text-color': {
     title: 'Change Text Color',
-    metaDescription: 'Change text color in PDF documents. Modify the color of all text content.',
-    keywords: ['change pdf text color', 'pdf text color', 'modify text color', 'recolor pdf text'],
+    metaTitle: 'Change PDF Text Color Online',
+    metaDescription: 'Recolour the text in a PDF - darken faded scans, or change body text to a brand colour. Apply to the whole document or selected pages.',
+    keywords: ['change pdf text color', 'pdf text colour', 'recolor pdf text', 'darken pdf text', 'edit pdf font color'],
     description: `
-      <p>Change Text Color allows you to modify the color of text in your PDF documents. This is useful for improving contrast, matching branding, or creating visual variations of documents.</p>
-      <p>Select a new color and apply it to all text in the document. The tool processes text elements while preserving images and other content.</p>
-      <p>All processing happens locally in your browser, ensuring your documents remain private.</p>
+      <p>Faded text is the usual reason to reach for this. An old fax, a carbon copy or a scan of a pencil-written form comes through as pale grey that is legible on screen at 200 percent zoom and unreadable in print. Pushing the text to solid black fixes it in one pass.</p>
+      <p>The other reason is presentation. A document produced in one house style needs to match another, or a section needs its text in a colour that signals its status.</p>
+      <p>The change applies to text objects only. Images, backgrounds and vector artwork keep their colours, so a recoloured document does not lose its diagrams or logos.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select the document.' },
-      { step: 2, title: 'Choose Color', description: 'Select a new text color using the color picker or enter a hex code.' },
-      { step: 3, title: 'Apply and Download', description: 'Click Apply to change the text color and download your updated PDF.' },
+      { step: 1, title: 'Load your PDF', description: 'Drop in the document whose text you want to change.' },
+      { step: 2, title: 'Pick the new colour', description: 'Choose from presets or enter a hex value. Solid black is the right answer for faded scans.' },
+      { step: 3, title: 'Choose the scope', description: 'Recolour all text, or restrict to a page range if only part of the document needs it.' },
+      { step: 4, title: 'Apply and download', description: 'Check the preview and save the updated PDF.' },
     ],
     useCases: [
-      { title: 'Improve Contrast', description: 'Change text color to improve readability against the background.', icon: 'contrast' },
-      { title: 'Brand Consistency', description: 'Update text colors to match brand guidelines.', icon: 'palette' },
-      { title: 'Accessibility', description: 'Adjust text colors to meet accessibility contrast requirements.', icon: 'accessibility' },
+      { title: 'Rescuing a faded fax', description: 'Grey text that vanishes on a printout becomes solid black and legible on paper.', icon: 'type' },
+      { title: 'Matching a house style', description: 'Body text moved to the brand colour so a supplied document does not look out of place in a pack.', icon: 'palette' },
+      { title: 'Accessibility contrast', description: 'Light grey body text raised to a contrast ratio that meets accessibility guidance.', icon: 'eye' },
     ],
     faq: [
-      { question: 'Will all text be changed?', answer: 'Yes, the tool changes the color of all text elements in the document.' },
-      { question: 'Can I change only specific text?', answer: 'This tool changes all text. For selective changes, use the Edit PDF tool.' },
-      { question: 'Will formatted text (bold, italic) be preserved?', answer: 'Yes, text formatting is preserved; only the color is changed.' },
+      { question: 'Does this affect images?', answer: 'No. Only text objects are recoloured. Photos, diagrams and logos keep their original colours.' },
+      { question: 'Can I recolour only some of the text?', answer: 'The tool works page by page rather than word by word. For a single phrase, cover it and add new text with the PDF Editor instead.' },
+      { question: 'What about text baked into a scan?', answer: 'Text inside a scanned image is pixels, not text objects, so this tool cannot reach it. Run OCR first, or adjust the image contrast.' },
+      { question: 'Is the change reversible?', answer: 'Not within the new file. Keep your original if you may want the previous colour back.' },
     ],
   },
 
   'add-stamps': {
     title: 'Add Stamps',
-    metaDescription: 'Add stamps to PDF documents. Use preset or custom stamps for approval, review, and more.',
-    keywords: ['pdf stamps', 'add stamp', 'approval stamp', 'pdf rubber stamp'],
+    metaTitle: 'Add Stamps to a PDF - Approved, Paid & Custom',
+    metaDescription: 'Place stamps on PDF pages - APPROVED, PAID, CONFIDENTIAL or your own image. Position and size each one exactly where it belongs.',
+    keywords: ['add stamp to pdf', 'pdf stamp', 'approved stamp pdf', 'paid stamp pdf', 'custom stamp pdf'],
     description: `
-      <p>Add Stamps allows you to place stamp images on your PDF documents. Use preset stamps like "Approved", "Rejected", "Draft", or upload custom stamp images.</p>
-      <p>Position stamps anywhere on the page, resize them, and apply to single or multiple pages. Perfect for document workflows, approvals, and status indicators.</p>
-      <p>All processing happens locally in your browser, ensuring your documents remain private.</p>
+      <p>A stamp is a status marker aimed at a person, not a system. APPROVED in the corner of an invoice tells the next person in the chain that the checking has been done, in a way that a spreadsheet cell somewhere else does not.</p>
+      <p>Choose from the common presets - APPROVED, REJECTED, PAID, CONFIDENTIAL, DRAFT, URGENT - or upload your own image, which is how people reproduce a company seal or a department mark. Position it by dragging, and scale it to fit the space available.</p>
+      <p>Unlike a watermark, a stamp is meant to be noticed: full opacity, in one spot on one page rather than tiled faintly across all of them.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select the document.' },
-      { step: 2, title: 'Select Stamp', description: 'Choose a preset stamp or upload a custom stamp image.' },
-      { step: 3, title: 'Position and Apply', description: 'Click to place the stamp, adjust position and size, then download.' },
+      { step: 1, title: 'Open the document', description: 'Drop in the PDF you need to stamp.' },
+      { step: 2, title: 'Choose a stamp', description: 'Pick a preset, or upload a PNG or JPG of your own mark. Transparent PNGs sit best over existing content.' },
+      { step: 3, title: 'Place it', description: 'Drag the stamp to position and resize with the corner handles. Add more stamps on other pages if needed.' },
+      { step: 4, title: 'Save', description: 'Download the stamped PDF. The stamp is drawn into the page.' },
     ],
     useCases: [
-      { title: 'Document Approval', description: 'Add "Approved" or "Rejected" stamps to documents in review workflows.', icon: 'check-circle' },
-      { title: 'Status Indication', description: 'Mark documents as "Draft", "Final", or "Confidential".', icon: 'tag' },
-      { title: 'Quality Control', description: 'Add QC stamps to indicate inspection or review completion.', icon: 'clipboard-check' },
+      { title: 'Approving an invoice', description: 'APPROVED plus a date in the corner, so the accounts team can see at a glance that it has been signed off.', icon: 'stamp' },
+      { title: 'Marking confidential documents', description: 'A CONFIDENTIAL stamp on the cover of a board pack before it is distributed.', icon: 'lock' },
+      { title: 'Reproducing an office seal', description: 'Upload a scan of the department seal and place it where the paper version would go.', icon: 'badge-check' },
     ],
     faq: [
-      { question: 'What preset stamps are available?', answer: 'Presets include Approved, Rejected, Draft, Final, Confidential, Copy, and more.' },
-      { question: 'Can I upload custom stamps?', answer: 'Yes, you can upload PNG or JPG images to use as custom stamps.' },
-      { question: 'Can I add multiple stamps to one document?', answer: 'Yes, you can add multiple stamps and position each one independently.' },
+      { question: 'Can I make my own stamp?', answer: 'Yes. Upload any PNG or JPG. A transparent PNG looks best because the surrounding area does not block the page underneath.' },
+      { question: 'How is a stamp different from a watermark?', answer: 'A stamp is opaque, placed once, and meant to draw the eye. A watermark is faint, usually repeated on every page, and meant to sit behind the content.' },
+      { question: 'Can I stamp several pages at once?', answer: 'Place a stamp per page where you need it. For the same mark on every page, a watermark at full opacity is quicker.' },
+      { question: 'Can the stamp be moved after saving?', answer: 'No. It becomes part of the page content rather than a draggable annotation.' },
     ],
   },
 
   'remove-annotations': {
     title: 'Remove Annotations',
-    metaDescription: 'Remove annotations from PDF files. Delete comments, highlights, and markup.',
-    keywords: ['remove pdf annotations', 'delete comments', 'remove highlights', 'clean pdf'],
+    metaTitle: 'Remove PDF Annotations, Comments & Highlights',
+    metaDescription: 'Strip comments, highlights, sticky notes and links out of a PDF. Remove everything, or choose which annotation types to clear.',
+    keywords: ['remove pdf annotations', 'delete pdf comments', 'remove highlights from pdf', 'clear pdf markup', 'strip pdf notes'],
     description: `
-      <p>Remove Annotations strips comments, highlights, sticky notes, and other annotations from your PDF documents. This creates a clean version of the document without markup.</p>
-      <p>You can remove all annotations or selectively remove specific types. Perfect for creating final versions of reviewed documents or removing sensitive comments.</p>
-      <p>All processing happens locally in your browser, ensuring your documents remain private.</p>
+      <p>A document that has been through review carries the whole argument with it: three rounds of comments, someone highlighting in yellow and someone else in green, and sticky notes debating a clause that was cut two versions ago. None of that should go to the client.</p>
+      <p>This clears the markup and leaves the document. You can remove everything in one pass, or select the types to strip - comments, highlights, sticky notes, drawing markup, or links - which is useful when you want the highlights gone but the hyperlinks working.</p>
+      <p>Removing annotations also removes the names attached to them. Reviewer identity is stored in the annotation metadata, so stripping comments is a privacy step as much as a tidiness one.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select the document.' },
-      { step: 2, title: 'Select Annotation Types', description: 'Choose which types of annotations to remove: comments, highlights, links, etc.' },
-      { step: 3, title: 'Remove and Download', description: 'Click Remove to strip annotations and download the clean PDF.' },
+      { step: 1, title: 'Load the reviewed PDF', description: 'Drop in the file. The tool counts the annotations it finds and lists them by type.' },
+      { step: 2, title: 'Choose what to remove', description: 'Clear everything, or tick the types you want gone and leave the rest.' },
+      { step: 3, title: 'Remove and download', description: 'Save the clean document. Page content is untouched.' },
     ],
     useCases: [
-      { title: 'Finalize Documents', description: 'Remove review comments and markup before publishing final documents.', icon: 'file-check' },
-      { title: 'Privacy Protection', description: 'Remove comments that may contain sensitive information before sharing.', icon: 'shield' },
-      { title: 'Clean Distribution', description: 'Create clean copies of annotated documents for distribution.', icon: 'copy' },
+      { title: 'Sending a clean final version', description: 'Three rounds of internal comments removed before the document leaves the building.', icon: 'eraser' },
+      { title: 'Reusing last year template', description: 'An annotated draft becomes a blank starting point again in one step.', icon: 'file-text' },
+      { title: 'Removing reviewer names', description: 'Comment metadata carries author names. Stripping annotations removes the audit trail of who objected to what.', icon: 'user-x' },
     ],
     faq: [
-      { question: 'What types of annotations can be removed?', answer: 'Comments, highlights, underlines, strikethroughs, sticky notes, stamps, and links can all be removed.' },
-      { question: 'Can I keep some annotations?', answer: 'Yes, you can select which types of annotations to remove and which to keep.' },
-      { question: 'Is this reversible?', answer: 'No, annotation removal is permanent. Keep a backup of the original if needed.' },
+      { question: 'Does this delete text that was added as an annotation?', answer: 'Yes - free-text annotations are annotations. If someone typed a correction as a text box, it goes with the rest, so check the file afterwards.' },
+      { question: 'Are redactions removed too?', answer: 'No. A completed redaction has already removed the underlying content, so there is no annotation left to strip.' },
+      { question: 'Can I keep the hyperlinks?', answer: 'Yes. Deselect links and only the visual markup is removed.' },
+      { question: 'What about form fields?', answer: 'Form fields survive - they are a separate structure. Use Flatten PDF if you want those made non-editable as well.' },
     ],
   },
 
   'form-filler': {
-    title: 'Form Filler',
-    metaDescription: 'Fill PDF forms online. Complete interactive PDF forms without printing.',
-    keywords: ['fill pdf form', 'pdf form filler', 'complete pdf form', 'interactive pdf'],
+    title: 'Fill PDF Forms',
+    metaTitle: 'Fill PDF Forms Online - Type Into Any Form',
+    metaDescription: 'Fill in interactive PDF forms in your browser, including XFA forms. Type into fields, tick boxes, save your answers, and flatten when done.',
+    keywords: ['fill pdf form', 'pdf form filler', 'complete pdf form online', 'xfa form', 'type in pdf form'],
     description: `
-      <p>Form Filler allows you to complete interactive PDF forms directly in your browser. Fill text fields, check boxes, select options, and add signatures without printing the document.</p>
-      <p>The tool supports standard PDF forms and XFA forms. Your filled data can be saved and the form can be flattened to prevent further editing.</p>
-      <p>All processing happens locally in your browser, ensuring your form data remains private.</p>
+      <p>Interactive PDF forms fail in a specific, maddening way: the file opens fine in a browser but the fields are dead, so people print it, write on it by hand, and scan it back in worse condition than it started.</p>
+      <p>This tool reads the form structure properly. Text fields, checkboxes, radio groups and dropdowns all work, including XFA forms, which many government and banking documents still use and which most browser viewers refuse to render at all.</p>
+      <p>You can save your entries and come back later, which matters for the long forms nobody finishes in one sitting. When it is complete, flatten the form so the answers become part of the page and cannot be altered by whoever receives it.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF Form', description: 'Drag and drop your PDF form or click to select the file.' },
-      { step: 2, title: 'Fill the Form', description: 'Click on form fields to enter text, check boxes, or select options.' },
-      { step: 3, title: 'Save and Download', description: 'Click Save to preserve your entries and download the filled form.' },
+      { step: 1, title: 'Open the form', description: 'Drop in the PDF. Fillable fields are detected and highlighted so you can see where input is expected.' },
+      { step: 2, title: 'Fill it in', description: 'Click into fields and type, tick boxes, choose from dropdowns. Tab moves you to the next field in order.' },
+      { step: 3, title: 'Save your progress', description: 'Keep the entered data if the form is long and you need to come back to it.' },
+      { step: 4, title: 'Flatten and download', description: 'Flatten to lock the answers into the page, or save with fields still live if the recipient needs to add more.' },
     ],
     useCases: [
-      { title: 'Application Forms', description: 'Complete job applications, permit applications, and registration forms.', icon: 'clipboard' },
-      { title: 'Tax Forms', description: 'Fill out tax documents and financial forms electronically.', icon: 'file-text' },
-      { title: 'Contracts', description: 'Complete contract forms with your information before signing.', icon: 'file-signature' },
+      { title: 'Government forms that will not open', description: 'XFA-based tax and immigration forms that browsers cannot render, filled in without installing Acrobat.', icon: 'clipboard-list' },
+      { title: 'Onboarding paperwork', description: 'Six HR forms completed on screen, flattened, and returned the same morning.', icon: 'user-check' },
+      { title: 'Repeat submissions', description: 'The same monthly return each period - save the entries once and update only what changed.', icon: 'repeat' },
     ],
     faq: [
-      { question: 'Can I save my progress?', answer: 'Yes, you can save partially filled forms and continue later.' },
-      { question: 'What is form flattening?', answer: 'Flattening converts form fields to static content, preventing further editing.' },
-      { question: 'Are XFA forms supported?', answer: 'Yes, the tool supports both standard AcroForms and XFA forms.' },
+      { question: 'What is an XFA form and why does it matter?', answer: 'XFA is an XML-based form format Adobe layered on top of PDF. Chrome and Safari show a "please open in Acrobat" message instead of the form. This tool reads the field structure directly, so those forms are usable.' },
+      { question: 'Should I flatten before sending?', answer: 'Usually yes. Flattening prevents the recipient from changing your answers, and guarantees the values display in readers that handle form fields badly.' },
+      { question: 'Where is my saved data stored?', answer: 'In your own browser. Nothing is sent to a server, so the data stays on the machine you filled the form on.' },
+      { question: 'The form has no fields at all - now what?', answer: 'It is probably a scan. Use the PDF Editor to add text boxes over the blanks, or Form Creator to add real fields.' },
     ],
   },
 
   'form-creator': {
-    title: 'Form Creator',
-    metaDescription: 'Create fillable PDF forms. Add text fields, checkboxes, and dropdowns to documents.',
-    keywords: ['create pdf form', 'pdf form creator', 'fillable pdf', 'add form fields'],
+    title: 'Create PDF Forms',
+    metaTitle: 'Create a Fillable PDF Form Online',
+    metaDescription: 'Turn a flat PDF into a fillable form. Drag text fields, checkboxes and dropdowns onto the page and set names, defaults and required flags.',
+    keywords: ['create pdf form', 'fillable pdf', 'make pdf form', 'add form fields to pdf', 'pdf form builder'],
     description: `
-      <p>Form Creator transforms static PDF documents into interactive fillable forms. Add text fields, checkboxes, radio buttons, dropdowns, and more to create professional forms.</p>
-      <p>Drag and drop form elements onto your document, configure field properties, and create forms that can be filled electronically. Perfect for creating applications, surveys, and data collection forms.</p>
-      <p>All processing happens locally in your browser, ensuring your documents remain private.</p>
+      <p>If you send out a flat PDF and ask people to fill it in, you get back photographs of paper at various angles, handwriting you cannot read, and three people who typed their answers into the email instead.</p>
+      <p>Adding real form fields fixes that. Drag a text field over each blank, a checkbox onto each tick box, a dropdown where the answer should come from a fixed list. Each field gets a name, so the data has structure if you later export it, plus optional default values and a required flag.</p>
+      <p>The result is a standard AcroForm PDF. It opens and fills correctly in Acrobat, Preview, browser viewers and mobile readers - you are not asking recipients to install anything.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select the document to convert into a form.' },
-      { step: 2, title: 'Add Form Fields', description: 'Select field types from the toolbar and click to place them on the document.' },
-      { step: 3, title: 'Configure and Save', description: 'Set field properties, then save and download your fillable PDF form.' },
+      { step: 1, title: 'Load the flat PDF', description: 'Drop in the document you want to make fillable.' },
+      { step: 2, title: 'Drag fields onto the page', description: 'Place text fields, checkboxes, radio groups and dropdowns over the blanks in your layout.' },
+      { step: 3, title: 'Configure each field', description: 'Set the field name, any default value, whether it is required, and the options for dropdowns.' },
+      { step: 4, title: 'Export the form', description: 'Download the fillable PDF and send it out. Recipients type directly into it.' },
     ],
     useCases: [
-      { title: 'Application Forms', description: 'Create fillable job applications, membership forms, and registrations.', icon: 'user-plus' },
-      { title: 'Surveys', description: 'Build interactive surveys and questionnaires for data collection.', icon: 'clipboard-list' },
-      { title: 'Order Forms', description: 'Create product order forms with quantity fields and checkboxes.', icon: 'shopping-cart' },
+      { title: 'An application form people can actually complete', description: 'Fields over every blank, so answers come back typed and in the right boxes.', icon: 'clipboard-list' },
+      { title: 'Standardising a paper process', description: 'A form that was printed and handwritten for years becomes a fillable file with named fields.', icon: 'file-check' },
+      { title: 'Registration and consent forms', description: 'Dropdowns for fixed choices and required flags on the fields you cannot process without.', icon: 'user-plus' },
     ],
     faq: [
-      { question: 'What field types can I add?', answer: 'Text fields, checkboxes, radio buttons, dropdowns, date pickers, and signature fields.' },
-      { question: 'Can I make fields required?', answer: 'Yes, you can mark fields as required and add validation rules.' },
-      { question: 'Can I add calculations?', answer: 'Basic calculations like sum and average can be added to numeric fields.' },
+      { question: 'Which field types can I add?', answer: 'Text fields, checkboxes, radio button groups and dropdowns - the four that cover nearly every real form.' },
+      { question: 'Will the form work in Acrobat and on phones?', answer: 'Yes. The output is a standard AcroForm, which is the widely supported form format rather than the XFA variant that browsers struggle with.' },
+      { question: 'Why do field names matter?', answer: 'They are the keys when form data is exported, and they identify radio buttons that belong to the same group. Descriptive names save you work later.' },
+      { question: 'Can I add fields to a scanned document?', answer: 'Yes. Fields are positioned by coordinates, so they can sit over a scanned image just as well as over real text.' },
     ],
   },
 
   'remove-blank-pages': {
     title: 'Remove Blank Pages',
-    metaDescription: 'Automatically detect and remove blank pages from PDF documents.',
-    keywords: ['remove blank pages', 'delete empty pages', 'clean pdf', 'pdf blank page remover'],
+    metaTitle: 'Remove Blank Pages From a PDF Automatically',
+    metaDescription: 'Find and delete blank pages in a PDF automatically. Adjust the detection threshold so faint scanner speckle still counts as blank.',
+    keywords: ['remove blank pages pdf', 'delete empty pages pdf', 'find blank pages', 'clean scanned pdf', 'strip blank pages'],
     description: `
-      <p>Remove Blank Pages automatically detects and removes empty pages from your PDF documents. This is useful for cleaning up scanned documents, removing separator pages, or eliminating accidentally included blank pages.</p>
-      <p>The tool uses intelligent detection to identify truly blank pages while preserving pages with minimal content. You can adjust the sensitivity threshold to control what counts as "blank".</p>
-      <p>All processing happens locally in your browser, ensuring your documents remain private.</p>
+      <p>Scan a stack of single-sided paper in duplex mode and half the output is blank. On a 120-page batch that is 60 pages of nothing, doubling the file size and making the document tedious to read.</p>
+      <p>Finding them by hand is the worst kind of work, and scanned blanks are rarely truly blank - they carry faint grey speckle, a dust line, or a shadow from the edge of the sheet, so a naive test for pure white finds nothing.</p>
+      <p>That is what the threshold controls. It sets how much ink a page can have and still count as empty. Start at the default, review the detected list, and raise the threshold if pages you consider blank were not caught. Nothing is removed until you confirm the list.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select the document.' },
-      { step: 2, title: 'Adjust Threshold', description: 'Set the blank detection threshold if needed (default works for most documents).' },
-      { step: 3, title: 'Remove and Download', description: 'Click Remove to delete blank pages and download the cleaned PDF.' },
+      { step: 1, title: 'Load the scanned PDF', description: 'Drop in the file. Every page is analysed for content coverage.' },
+      { step: 2, title: 'Set the threshold', description: 'The default catches clean blanks. Raise it for noisy scans where blank pages carry speckle.' },
+      { step: 3, title: 'Review what was found', description: 'Detected pages are listed with thumbnails. Untick any that are not actually blank.' },
+      { step: 4, title: 'Remove and save', description: 'Delete the confirmed blanks and download the shorter document.' },
     ],
     useCases: [
-      { title: 'Clean Scanned Documents', description: 'Remove blank pages from batch-scanned documents.', icon: 'scan' },
-      { title: 'Remove Separators', description: 'Delete blank separator pages from merged documents.', icon: 'minus' },
-      { title: 'Reduce File Size', description: 'Remove unnecessary blank pages to reduce document size.', icon: 'minimize-2' },
+      { title: 'Cleaning up a duplex scan', description: 'A 120-page batch scan of single-sided paper drops to 60 real pages.', icon: 'file-minus' },
+      { title: 'Removing chapter fillers', description: 'A print-ready file has blank versos so chapters start on the right. Strip them for screen reading.', icon: 'book-open' },
+      { title: 'Tidying archived documents', description: 'Years of scanned files carry blank separators. Clear them before ingesting into a document system.', icon: 'archive' },
     ],
     faq: [
-      { question: 'How does blank detection work?', answer: 'The tool analyzes page content and considers pages with minimal or no visible content as blank.' },
-      { question: 'Can I preview which pages will be removed?', answer: 'Yes, detected blank pages are highlighted for review before removal.' },
-      { question: 'What if a page has only a header/footer?', answer: 'You can adjust the threshold to determine whether pages with minimal content should be considered blank.' },
+      { question: 'What counts as a blank page?', answer: 'One whose ink coverage falls under the threshold you set. That deliberately includes scanner noise, faint shadows and dust specks.' },
+      { question: 'Could it remove a page I wanted?', answer: 'A page with only a faint watermark or a single line of light grey text might be flagged. That is why you review the list with thumbnails before anything is deleted.' },
+      { question: 'Does it detect blank pages in native PDFs too?', answer: 'Yes, and more reliably than in scans - a page with no content objects at all is unambiguous.' },
+      { question: 'What threshold should I start with?', answer: 'The default works for most clean scans. Older or dustier documents usually need it raised a step or two.' },
     ],
   },
-  // ==================== CONVERT TO PDF ====================
-  'image-to-pdf': {
-    title: 'Image to PDF',
-    metaDescription: 'Convert any image to PDF. Support for JPG, PNG, WebP, BMP, TIFF, SVG, and HEIC formats.',
-    keywords: ['image to pdf', 'convert image', 'photo to pdf', 'picture to pdf'],
+
+  'pdf-reader': {
+    title: 'PDF Reader',
+    metaTitle: 'Online PDF Reader - Open PDFs in Your Browser',
+    metaDescription: 'Read PDFs in your browser with page navigation, zoom, rotate, fullscreen and print. Files stay on your device - nothing is uploaded.',
+    keywords: ['pdf reader', 'open pdf online', 'pdf viewer', 'read pdf in browser', 'view pdf file'],
     description: `
-      <p>Image to PDF converts images of any format into PDF documents. Support for JPG, PNG, WebP, BMP, TIFF, SVG, and HEIC formats makes this the universal image converter.</p>
-      <p>Combine multiple images into a single PDF, arrange them in any order, and customize page size and orientation. Perfect for creating photo albums, document archives, or portfolios.</p>
-      <p>All conversion happens in your browser, ensuring your images remain private.</p>
+      <p>Sometimes you just need to look at a file. A PDF arrives on a machine with no reader installed, or the built-in viewer renders the fonts badly, or you would rather not open an unknown document in a desktop application at all.</p>
+      <p>This viewer renders the document in the browser tab with the controls you would expect: page navigation and jump-to-page, zoom including fit-width and fit-page, rotation for pages that came in sideways, fullscreen for reading, and print and download.</p>
+      <p>The file is opened locally. Nothing is uploaded, which is the safer way to inspect a document you were not expecting - and it means the viewer works with no network connection at all.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Images', description: 'Drag and drop images of any supported format or click to select files.' },
-      { step: 2, title: 'Arrange and Configure', description: 'Reorder images and select page size and orientation options.' },
-      { step: 3, title: 'Convert and Download', description: 'Click Convert to create your PDF and download the result.' },
+      { step: 1, title: 'Open a PDF', description: 'Drop in the file, or click to browse. It renders immediately.' },
+      { step: 2, title: 'Move around the document', description: 'Scroll, use the page controls, or jump straight to a page number.' },
+      { step: 3, title: 'Adjust the view', description: 'Zoom in or out, fit to width or page, rotate a sideways page, or go fullscreen.' },
+      { step: 4, title: 'Print or save', description: 'Send it to a printer or download a copy, both directly from the viewer.' },
     ],
     useCases: [
-      { title: 'Photo Collections', description: 'Combine photos from various sources into a single PDF album.', icon: 'images' },
-      { title: 'Mixed Format Documents', description: 'Convert images from different formats into a unified PDF.', icon: 'file-stack' },
-      { title: 'Archive Creation', description: 'Create PDF archives from image collections for long-term storage.', icon: 'archive' },
+      { title: 'A machine with no PDF reader', description: 'A shared or locked-down computer can still open the document in a browser tab.', icon: 'book-open' },
+      { title: 'Checking an unexpected attachment', description: 'Inspect a document without opening it in a desktop application or sending it anywhere.', icon: 'shield' },
+      { title: 'Reading offline', description: 'Once the page is loaded, rendering is local, so the viewer keeps working on a flight.', icon: 'wifi-off' },
     ],
     faq: [
-      { question: 'What image formats are supported?', answer: 'JPG, JPEG, PNG, WebP, BMP, TIFF, TIF, SVG, HEIC, and HEIF formats are all supported.' },
-      { question: 'Can I mix different image formats?', answer: 'Yes, you can combine images of different formats into a single PDF.' },
-      { question: 'Will image quality be preserved?', answer: 'Yes, images are embedded at their original quality unless you choose to compress them.' },
+      { question: 'Is my file uploaded to view it?', answer: 'No. The PDF is rendered by JavaScript in your own browser and never leaves your device.' },
+      { question: 'Can I search the text?', answer: 'Yes, provided the PDF has a text layer. A scanned image has none until you run OCR on it.' },
+      { question: 'How large a file can it open?', answer: 'Limited only by your available memory. Files in the hundreds of megabytes work, though the first render takes a moment.' },
+      { question: 'Can I annotate here?', answer: 'This is a viewer. For highlights, comments and text, use the PDF Editor.' },
+    ],
+  },
+
+  // ==================== CONVERT TO PDF ====================
+
+  'jpg-to-pdf': {
+    title: 'JPG to PDF',
+    metaTitle: 'JPG to PDF Converter - Photos to PDF',
+    metaDescription: 'Turn JPG photos into a PDF. Drop in up to 100 images, set the order and page size, and get one document instead of a folder of files.',
+    keywords: ['jpg to pdf', 'jpeg to pdf', 'photo to pdf', 'convert images to pdf', 'pictures to pdf'],
+    description: `
+      <p>Phone cameras have replaced scanners for everyday paperwork, which means the documents people need to send now arrive as a folder of JPGs. Almost every system that receives paperwork wants a single PDF.</p>
+      <p>Drop the photos in, drag them into the right order, and convert. JPEG data is embedded without re-encoding, so the conversion does not add a second round of compression artefacts on top of what the camera already applied.</p>
+      <p>Page size and orientation are up to you. Fit the page to each image to avoid borders, or standardise on A4 or Letter when the result is going to a printer or an office filing system that expects consistent pages.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Add your JPGs', description: 'Drop in up to 100 photos at once. Each becomes one page.' },
+      { step: 2, title: 'Order the pages', description: 'Drag thumbnails until the sequence is right. Filename order is rarely page order with camera files.' },
+      { step: 3, title: 'Choose the page setup', description: 'Match the page to the image, or force A4 or Letter with portrait or landscape orientation.' },
+      { step: 4, title: 'Convert and download', description: 'Save the finished PDF with all images as pages in your chosen order.' },
+    ],
+    useCases: [
+      { title: 'Photographed paperwork', description: 'Eight phone photos of a signed contract become one PDF the other side can file.', icon: 'image-up' },
+      { title: 'Receipts for an expense claim', description: 'A month of receipt photos as a single attachment, in date order.', icon: 'receipt' },
+      { title: 'Sharing a photo set', description: 'Deliver twenty images as one document that opens the same way on every device.', icon: 'images' },
+    ],
+    faq: [
+      { question: 'Does converting reduce photo quality?', answer: 'No. JPEG data is embedded as-is with no re-compression, so the pages look exactly like the source images.' },
+      { question: 'How do I control page order?', answer: 'Drag the thumbnails. Camera filenames often sort in an order that has nothing to do with the document.' },
+      { question: 'The photos are different sizes - is that a problem?', answer: 'No. Fit the page to each image for borderless pages of mixed sizes, or force a standard size so every page matches.' },
+      { question: 'Should I use this or Image to PDF?', answer: 'This one is tuned for JPG. Image to PDF accepts PNG, WebP, HEIC, TIFF, SVG and BMP too, so use that for a mixed folder.' },
+    ],
+  },
+
+  'image-to-pdf': {
+    title: 'Image to PDF',
+    metaTitle: 'Image to PDF - Convert Any Image Format',
+    metaDescription: 'Convert JPG, PNG, WebP, HEIC, TIFF, BMP and SVG images into one PDF. Mix formats freely, set the order, and choose the page size.',
+    keywords: ['image to pdf', 'convert image to pdf', 'multiple images to pdf', 'photos to pdf', 'mixed image formats to pdf'],
+    description: `
+      <p>Real folders are mixed. There are iPhone HEICs from one person, screenshots as PNG, scans as TIFF, and a logo someone sent as SVG. Converting each format with a different tool and then merging the results is three jobs too many.</p>
+      <p>This accepts all of them in one pass - JPG, PNG, WebP, HEIC and HEIF, TIFF, BMP and SVG - and writes a single PDF. Transparency in PNGs and WebP is composited onto a white page rather than turning black, and SVGs are rendered as vectors so they stay sharp at any zoom level.</p>
+      <p>Multi-page TIFFs are expanded into one PDF page per frame, which is the behaviour you want when a fax or a scanner produced a single TIFF holding twelve pages.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Add your images', description: 'Drop in up to 100 files in any supported format. Mixing formats is fine.' },
+      { step: 2, title: 'Set the order', description: 'Drag thumbnails into the sequence you want. Multi-page TIFFs expand in place.' },
+      { step: 3, title: 'Choose page size and orientation', description: 'Fit each page to its image, or standardise on A4 or Letter.' },
+      { step: 4, title: 'Convert and save', description: 'Download the combined PDF.' },
+    ],
+    useCases: [
+      { title: 'A mixed folder in one pass', description: 'HEICs, PNGs and a TIFF combined into a single document without converting anything twice.', icon: 'images' },
+      { title: 'iPhone photos anyone can open', description: 'HEIC files that Windows machines struggle with become a PDF that opens everywhere.', icon: 'smartphone' },
+      { title: 'Screenshot documentation', description: 'Fifteen PNG screenshots assembled into a numbered walkthrough.', icon: 'monitor' },
+    ],
+    faq: [
+      { question: 'Which formats are supported?', answer: 'JPG and JPEG, PNG, WebP, HEIC and HEIF, TIFF and TIF, BMP, and SVG.' },
+      { question: 'What happens to transparent areas?', answer: 'They are composited onto white. PDF pages have no alpha channel, so transparency has to resolve to something.' },
+      { question: 'How are multi-page TIFFs handled?', answer: 'Each frame becomes its own PDF page, in file order.' },
+      { question: 'Do SVGs stay sharp?', answer: 'Yes. They are drawn as vectors, so they remain crisp at any zoom or print size.' },
     ],
   },
 
   'png-to-pdf': {
     title: 'PNG to PDF',
-    metaDescription: 'Convert PNG images to PDF. Preserve transparency and combine multiple PNG files.',
-    keywords: ['png to pdf', 'convert png', 'png converter', 'transparent image to pdf'],
+    metaTitle: 'PNG to PDF Converter - Keep Transparency Clean',
+    metaDescription: 'Convert PNG images to PDF with transparent areas composited onto white instead of black. Screenshots and diagrams stay crisp.',
+    keywords: ['png to pdf', 'convert png to pdf', 'screenshot to pdf', 'transparent png to pdf', 'png images to pdf'],
     description: `
-      <p>PNG to PDF converts your PNG images into PDF documents while preserving transparency. Perfect for graphics, logos, screenshots, and images with transparent backgrounds.</p>
-      <p>Combine multiple PNG files into a single PDF, arrange them in any order, and customize page settings. The conversion maintains the high quality of your original images.</p>
-      <p>All conversion happens in your browser, ensuring your images remain private.</p>
+      <p>PNG is the screenshot and diagram format. It is lossless, so text inside the image stays sharp rather than developing the fuzzy halos JPEG produces around high-contrast edges - which is exactly what you need when the image is a screenshot of a terminal or a UI.</p>
+      <p>The catch is the alpha channel. PDF pages have no transparency, so a naive conversion renders transparent regions as black and ruins a logo or a chart exported with no background. Here transparency is composited onto white first, giving you the result you expected.</p>
+      <p>Because PNG is lossless, the pixels are embedded without a quality-reducing re-encode. A screenshot converted to PDF is still pixel-exact.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload PNG Files', description: 'Drag and drop your PNG images or click to select files.' },
-      { step: 2, title: 'Arrange and Configure', description: 'Reorder images and select page size options.' },
-      { step: 3, title: 'Convert and Download', description: 'Click Convert to create your PDF and download.' },
+      { step: 1, title: 'Add your PNGs', description: 'Drop in up to 100 files. Each becomes one page.' },
+      { step: 2, title: 'Arrange the pages', description: 'Drag the thumbnails into the order you want - useful for step-by-step screenshots.' },
+      { step: 3, title: 'Choose the page setup', description: 'Fit the page to the image for borderless output, or standardise on A4 or Letter for print.' },
+      { step: 4, title: 'Convert and download', description: 'Save the PDF with transparency flattened onto white.' },
     ],
     useCases: [
-      { title: 'Graphics Portfolio', description: 'Compile PNG graphics and designs into a professional portfolio.', icon: 'palette' },
-      { title: 'Screenshot Documentation', description: 'Convert screenshots into PDF documentation.', icon: 'monitor' },
-      { title: 'Logo Collections', description: 'Create PDF catalogs of logos and brand assets.', icon: 'award' },
+      { title: 'Step-by-step documentation', description: 'Twenty numbered screenshots as one PDF walkthrough, with text in the images still legible.', icon: 'monitor' },
+      { title: 'Charts and diagrams', description: 'Exported charts with transparent backgrounds converted without the black boxes.', icon: 'bar-chart' },
+      { title: 'Design mock-ups for review', description: 'Lossless mock-up pages delivered as one document a client can annotate.', icon: 'palette' },
     ],
     faq: [
-      { question: 'Is transparency preserved?', answer: 'PNG transparency is preserved in the PDF output.' },
-      { question: 'What about PNG animations?', answer: 'Animated PNGs are converted as static images using the first frame.' },
-      { question: 'Can I set a background color?', answer: 'Yes, you can choose a background color for transparent areas.' },
+      { question: 'Why do transparent PNGs sometimes turn black in other tools?', answer: 'Because PDF has no alpha channel, so the transparent pixels have to be composited onto something. Tools that skip that step default to black. This one composites onto white.' },
+      { question: 'Is any quality lost?', answer: 'No. PNG is lossless and the data is embedded without re-encoding.' },
+      { question: 'Will the text inside my screenshots be searchable?', answer: 'No - it is pixels, not text. Run OCR on the resulting PDF if you need to search it.' },
+      { question: 'Why are my PNG pages so large?', answer: 'Lossless compression is bulky for photographic content. Run Compress PDF afterwards, or use JPG for photos.' },
     ],
   },
 
   'webp-to-pdf': {
     title: 'WebP to PDF',
-    metaDescription: 'Convert WebP images to PDF. Modern image format conversion with quality preservation.',
-    keywords: ['webp to pdf', 'convert webp', 'webp converter', 'web image to pdf'],
+    metaTitle: 'WebP to PDF Converter Online',
+    metaDescription: 'Convert WebP images to PDF so they open anywhere. Handles both lossy and lossless WebP, with transparency composited onto white.',
+    keywords: ['webp to pdf', 'convert webp to pdf', 'webp images to pdf', 'webp converter', 'save webp as pdf'],
     description: `
-      <p>WebP to PDF converts modern WebP images into PDF documents. WebP is a popular web image format, and this tool makes it easy to convert these images for printing or archiving.</p>
-      <p>Combine multiple WebP files into a single PDF with customizable page settings. The conversion preserves image quality while creating compact PDF files.</p>
-      <p>All conversion happens in your browser, ensuring your images remain private.</p>
+      <p>WebP is what you get when you save an image from a modern website. It is an efficient format, and it is also the format that half the applications on a desktop still refuse to open - which is why people need to convert it before they can use it.</p>
+      <p>This turns WebP files into a PDF that opens anywhere. Both variants are handled: lossy WebP, which behaves like JPEG, and lossless WebP, which behaves like PNG and can carry an alpha channel. Transparent areas are composited onto white so nothing comes out black.</p>
+      <p>Animated WebP files are converted using their first frame, since a PDF page is a still image.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload WebP Files', description: 'Drag and drop your WebP images or click to select files.' },
-      { step: 2, title: 'Configure Options', description: 'Arrange images and select page size and orientation.' },
-      { step: 3, title: 'Convert and Download', description: 'Click Convert to create your PDF.' },
+      { step: 1, title: 'Add your WebP files', description: 'Drop in up to 100 images. Lossy and lossless files can be mixed.' },
+      { step: 2, title: 'Set the order', description: 'Drag thumbnails into the sequence you want.' },
+      { step: 3, title: 'Choose page size and quality', description: 'Fit to image or use a standard page size, and set the embedding quality.' },
+      { step: 4, title: 'Convert and save', description: 'Download the PDF.' },
     ],
     useCases: [
-      { title: 'Web Content Archiving', description: 'Convert web images to PDF for offline archiving.', icon: 'globe' },
-      { title: 'Print Preparation', description: 'Convert WebP images to PDF for printing purposes.', icon: 'printer' },
-      { title: 'Format Standardization', description: 'Convert modern WebP to universally compatible PDF.', icon: 'file-check' },
+      { title: 'Images saved from the web', description: 'A folder of WebP downloads becomes a document that opens in any viewer.', icon: 'globe' },
+      { title: 'Sharing with older software', description: 'Send a PDF instead of asking a colleague to install something that reads WebP.', icon: 'share-2' },
+      { title: 'Archiving web assets', description: 'Site imagery collected into one PDF for a records copy.', icon: 'archive' },
     ],
     faq: [
-      { question: 'What is WebP format?', answer: 'WebP is a modern image format developed by Google that provides superior compression for web images.' },
-      { question: 'Is quality preserved?', answer: 'Yes, the conversion preserves the original image quality.' },
-      { question: 'Can I convert animated WebP?', answer: 'Animated WebP files are converted as static images.' },
+      { question: 'Are lossless WebP files handled differently?', answer: 'Yes. Lossless files, including any alpha channel, are decoded and composited onto white; lossy files are treated like JPEG.' },
+      { question: 'What happens to an animated WebP?', answer: 'The first frame is used. A PDF page cannot hold an animation.' },
+      { question: 'Does converting lose quality?', answer: 'A lossy WebP re-encoded into a PDF can lose a little. Set quality to high to keep the difference invisible.' },
+      { question: 'Can I mix WebP with other formats?', answer: 'Not in this tool - use Image to PDF, which accepts every supported format in one pass.' },
     ],
   },
 
   'svg-to-pdf': {
     title: 'SVG to PDF',
-    metaDescription: 'Convert SVG vector graphics to PDF. Preserve scalability and quality.',
-    keywords: ['svg to pdf', 'convert svg', 'vector to pdf', 'scalable graphics to pdf'],
+    metaTitle: 'SVG to PDF - Vector Conversion, No Pixels',
+    metaDescription: 'Convert SVG files to PDF as true vectors, so logos and diagrams stay sharp at any print size. Text stays selectable where fonts allow.',
+    keywords: ['svg to pdf', 'convert svg to pdf', 'vector to pdf', 'svg print pdf', 'logo svg to pdf'],
     description: `
-      <p>SVG to PDF converts scalable vector graphics into PDF documents while preserving their vector quality. SVG files remain sharp at any size, and this quality is maintained in the PDF output.</p>
-      <p>Perfect for converting logos, icons, illustrations, and technical drawings. The resulting PDF maintains the scalability of the original vector graphics.</p>
-      <p>All conversion happens in your browser, ensuring your files remain private.</p>
+      <p>The whole point of an SVG is that it has no fixed resolution. Convert it wrongly - by screenshotting it, or through a tool that rasterises - and you throw that away, ending up with a logo that looks acceptable on screen and blurry on a banner.</p>
+      <p>This conversion keeps the vectors. Paths, shapes, gradients and strokes are written as PDF drawing operations, so the output scales cleanly from a business card to a billboard. Text elements stay as text where the font can be embedded, which means they remain selectable and searchable.</p>
+      <p>That makes the result print-ready. Commercial printers ask for vector PDFs for exactly this reason, and a converted SVG satisfies that requirement.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload SVG Files', description: 'Drag and drop your SVG files or click to select.' },
-      { step: 2, title: 'Configure Settings', description: 'Select page size and arrangement options.' },
-      { step: 3, title: 'Convert and Download', description: 'Click Convert to create your vector PDF.' },
+      { step: 1, title: 'Add your SVG files', description: 'Drop in up to 100 files. Each becomes one page.' },
+      { step: 2, title: 'Set the page size', description: 'Use the SVG viewBox dimensions, or place the artwork on a standard page size.' },
+      { step: 3, title: 'Order the pages', description: 'Drag to arrange if you are converting a set.' },
+      { step: 4, title: 'Convert and download', description: 'Save the vector PDF.' },
     ],
     useCases: [
-      { title: 'Logo Conversion', description: 'Convert SVG logos to PDF for print materials.', icon: 'award' },
-      { title: 'Technical Drawings', description: 'Convert CAD exports and technical illustrations to PDF.', icon: 'ruler' },
-      { title: 'Icon Collections', description: 'Create PDF catalogs of icon sets and graphics.', icon: 'grid' },
+      { title: 'Sending a logo to a printer', description: 'A vector PDF is what print shops ask for, and what survives being scaled to a trade show banner.', icon: 'shapes' },
+      { title: 'Diagrams for publication', description: 'Charts exported as SVG stay crisp in a journal PDF at any zoom.', icon: 'git-branch' },
+      { title: 'Technical drawings', description: 'Line work that must stay sharp when printed at A1 rather than A4.', icon: 'ruler' },
     ],
     faq: [
-      { question: 'Is vector quality preserved?', answer: 'Yes, SVG vector quality is fully preserved in the PDF output.' },
-      { question: 'Can I convert complex SVGs?', answer: 'Yes, complex SVGs with gradients, filters, and effects are supported.' },
-      { question: 'What about embedded fonts?', answer: 'Embedded fonts in SVG files are preserved in the PDF.' },
+      { question: 'Is the output really vector?', answer: 'Yes. Paths are written as PDF drawing operations, not rendered to pixels, so there is no resolution ceiling.' },
+      { question: 'What happens to fonts in the SVG?', answer: 'Where the font can be embedded, text stays selectable. Otherwise it is converted to outlines, which looks identical but is no longer searchable.' },
+      { question: 'Are embedded raster images kept?', answer: 'Yes, but a raster inside an SVG is still a raster and will pixelate when scaled up. Only the vector parts are resolution-independent.' },
+      { question: 'Do CSS styles inside the SVG apply?', answer: 'Inline styles and presentation attributes are honoured. External stylesheets are not, since the file is converted in isolation.' },
     ],
   },
 
   'bmp-to-pdf': {
     title: 'BMP to PDF',
-    metaDescription: 'Convert BMP bitmap images to PDF. Legacy format support with quality preservation.',
-    keywords: ['bmp to pdf', 'convert bmp', 'bitmap to pdf', 'bmp converter'],
+    metaTitle: 'BMP to PDF Converter - Shrink Bitmap Files',
+    metaDescription: 'Convert uncompressed BMP bitmaps to PDF and cut the file size dramatically. Ideal for old scans and Windows-era image archives.',
+    keywords: ['bmp to pdf', 'convert bitmap to pdf', 'bmp converter', 'windows bitmap to pdf', 'bmp images to pdf'],
     description: `
-      <p>BMP to PDF converts bitmap images into PDF documents. BMP is a legacy image format commonly used in Windows environments, and this tool makes it easy to convert these files to modern PDF format.</p>
-      <p>Combine multiple BMP files into a single PDF with customizable settings. The conversion compresses the typically large BMP files while maintaining image quality.</p>
-      <p>All conversion happens in your browser, ensuring your images remain private.</p>
+      <p>BMP stores pixels with essentially no compression, which is why a single scanned page can occupy 25 MB. Files in this format usually come from older Windows software, medical or industrial imaging systems, and scanner drivers that were configured a decade ago and never revisited.</p>
+      <p>Converting to PDF applies proper image compression during embedding, and the size drop is dramatic - often 90 percent or more with no visible difference, because there was no compression to lose in the first place.</p>
+      <p>You also get one document instead of a folder of individual bitmaps, which makes the collection far easier to store, index and send.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload BMP Files', description: 'Drag and drop your BMP images or click to select files.' },
-      { step: 2, title: 'Configure Options', description: 'Arrange images and select page settings.' },
-      { step: 3, title: 'Convert and Download', description: 'Click Convert to create your PDF.' },
+      { step: 1, title: 'Add your BMP files', description: 'Drop in up to 100 bitmaps. Large files are expected with this format.' },
+      { step: 2, title: 'Arrange the pages', description: 'Drag into order if the bitmaps are pages of one document.' },
+      { step: 3, title: 'Set page size and compression', description: 'Choose the page dimensions and how aggressively to compress during embedding.' },
+      { step: 4, title: 'Convert and download', description: 'Save the PDF and compare the size to the originals.' },
     ],
     useCases: [
-      { title: 'Legacy File Conversion', description: 'Convert old BMP files to modern PDF format.', icon: 'history' },
-      { title: 'Windows Screenshots', description: 'Convert Windows bitmap screenshots to PDF.', icon: 'monitor' },
-      { title: 'Archive Modernization', description: 'Update legacy image archives to PDF format.', icon: 'archive' },
+      { title: 'Old scanner output', description: 'A folder of 20 MB bitmaps becomes a PDF of a few megabytes.', icon: 'scan' },
+      { title: 'Legacy system exports', description: 'Industrial and medical software that only writes BMP, converted into something shareable.', icon: 'hard-drive' },
+      { title: 'Archiving image sets', description: 'Hundreds of loose bitmaps consolidated into indexed PDFs.', icon: 'archive' },
     ],
     faq: [
-      { question: 'Will file size be reduced?', answer: 'Yes, BMP files are typically compressed significantly when converted to PDF.' },
-      { question: 'Is quality preserved?', answer: 'Yes, image quality is maintained during conversion.' },
-      { question: 'What BMP color depths are supported?', answer: 'All standard BMP color depths are supported, including 24-bit and 32-bit.' },
-    ],
-  },
-
-  'psd-to-pdf': {
-    title: 'PSD to PDF',
-    metaDescription: 'Convert Adobe Photoshop (PSD) files to PDF format. Supports multiple files and preserves image quality.',
-    keywords: ['psd to pdf', 'convert psd', 'photoshop to pdf', 'psd converter', 'adobe psd to pdf'],
-    description: `
-      <p>PSD to PDF converts Adobe Photoshop (PSD) files into PDF documents. This tool allows you to view and share PSD designs without needing Photoshop installed.</p>
-      <p>You can convert multiple PSD files at once and combine them into a single PDF document. The tool processes each PSD file, rendering the visible layers into high-quality PDF pages.</p>
-      <p>All conversion happens locally in your browser, ensuring your designs remain private and secure.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload PSD Files', description: 'Drag and drop your PSD or PSB files, or click to select them from your device.' },
-      { step: 2, title: 'Arrange Order', description: 'Drag and drop the file thumbnails to arrange them in the desired order.' },
-      { step: 3, title: 'Convert and Download', description: 'Click Convert to render the PSDs and download your PDF document.' },
-    ],
-    useCases: [
-      { title: 'Share Designs', description: 'Share Photoshop designs with clients or colleagues who don\'t have Photoshop.', icon: 'share-2' },
-      { title: 'Portfolio Creation', description: 'Compile your design work into a professional PDF portfolio.', icon: 'layout' },
-      { title: 'Print Preparation', description: 'Convert designs to PDF for printing purposes.', icon: 'printer' },
-    ],
-    faq: [
-      { question: 'Do I need Photoshop installed?', answer: 'No, this tool works entirely in your browser without requiring Adobe Photoshop.' },
-      { question: 'Are layers preserved?', answer: 'The tool renders the visible state of the PSD (composite image). Individual layers are flattened in the PDF.' },
-      { question: 'What is the maximum file size?', answer: 'You can upload files up to 100MB each. Large PSD files may take a moment to process.' },
+      { question: 'How much smaller will the PDF be?', answer: 'Typically 85 to 95 percent smaller. BMP is uncompressed, so almost all of the size is redundancy.' },
+      { question: 'Does the image quality suffer?', answer: 'At high quality settings the difference is not visible. Lower settings trade sharpness for size in the usual way.' },
+      { question: 'Are 1-bit and 8-bit bitmaps supported?', answer: 'Yes - monochrome, greyscale, palette and full-colour BMPs all convert.' },
+      { question: 'Can I mix BMP with other formats?', answer: 'Use Image to PDF for mixed folders. This tool is BMP-only.' },
     ],
   },
 
   'heic-to-pdf': {
     title: 'HEIC to PDF',
-    metaDescription: 'Convert iPhone HEIC photos to PDF. Apple image format conversion made easy.',
-    keywords: ['heic to pdf', 'convert heic', 'iphone photo to pdf', 'apple image to pdf'],
+    metaTitle: 'HEIC to PDF - iPhone Photos to PDF',
+    metaDescription: 'Convert iPhone HEIC and HEIF photos to PDF so they open on any device. No AirDrop, no format setting change, no extra software.',
+    keywords: ['heic to pdf', 'iphone photo to pdf', 'heif to pdf', 'convert heic', 'apple photo to pdf'],
     description: `
-      <p>HEIC to PDF converts Apple's High Efficiency Image Format photos into PDF documents. HEIC is the default photo format on iPhones and iPads, and this tool makes sharing these photos easy.</p>
-      <p>Combine multiple HEIC photos into a single PDF, perfect for creating photo albums or document archives from your iPhone photos.</p>
-      <p>All conversion happens in your browser, ensuring your photos remain private.</p>
+      <p>iPhones save photos as HEIC, and Windows and older Android devices frequently cannot open them. The photo you took of a document is fine on your phone and useless the moment you email it to someone on a work laptop.</p>
+      <p>This converts HEIC and HEIF files into a PDF that opens anywhere. HEIC uses HEVC compression, so decoding is genuinely different from JPEG - the tool handles it in the browser, without asking you to change your camera settings or install anything.</p>
+      <p>Multiple photos become multiple pages in the order you choose, which is what you want when the document you photographed ran to more than one sheet.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload HEIC Files', description: 'Drag and drop your HEIC photos or click to select files.' },
-      { step: 2, title: 'Arrange Photos', description: 'Reorder photos and select page settings.' },
-      { step: 3, title: 'Convert and Download', description: 'Click Convert to create your PDF.' },
+      { step: 1, title: 'Add your HEIC photos', description: 'Drop in up to 100 files. HEIF files work the same way.' },
+      { step: 2, title: 'Put them in order', description: 'Drag thumbnails. Photos of a multi-page document rarely sort correctly by filename.' },
+      { step: 3, title: 'Choose the page setup', description: 'Fit the page to each photo, or use A4 or Letter for a document that will be printed.' },
+      { step: 4, title: 'Convert and download', description: 'Save the PDF.' },
     ],
     useCases: [
-      { title: 'iPhone Photo Albums', description: 'Create PDF albums from iPhone photos for sharing.', icon: 'smartphone' },
-      { title: 'Document Scanning', description: 'Convert iPhone document scans to PDF format.', icon: 'scan' },
-      { title: 'Cross-Platform Sharing', description: 'Convert HEIC to PDF for universal compatibility.', icon: 'share-2' },
+      { title: 'Sending photographed paperwork to a PC user', description: 'Four HEIC photos of a signed form become a PDF anyone can open.', icon: 'smartphone' },
+      { title: 'Uploading to a portal that rejects HEIC', description: 'Most upload forms accept PDF and refuse HEIC outright.', icon: 'upload' },
+      { title: 'Archiving iPhone photo sets', description: 'A trip or an inspection captured as HEIC, stored as one durable PDF.', icon: 'image' },
     ],
     faq: [
-      { question: 'What is HEIC format?', answer: 'HEIC (High Efficiency Image Container) is Apple\'s image format that provides better compression than JPEG.' },
-      { question: 'Are Live Photos supported?', answer: 'Live Photos are converted as static images using the key frame.' },
-      { question: 'Is EXIF data preserved?', answer: 'Photo metadata can be optionally preserved or removed during conversion.' },
+      { question: 'Why can Windows not open HEIC files?', answer: 'HEIC uses HEVC compression, which needs a codec Windows does not always ship. Converting sidesteps the problem entirely.' },
+      { question: 'Is quality lost in conversion?', answer: 'A small amount, since HEIC is decoded and re-embedded. At high quality the difference is not visible at normal viewing sizes.' },
+      { question: 'Does this handle Live Photos?', answer: 'The still frame is used. The motion component is not something a PDF page can hold.' },
+      { question: 'Should I just change my iPhone camera setting instead?', answer: 'Setting Camera to Most Compatible gives you JPEGs going forward, but does nothing for the HEIC photos already on the phone.' },
     ],
   },
 
   'tiff-to-pdf': {
     title: 'TIFF to PDF',
-    metaDescription: 'Convert TIFF images to PDF. Support for multi-page TIFF files and high-quality conversion.',
-    keywords: ['tiff to pdf', 'convert tiff', 'tif to pdf', 'multi-page tiff'],
+    metaTitle: 'TIFF to PDF - Multi-Page TIFF Converter',
+    metaDescription: 'Convert TIFF and TIF files to PDF, expanding multi-page TIFFs into one page each. Built for scanner, fax and archive output.',
+    keywords: ['tiff to pdf', 'tif to pdf', 'multipage tiff to pdf', 'scanner tiff converter', 'fax tiff to pdf'],
     description: `
-      <p>TIFF to PDF converts TIFF images, including multi-page TIFF files, into PDF documents. TIFF is commonly used for high-quality scans and professional graphics.</p>
-      <p>Multi-page TIFF files are automatically converted to multi-page PDFs. The conversion preserves the high quality of your original images.</p>
-      <p>All conversion happens in your browser, ensuring your files remain private.</p>
+      <p>TIFF is the format of scanners, fax servers and document archives, largely because one TIFF file can hold many pages. That is also the thing most converters get wrong - they read the first page and silently discard the other eleven.</p>
+      <p>Here each frame in a multi-page TIFF becomes its own PDF page, in order. A 40-page scanned TIFF converts to a 40-page PDF, which is what anyone opening the file expects.</p>
+      <p>Compression schemes common in this world are handled, including the CCITT Group 4 encoding that fax and bitonal document scanners produce, plus LZW and uncompressed TIFFs.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload TIFF Files', description: 'Drag and drop your TIFF files or click to select.' },
-      { step: 2, title: 'Configure Options', description: 'Select page settings and compression options.' },
-      { step: 3, title: 'Convert and Download', description: 'Click Convert to create your PDF.' },
+      { step: 1, title: 'Add your TIFF files', description: 'Drop in up to 100 files. Single and multi-page TIFFs can be mixed.' },
+      { step: 2, title: 'Review the page expansion', description: 'Multi-page files expand into their frames so you can see the real page count.' },
+      { step: 3, title: 'Set page size and quality', description: 'Match the page to the scan dimensions, or standardise on A4 or Letter.' },
+      { step: 4, title: 'Convert and save', description: 'Download the PDF with every frame as a page.' },
     ],
     useCases: [
-      { title: 'Scanned Documents', description: 'Convert high-quality scans from TIFF to PDF.', icon: 'scan' },
-      { title: 'Professional Graphics', description: 'Convert professional TIFF graphics for distribution.', icon: 'image' },
-      { title: 'Archive Conversion', description: 'Convert TIFF archives to more accessible PDF format.', icon: 'archive' },
+      { title: 'Scanner output nobody can open', description: 'A 40-page multi-page TIFF from a departmental scanner becomes a normal PDF.', icon: 'scan' },
+      { title: 'Fax archives', description: 'CCITT Group 4 fax TIFFs converted into a searchable-ready document set.', icon: 'printer' },
+      { title: 'Records migration', description: 'Decades of TIFF archives converted to PDF for a document management system.', icon: 'archive' },
     ],
     faq: [
-      { question: 'Are multi-page TIFFs supported?', answer: 'Yes, multi-page TIFF files are converted to multi-page PDFs automatically.' },
-      { question: 'Is quality preserved?', answer: 'Yes, TIFF quality is fully preserved in the PDF output.' },
-      { question: 'What compression is used?', answer: 'You can choose between lossless and lossy compression options.' },
+      { question: 'Will all pages of my multi-page TIFF convert?', answer: 'Yes. Every frame becomes a PDF page in file order - this is the main reason to use a TIFF-aware converter.' },
+      { question: 'Which TIFF compressions are supported?', answer: 'Uncompressed, LZW, PackBits and CCITT Group 3 and 4, which covers scanner and fax output.' },
+      { question: 'Can I make the result searchable?', answer: 'Run OCR PDF on the output. A scanned TIFF holds no text layer of its own.' },
+      { question: 'Are my bitonal scans still small after conversion?', answer: 'Yes. Bitonal images stay compact; the size is dominated by resolution and page count.' },
     ],
   },
 
   'txt-to-pdf': {
-    title: 'Text to PDF',
-    metaDescription: 'Convert plain text files to PDF. Customize fonts, margins, and page layout.',
-    keywords: ['txt to pdf', 'text to pdf', 'convert text file', 'plain text to pdf'],
+    title: 'TXT to PDF',
+    metaTitle: 'TXT to PDF - Text Files to Formatted PDF',
+    metaDescription: 'Turn plain text files into a properly paginated PDF. Choose the font, page size and margins, with monospace for logs and code.',
+    keywords: ['txt to pdf', 'text file to pdf', 'convert txt to pdf', 'plain text to pdf', 'log file to pdf'],
     description: `
-      <p>Text to PDF converts plain text files into formatted PDF documents. Customize fonts, sizes, margins, and page layout to create professional-looking documents from simple text.</p>
-      <p>Perfect for converting code files, logs, notes, or any plain text content into shareable PDF format.</p>
-      <p>All conversion happens in your browser, ensuring your files remain private.</p>
+      <p>Plain text has no pages, no margins and no typography, which is fine in an editor and a problem the moment you need to attach it to something, print it, or put it in a records system. A 4,000-line log file opened in Notepad and sent to a printer produces whatever the printer feels like doing.</p>
+      <p>This lays the text out properly: real pages at your chosen size, sensible margins, a font you pick, and line wrapping that respects word boundaries. Existing line breaks are preserved, so indentation and blank-line structure survive.</p>
+      <p>For logs, code and anything with aligned columns, choose a monospace font. Proportional fonts destroy column alignment, and that alignment is usually the only structure the file has.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Text File', description: 'Drag and drop your .txt file or click to select.' },
-      { step: 2, title: 'Customize Formatting', description: 'Choose font, size, margins, and page settings.' },
-      { step: 3, title: 'Convert and Download', description: 'Click Convert to create your formatted PDF.' },
+      { step: 1, title: 'Add your text files', description: 'Drop in up to 10 .txt files. Each becomes its own PDF.' },
+      { step: 2, title: 'Choose the font', description: 'A serif or sans font for prose, monospace for logs, code and anything with columns.' },
+      { step: 3, title: 'Set page size and margins', description: 'A4 or Letter, with margins wide enough for binding or annotation if the file will be printed.' },
+      { step: 4, title: 'Convert and download', description: 'Save the paginated PDF.' },
     ],
     useCases: [
-      { title: 'Code Documentation', description: 'Convert source code files to PDF for documentation.', icon: 'code' },
-      { title: 'Log Archives', description: 'Convert log files to PDF for archival purposes.', icon: 'file-text' },
-      { title: 'Note Conversion', description: 'Convert plain text notes to formatted PDF documents.', icon: 'sticky-note' },
+      { title: 'Log files for a report', description: 'Server output attached as a paginated PDF with page numbers a reviewer can cite.', icon: 'file-text' },
+      { title: 'Code listings', description: 'Source files in monospace, with indentation intact, for an appendix or a code review pack.', icon: 'code' },
+      { title: 'Notes and transcripts', description: 'Plain-text meeting notes turned into something presentable enough to circulate.', icon: 'notebook' },
     ],
     faq: [
-      { question: 'What fonts are available?', answer: 'Multiple fonts are available including monospace fonts for code.' },
-      { question: 'Is line wrapping automatic?', answer: 'Yes, long lines are automatically wrapped to fit the page.' },
-      { question: 'Can I preserve formatting?', answer: 'Whitespace and indentation from the original text are preserved.' },
+      { question: 'Is my line spacing and indentation kept?', answer: 'Yes. Existing line breaks and leading whitespace are preserved. Lines longer than the page wrap at word boundaries.' },
+      { question: 'Which font should I pick?', answer: 'Monospace for anything where columns line up - logs, code, tables. A proportional font is easier to read for prose.' },
+      { question: 'What about non-English characters?', answer: 'UTF-8 text is supported, including accented Latin, Cyrillic and Greek. Very large CJK character sets depend on the chosen font having the glyphs.' },
+      { question: 'Can I convert several files into one PDF?', answer: 'Each text file becomes its own PDF. Merge them afterwards if you need a single document.' },
     ],
   },
 
   'json-to-pdf': {
     title: 'JSON to PDF',
-    metaDescription: 'Convert JSON files to formatted PDF. Syntax highlighting and structured output.',
-    keywords: ['json to pdf', 'convert json', 'json viewer', 'json formatter'],
+    metaTitle: 'JSON to PDF - Pretty-Printed & Highlighted',
+    metaDescription: 'Convert JSON files to a readable PDF with proper indentation and syntax colouring. Turn API responses and config dumps into shareable documents.',
+    keywords: ['json to pdf', 'convert json to pdf', 'json report pdf', 'api response to pdf', 'pretty print json pdf'],
     description: `
-      <p>JSON to PDF converts JSON data files into formatted, readable PDF documents. The output includes syntax highlighting and proper indentation for easy reading.</p>
-      <p>Perfect for documenting API responses, configuration files, or any JSON data that needs to be shared or archived in a readable format.</p>
-      <p>All conversion happens in your browser, ensuring your data remains private.</p>
+      <p>JSON arrives as one enormous line. Minified API responses and config dumps are technically readable and practically not, especially when you need to show them to someone who is not going to paste them into a formatter first.</p>
+      <p>This pretty-prints the structure with consistent indentation and nesting, applies syntax colouring so keys, strings, numbers and booleans are visually distinct, and paginates the result. What was an unreadable wall becomes something you can hand to a colleague or attach to a ticket.</p>
+      <p>Malformed JSON is reported with the position of the problem rather than silently producing a broken document, which makes the tool useful as a quick validity check too.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload JSON File', description: 'Drag and drop your .json file or click to select.' },
-      { step: 2, title: 'Configure Display', description: 'Choose formatting options and syntax highlighting.' },
-      { step: 3, title: 'Convert and Download', description: 'Click Convert to create your formatted PDF.' },
+      { step: 1, title: 'Add your JSON files', description: 'Drop in up to 10 files. Each is parsed and validated first.' },
+      { step: 2, title: 'Set formatting options', description: 'Choose the indent width and whether syntax colouring is applied.' },
+      { step: 3, title: 'Choose the page setup', description: 'A4 or Letter. Landscape helps for deeply nested structures with long lines.' },
+      { step: 4, title: 'Convert and download', description: 'Save the formatted PDF.' },
     ],
     useCases: [
-      { title: 'API Documentation', description: 'Convert API responses to PDF for documentation.', icon: 'code' },
-      { title: 'Config Archives', description: 'Archive configuration files in readable PDF format.', icon: 'settings' },
-      { title: 'Data Reports', description: 'Create PDF reports from JSON data exports.', icon: 'bar-chart' },
+      { title: 'Attaching evidence to a bug report', description: 'The API response that caused the failure, readable, in a document anyone on the ticket can open.', icon: 'bug' },
+      { title: 'Documenting configuration', description: 'A config file captured as a dated PDF for a change record.', icon: 'settings' },
+      { title: 'Data hand-off to non-developers', description: 'A JSON export made legible for someone who will not be opening a code editor.', icon: 'braces' },
     ],
     faq: [
-      { question: 'Is syntax highlighting included?', answer: 'Yes, JSON syntax is highlighted with colors for keys, values, and types.' },
-      { question: 'How is nested data handled?', answer: 'Nested objects and arrays are properly indented for readability.' },
-      { question: 'What about large JSON files?', answer: 'Large files are paginated automatically across multiple pages.' },
+      { question: 'What happens if my JSON is invalid?', answer: 'The tool reports the parse error and its position instead of writing a broken PDF, so it doubles as a validity check.' },
+      { question: 'Are long strings wrapped?', answer: 'Yes, at the page margin, with the indentation of the enclosing level maintained so the structure stays readable.' },
+      { question: 'How large a file can it handle?', answer: 'Multi-megabyte files convert, though very large ones produce very long PDFs. Consider extracting the relevant section first.' },
+      { question: 'Is the colouring preserved when printing?', answer: 'On a colour printer, yes. In greyscale the tokens still differ in weight, but the distinction is weaker.' },
+    ],
+  },
+
+  'psd-to-pdf': {
+    title: 'PSD to PDF',
+    metaTitle: 'PSD to PDF - Photoshop Files Without Photoshop',
+    metaDescription: 'Convert Photoshop PSD and PSB files to PDF using the composite image, so clients can review a design without owning Photoshop.',
+    keywords: ['psd to pdf', 'photoshop to pdf', 'convert psd', 'psb to pdf', 'design file to pdf'],
+    description: `
+      <p>A PSD is only openable by people who own Photoshop, which is rarely the client who needs to approve the design. Sending the working file also means sending every hidden layer, every abandoned version and every note you left for yourself.</p>
+      <p>Converting to PDF uses the flattened composite - the image as the file appears when opened - and produces a document anyone can view on any device. Layer structure is not carried across, which in a review context is the point.</p>
+      <p>Both PSD and the large-document PSB format are supported, and several files can be converted into a single multi-page PDF, which is how most design reviews want to receive a set of concepts.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Add your PSD or PSB files', description: 'Drop in up to 100 files. Large layered documents take a moment to read.' },
+      { step: 2, title: 'Order the pages', description: 'Drag into the sequence you want reviewers to see.' },
+      { step: 3, title: 'Set the page size', description: 'Match the document dimensions, or use a standard page size for printing.' },
+      { step: 4, title: 'Convert and download', description: 'Save the PDF.' },
+    ],
+    useCases: [
+      { title: 'Client review', description: 'Three concepts as a three-page PDF, viewable without any design software.', icon: 'palette' },
+      { title: 'Design archive', description: 'A visual record of what a project looked like, without needing the original application to see it.', icon: 'archive' },
+      { title: 'Print hand-off', description: 'A flattened composite for a print shop that does not want your layered working file.', icon: 'printer' },
+    ],
+    faq: [
+      { question: 'Are layers preserved?', answer: 'No. The flattened composite is used, which is what makes the output viewable everywhere.' },
+      { question: 'What about hidden layers?', answer: 'They are excluded, exactly as they are when the file is opened in Photoshop. The composite reflects visible layers only.' },
+      { question: 'Do smart objects and adjustment layers render correctly?', answer: 'They appear as baked into the composite. Their effects show; their editability does not survive.' },
+      { question: 'Is PSB supported?', answer: 'Yes. Large Document Format files convert the same way, though very large canvases take longer.' },
     ],
   },
 
   'word-to-pdf': {
     title: 'Word to PDF',
-    metaDescription: 'Convert Word documents (DOCX) to PDF. Preserve formatting and layout in your converted documents.',
-    keywords: ['word to pdf', 'docx to pdf', 'convert word', 'word converter', 'microsoft word to pdf'],
+    metaTitle: 'Word to PDF - Convert DOCX Without Office',
+    metaDescription: 'Convert Word DOCX and DOC files to PDF with layout, fonts, tables and images intact. No Microsoft Office required and no upload.',
+    keywords: ['word to pdf', 'docx to pdf', 'doc to pdf', 'convert word document', 'word to pdf no office'],
     description: `
-      <p>Word to PDF converts Microsoft Word documents into PDF format while preserving the original formatting, layout, and content structure.</p>
-      <p>Upload your DOCX files and get high-quality PDF output suitable for sharing, printing, or archiving. The conversion maintains text formatting, paragraph styles, and basic document structure.</p>
-      <p>All conversion happens locally in your browser, ensuring your documents remain private and secure.</p>
+      <p>A Word document sent as a .docx is a document you have lost control of. It reflows when the recipient has different fonts, the page breaks land somewhere else, and anyone can edit it. PDF is what you send when the layout is part of the message.</p>
+      <p>The conversion here runs a real document engine compiled to WebAssembly, in your browser. Styles, headings, tables, images, headers and footers, footnotes and page breaks are laid out the way the document specifies, rather than approximated by a simplified parser.</p>
+      <p>Both DOCX and the older binary DOC format convert. Because it all runs locally, the contract or the salary letter you are converting never leaves your machine - which is not true of most online converters.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Word Document', description: 'Drag and drop your .docx file or click to select from your device.' },
-      { step: 2, title: 'Wait for Processing', description: 'The tool will load the document and prepare it for conversion.' },
-      { step: 3, title: 'Download PDF', description: 'Click Download to save your converted PDF document.' },
+      { step: 1, title: 'Add your Word file', description: 'Drop in a .docx or .doc. The conversion engine loads on first use, which takes a few seconds.' },
+      { step: 2, title: 'Wait for the layout pass', description: 'The document is laid out page by page. Longer files with many images take proportionally longer.' },
+      { step: 3, title: 'Download the PDF', description: 'Save the result and check the page breaks landed where you expected.' },
     ],
     useCases: [
-      { title: 'Document Sharing', description: 'Convert Word documents to PDF for universal sharing and viewing.', icon: 'share-2' },
-      { title: 'Print Preparation', description: 'Create print-ready PDFs from Word documents.', icon: 'printer' },
-      { title: 'Document Archive', description: 'Archive Word documents in stable PDF format for long-term storage.', icon: 'archive' },
+      { title: 'Sending a document that must not change', description: 'A quote or contract as a PDF, so it looks the same on the recipient screen as on yours.', icon: 'file-text' },
+      { title: 'Applying for something', description: 'Nearly every application portal asks for PDF and rejects DOCX.', icon: 'upload' },
+      { title: 'Converting on a machine without Office', description: 'No Word licence, no problem - the conversion runs in the browser.', icon: 'monitor' },
     ],
     faq: [
-      { question: 'Is .doc format supported?', answer: 'Currently only .docx format is supported. Please convert .doc files to .docx first using Microsoft Word or LibreOffice.' },
-      { question: 'Are images preserved?', answer: 'Text content and basic formatting are preserved. Complex layouts with many images may have simplified rendering.' },
-      { question: 'Is the conversion secure?', answer: 'Yes, all processing happens in your browser. Your documents never leave your device.' },
+      { question: 'Will the layout match Word exactly?', answer: 'Very closely. Differences show up mainly with unusual fonts that are not embedded, or very complex floating layouts, so a quick check of the page breaks is worth doing.' },
+      { question: 'Is my document uploaded?', answer: 'No. The conversion engine runs in your browser, so the file stays on your device.' },
+      { question: 'Are tracked changes and comments included?', answer: 'They convert as they would print - accepted text appears, and comments come through only if the document is set to print markup. Accept or reject changes first for a clean result.' },
+      { question: 'Does .doc work as well as .docx?', answer: 'Yes, both are supported. The older binary format is occasionally less predictable with very old files.' },
     ],
   },
 
   'excel-to-pdf': {
     title: 'Excel to PDF',
-    metaDescription: 'Convert Excel spreadsheets (XLSX) to PDF. Preserve tables and data in your converted documents.',
-    keywords: ['excel to pdf', 'xlsx to pdf', 'convert excel', 'spreadsheet to pdf', 'microsoft excel to pdf'],
+    metaTitle: 'Excel to PDF - Convert XLSX Spreadsheets',
+    metaDescription: 'Convert Excel XLSX and XLS files to PDF with tables, formatting and multiple sheets preserved. Choose portrait or landscape and fit to width.',
+    keywords: ['excel to pdf', 'xlsx to pdf', 'xls to pdf', 'spreadsheet to pdf', 'convert excel sheet'],
     description: `
-      <p>Excel to PDF converts Microsoft Excel spreadsheets into PDF format while preserving table structure and data organization.</p>
-      <p>Upload your XLSX files and get clean PDF output with properly formatted tables. Each sheet in your workbook becomes a separate section in the PDF.</p>
-      <p>All conversion happens locally in your browser, ensuring your data remains private and secure.</p>
+      <p>Spreadsheets print badly by default. A sheet 22 columns wide gets sliced into strips across six pages with no headers, in an order nobody can follow - which is why so many finance PDFs look like they were produced by accident.</p>
+      <p>The conversion respects the print setup stored in the workbook: print areas, page orientation, scaling and repeated header rows. Cell formatting, number formats, borders, merged cells and colours come through, and each worksheet starts on a new page.</p>
+      <p>Formulas are converted to their calculated values, which is normally what you want when sending figures out - the recipient sees the numbers without seeing how they were built.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Excel File', description: 'Drag and drop your .xlsx file or click to select from your device.' },
-      { step: 2, title: 'Wait for Processing', description: 'The tool will load the spreadsheet and convert all sheets.' },
-      { step: 3, title: 'Download PDF', description: 'Click Download to save your converted PDF document.' },
+      { step: 1, title: 'Add your spreadsheet', description: 'Drop in an .xlsx or .xls file. All worksheets are read.' },
+      { step: 2, title: 'Set the page layout', description: 'Choose orientation and whether to fit columns to the page width - landscape plus fit-to-width solves most wide-sheet problems.' },
+      { step: 3, title: 'Choose which sheets', description: 'Convert the whole workbook or only the sheets you need.' },
+      { step: 4, title: 'Convert and download', description: 'Save the PDF and check no columns were cut off.' },
     ],
     useCases: [
-      { title: 'Report Sharing', description: 'Convert Excel reports to PDF for distribution to stakeholders.', icon: 'file-text' },
-      { title: 'Data Archiving', description: 'Archive spreadsheet data in stable PDF format.', icon: 'archive' },
-      { title: 'Print Preparation', description: 'Create print-ready PDFs from Excel worksheets.', icon: 'printer' },
+      { title: 'Circulating financial reports', description: 'A monthly pack as PDF, so nobody can accidentally overwrite a formula.', icon: 'table' },
+      { title: 'Invoices from a template', description: 'A spreadsheet invoice converted to a PDF you can send and archive.', icon: 'receipt' },
+      { title: 'Data appendices', description: 'A results table attached to a report as pages rather than a separate spreadsheet file.', icon: 'file-spreadsheet' },
     ],
     faq: [
-      { question: 'Are multiple sheets supported?', answer: 'Yes, all sheets in the workbook are converted and included in the PDF.' },
-      { question: 'Is .xls format supported?', answer: 'Currently only .xlsx format is supported. Please save .xls files as .xlsx first.' },
-      { question: 'Are formulas preserved?', answer: 'The PDF shows calculated values. Formulas are not executable in PDF format.' },
+      { question: 'How do I stop columns being cut off?', answer: 'Use landscape orientation and enable fit to width. If the sheet is very wide, set a print area in Excel first.' },
+      { question: 'Are formulas included?', answer: 'Their results are. Formulas are evaluated to values, which is generally what you want in a distributed document.' },
+      { question: 'Do charts convert?', answer: 'Embedded charts are rendered as images in place, though very complex chart types may differ slightly from the Excel rendering.' },
+      { question: 'Does each sheet start on a new page?', answer: 'Yes, following the workbook print setup, including repeated header rows where they are configured.' },
     ],
   },
 
   'pptx-to-pdf': {
     title: 'PowerPoint to PDF',
-    metaDescription: 'Convert PowerPoint presentations (PPTX) to PDF. Preserve slides and content for easy sharing.',
-    keywords: ['powerpoint to pdf', 'pptx to pdf', 'convert pptx', 'presentation to pdf', 'slides to pdf'],
+    metaTitle: 'PowerPoint to PDF - Convert PPTX Slides',
+    metaDescription: 'Convert PowerPoint PPTX and PPT files to PDF with one slide per page. Layouts, fonts and images are preserved for handouts and sharing.',
+    keywords: ['powerpoint to pdf', 'pptx to pdf', 'ppt to pdf', 'slides to pdf', 'presentation to pdf'],
     description: `
-      <p>PowerPoint to PDF converts Microsoft PowerPoint presentations into PDF format, preserving slide content and text for easy sharing and viewing.</p>
-      <p>Each slide becomes a page in the PDF, maintaining the presentation flow. Perfect for sharing presentations with people who don't have PowerPoint installed.</p>
-      <p>All conversion happens locally in your browser, ensuring your presentations remain private and secure.</p>
+      <p>A PPTX file only looks right on a machine with the same fonts, the same PowerPoint version and enough patience to wait for it to open. As a PDF it looks identical everywhere, opens instantly, and cannot be edited by the audience.</p>
+      <p>Each slide becomes one page at the presentation aspect ratio, whether that is 16:9 or 4:3. Layouts, theme fonts, images, charts and tables are preserved, and slide order is kept.</p>
+      <p>Animations and transitions do not survive, because a page cannot animate. Slides built around a build sequence will show their final state, so if the reveal matters, split the build across several slides before converting.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload PowerPoint File', description: 'Drag and drop your .pptx file or click to select from your device.' },
-      { step: 2, title: 'Wait for Processing', description: 'The tool will extract slide content and create the PDF.' },
-      { step: 3, title: 'Download PDF', description: 'Click Download to save your converted PDF document.' },
+      { step: 1, title: 'Add your presentation', description: 'Drop in a .pptx or .ppt file.' },
+      { step: 2, title: 'Wait for the slides to render', description: 'Each slide is laid out in turn. Decks with many images take longer.' },
+      { step: 3, title: 'Download the PDF', description: 'Save the result - one page per slide, in order.' },
     ],
     useCases: [
-      { title: 'Presentation Sharing', description: 'Share presentations with anyone without requiring PowerPoint.', icon: 'share-2' },
-      { title: 'Handout Creation', description: 'Create PDF handouts from your presentation slides.', icon: 'file-text' },
-      { title: 'Archive Presentations', description: 'Archive presentations in stable PDF format.', icon: 'archive' },
+      { title: 'Sending a deck after the meeting', description: 'A PDF opens on any device and cannot be edited before it is forwarded on.', icon: 'presentation' },
+      { title: 'Printed handouts', description: 'One slide per page, ready to print, without PowerPoint reflowing anything.', icon: 'printer' },
+      { title: 'Conference submissions', description: 'Most organisers require PDF so the slides display identically on their machine.', icon: 'upload' },
     ],
     faq: [
-      { question: 'Are animations preserved?', answer: 'PDF is a static format, so animations and transitions are not preserved. Each slide becomes a static page.' },
-      { question: 'Is .ppt format supported?', answer: 'Currently only .pptx format is supported. Please convert .ppt files to .pptx first.' },
-      { question: 'Are speaker notes included?', answer: 'Currently, speaker notes are not included in the PDF output.' },
+      { question: 'What happens to animations?', answer: 'They are dropped and each slide shows its final state. Split build sequences across multiple slides first if the progression matters.' },
+      { question: 'Are speaker notes included?', answer: 'No, only the slides. Notes are not part of the slide surface being rendered.' },
+      { question: 'Is the aspect ratio preserved?', answer: 'Yes. 16:9 decks produce widescreen pages and 4:3 decks produce squarer ones, matching the presentation setup.' },
+      { question: 'Do embedded videos convert?', answer: 'The poster frame appears. PDF cannot play embedded video, so the media itself does not carry over.' },
     ],
   },
 
   'xps-to-pdf': {
     title: 'XPS to PDF',
-    metaDescription: 'Convert XPS documents to PDF format. High-fidelity conversion preserving layout and graphics.',
-    keywords: ['xps to pdf', 'convert xps', 'xps converter', 'microsoft xps to pdf', 'oxps to pdf'],
+    metaTitle: 'XPS to PDF - Convert XPS and OXPS Files',
+    metaDescription: 'Convert Microsoft XPS and OXPS documents to PDF with layout and vector graphics intact, so files from Windows print-to-file open anywhere.',
+    keywords: ['xps to pdf', 'oxps to pdf', 'convert xps', 'xps viewer alternative', 'microsoft xps to pdf'],
     description: `
-      <p>XPS to PDF converts Microsoft XPS (XML Paper Specification) documents into PDF format while preserving the original layout, text, and vector graphics.</p>
-      <p>XPS is a fixed-document format similar to PDF. This tool provides high-fidelity conversion using native XPS parsing, ensuring accurate reproduction of your documents.</p>
-      <p>All conversion happens locally in your browser, ensuring your documents remain private and secure.</p>
+      <p>XPS was Microsoft answer to PDF. It never caught on, and the XPS Viewer stopped shipping with Windows by default - so people are left with files they cannot open, usually created years ago by someone choosing Microsoft XPS Document Writer instead of a printer.</p>
+      <p>Converting to PDF makes them readable again on any device. Both formats are handled: the original XPS and the later OXPS variant that newer Windows versions produce.</p>
+      <p>XPS is a vector format, like PDF, so the conversion is a genuine translation rather than a screenshot. Text stays text, vector graphics stay vectors, and the output remains searchable and sharp at any zoom.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload XPS File', description: 'Drag and drop your .xps file or click to select from your device.' },
-      { step: 2, title: 'Wait for Processing', description: 'The tool will parse and convert the XPS document.' },
-      { step: 3, title: 'Download PDF', description: 'Click Download to save your converted PDF document.' },
+      { step: 1, title: 'Add your XPS file', description: 'Drop in an .xps or .oxps document.' },
+      { step: 2, title: 'Let it convert', description: 'Pages are translated in order, keeping their original dimensions.' },
+      { step: 3, title: 'Download the PDF', description: 'Save the result and open it in any reader.' },
     ],
     useCases: [
-      { title: 'Format Conversion', description: 'Convert XPS documents to more widely supported PDF format.', icon: 'file' },
-      { title: 'Document Sharing', description: 'Share XPS documents with users who don\'t have XPS viewers.', icon: 'share-2' },
-      { title: 'Archive Migration', description: 'Migrate XPS archives to PDF format for better compatibility.', icon: 'archive' },
+      { title: 'Opening old archives', description: 'Documents printed to XPS years ago, readable again without hunting for a viewer.', icon: 'file-box' },
+      { title: 'Sharing with non-Windows users', description: 'Nothing outside the Windows ecosystem opens XPS. PDF opens everywhere.', icon: 'share-2' },
+      { title: 'Records migration', description: 'Converting an XPS archive into a format a document system can actually index.', icon: 'archive' },
     ],
     faq: [
-      { question: 'What is XPS format?', answer: 'XPS (XML Paper Specification) is Microsoft\'s fixed-document format, similar to PDF. It\'s commonly used for Windows printing.' },
-      { question: 'Is the conversion lossless?', answer: 'Yes, the conversion preserves text, graphics, and layout with high fidelity.' },
-      { question: 'Are multi-page XPS files supported?', answer: 'Yes, all pages in the XPS document are converted to the PDF.' },
+      { question: 'What is the difference between XPS and OXPS?', answer: 'OXPS is the later, standardised version produced by Windows 8 and newer. Both convert here.' },
+      { question: 'Is the text still searchable?', answer: 'Yes. XPS stores real text, and it is carried across as text rather than rasterised.' },
+      { question: 'Why can I not open XPS files on Windows any more?', answer: 'The XPS Viewer became an optional feature and is not installed by default on recent builds.' },
+      { question: 'Does the layout stay identical?', answer: 'Very closely - both formats describe pages in similar vector terms, so translation is faithful.' },
     ],
   },
 
   'rtf-to-pdf': {
     title: 'RTF to PDF',
-    metaDescription: 'Convert RTF (Rich Text Format) files to PDF. Preserve text formatting in your documents.',
-    keywords: ['rtf to pdf', 'convert rtf', 'rich text to pdf', 'rtf converter'],
+    metaTitle: 'RTF to PDF - Rich Text Format Converter',
+    metaDescription: 'Convert RTF documents to PDF with fonts, bold, italics, tables and lists preserved. Useful for legacy and cross-platform text files.',
+    keywords: ['rtf to pdf', 'rich text to pdf', 'convert rtf', 'rtf converter', 'rtf document to pdf'],
     description: `
-      <p>RTF to PDF converts Rich Text Format files into PDF documents. RTF is a widely supported text format that includes basic formatting like fonts, colors, and styles.</p>
-      <p>Upload your RTF files and get clean PDF output while preserving text content and basic formatting. Perfect for converting legacy documents to modern PDF format.</p>
-      <p>All conversion happens locally in your browser, ensuring your documents remain private and secure.</p>
+      <p>RTF is the format that was meant to move formatted text between incompatible word processors, so it turns up in legal templates, older case management systems and anything exported by software from the 1990s that is still in production.</p>
+      <p>It opens in most editors, but rendering varies and it is still an editable format. Converting to PDF fixes the appearance and makes the document safe to distribute.</p>
+      <p>Character and paragraph formatting, fonts, bold and italics, tables, lists, indentation and embedded images are all carried through and laid out onto real pages.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload RTF File', description: 'Drag and drop your .rtf file or click to select from your device.' },
-      { step: 2, title: 'Wait for Processing', description: 'The tool will parse and convert the RTF content.' },
-      { step: 3, title: 'Download PDF', description: 'Click Download to save your converted PDF document.' },
+      { step: 1, title: 'Add your RTF file', description: 'Drop in the document.' },
+      { step: 2, title: 'Set the page size', description: 'Choose A4 or Letter with your preferred margins.' },
+      { step: 3, title: 'Convert and download', description: 'Save the PDF.' },
     ],
     useCases: [
-      { title: 'Legacy Conversion', description: 'Convert old RTF documents to modern PDF format.', icon: 'history' },
-      { title: 'Document Sharing', description: 'Share RTF documents in universally viewable PDF format.', icon: 'share-2' },
-      { title: 'Archive Documents', description: 'Archive RTF files in stable PDF format for long-term storage.', icon: 'archive' },
+      { title: 'Legacy system exports', description: 'Case management and practice software that only exports RTF, converted into something filable.', icon: 'file-type' },
+      { title: 'Legal templates', description: 'RTF precedent documents fixed as PDF once they have been completed.', icon: 'scale' },
+      { title: 'Cross-platform text', description: 'A formatted document that renders identically regardless of which word processor the recipient uses.', icon: 'share-2' },
     ],
     faq: [
-      { question: 'What formatting is preserved?', answer: 'Basic text formatting including fonts, paragraphs, and styles are converted. Complex RTF features may be simplified.' },
-      { question: 'Can I convert multiple RTF files?', answer: 'Currently, one file is converted at a time. Use Merge PDF to combine multiple converted files.' },
-      { question: 'Are embedded images supported?', answer: 'Text content is the primary focus. Embedded objects may not be rendered.' },
+      { question: 'Are tables and lists preserved?', answer: 'Yes. Table structure, borders, bullet and numbered lists and indentation all convert.' },
+      { question: 'What about embedded images?', answer: 'Images stored in the RTF are extracted and placed in position.' },
+      { question: 'Why convert RTF at all if it opens in Word?', answer: 'Because it renders slightly differently in every editor and stays editable. PDF fixes both.' },
+      { question: 'Are fonts embedded in the output?', answer: 'Fonts available to the converter are embedded so the PDF renders consistently. Exotic fonts fall back to a close substitute.' },
     ],
   },
 
   'epub-to-pdf': {
     title: 'EPUB to PDF',
-    metaDescription: 'Convert EPUB e-books to PDF. Preserve formatting, images, and chapter structure.',
-    keywords: ['epub to pdf', 'convert epub', 'ebook to pdf', 'epub converter'],
+    metaTitle: 'EPUB to PDF - Convert Ebooks for Printing',
+    metaDescription: 'Convert EPUB ebooks to PDF with chapters, images and structure preserved. Choose the page size so reflowable text paginates sensibly.',
+    keywords: ['epub to pdf', 'ebook to pdf', 'convert epub', 'epub converter', 'epub to printable pdf'],
     description: `
-      <p>EPUB to PDF converts electronic book files into high-quality PDF documents. EPUB is the most popular e-book format, used by most e-readers and digital libraries.</p>
-      <p>This tool preserves text formatting, images, and the chapter structure of your e-books. Perfect for printing, archiving, or sharing e-books in a universally viewable format.</p>
-      <p>All conversion happens locally in your browser using advanced rendering technology, ensuring your books remain private and the conversion is fast.</p>
+      <p>EPUB is reflowable by design: text adapts to the screen it is being read on, which is ideal on a phone and impossible to print predictably. PDF is the opposite - fixed pages, identical everywhere.</p>
+      <p>Converting means committing to a page size, and that choice is the one that matters. A6 gives you paperback-like pages with comfortable line lengths; A4 fits far more text per page but produces long lines that are harder to read. Pick based on whether the result is for printing or for reading on a tablet.</p>
+      <p>Chapter structure becomes PDF bookmarks, so the navigation survives the conversion. Embedded images, tables and inline formatting are carried across.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload EPUB File', description: 'Drag and drop your .epub file or click to select from your device.' },
-      { step: 2, title: 'Wait for Conversion', description: 'The tool will render and convert all pages of your e-book.' },
-      { step: 3, title: 'Download PDF', description: 'Click Download to save your converted PDF document.' },
+      { step: 1, title: 'Add your EPUB', description: 'Drop in the .epub file. Its chapter structure is read first.' },
+      { step: 2, title: 'Choose a page size', description: 'A6 or A5 for print-like pages, A4 or Letter for more text per page.' },
+      { step: 3, title: 'Set the type', description: 'Font size and margins, which together determine how many pages you end up with.' },
+      { step: 4, title: 'Convert and download', description: 'Save the PDF with chapter bookmarks intact.' },
     ],
     useCases: [
-      { title: 'Print E-books', description: 'Convert e-books to PDF for physical printing.', icon: 'printer' },
-      { title: 'Archive Books', description: 'Store e-books in long-term stable PDF format.', icon: 'archive' },
-      { title: 'Share Documents', description: 'Share e-books with anyone, even without an e-reader.', icon: 'share-2' },
+      { title: 'Printing an ebook', description: 'A technical manual bought as EPUB, converted to A5 and printed for annotating.', icon: 'book' },
+      { title: 'Reading on a device with no EPUB support', description: 'Some tablets and e-readers handle PDF far better than EPUB.', icon: 'tablet' },
+      { title: 'Archiving with fixed pagination', description: 'A citable copy where page 47 is always page 47, unlike a reflowable file.', icon: 'archive' },
     ],
     faq: [
-      { question: 'Is the formatting preserved?', answer: 'Yes! This tool uses native EPUB rendering, preserving text formatting, images, and layout with high fidelity.' },
-      { question: 'Are DRM-protected EPUBs supported?', answer: 'No, DRM-protected e-books cannot be converted. Only DRM-free EPUB files are supported.' },
-      { question: 'How is page size determined?', answer: 'EPUB content is rendered to standard A4 page size for optimal readability.' },
+      { question: 'Which page size should I choose?', answer: 'A5 or A6 for reading and printing - line lengths stay comfortable. A4 if you want fewer pages and do not mind long lines.' },
+      { question: 'Are chapters navigable in the PDF?', answer: 'Yes. The EPUB table of contents becomes a PDF bookmark tree.' },
+      { question: 'Will DRM-protected ebooks convert?', answer: 'No. Files with DRM cannot be read by the converter, and removing DRM may breach your licence terms.' },
+      { question: 'Why does my page count look wrong?', answer: 'EPUB has no inherent pages, so the count depends entirely on the page size, font size and margins you chose.' },
     ],
   },
 
   'mobi-to-pdf': {
     title: 'MOBI to PDF',
-    metaDescription: 'Convert MOBI e-books to PDF. Support for Kindle format with high-quality rendering.',
-    keywords: ['mobi to pdf', 'convert mobi', 'kindle to pdf', 'azw to pdf', 'mobi converter'],
+    metaTitle: 'MOBI to PDF - Kindle Ebook Converter',
+    metaDescription: 'Convert MOBI, AZW and AZW3 Kindle ebooks to PDF. Chapters and images are preserved, with the page size under your control.',
+    keywords: ['mobi to pdf', 'azw to pdf', 'kindle to pdf', 'convert mobi', 'azw3 to pdf'],
     description: `
-      <p>MOBI to PDF converts Amazon Kindle e-book files into high-quality PDF documents. MOBI format (including AZW and AZW3) is Amazon's proprietary e-book format used on Kindle devices.</p>
-      <p>This tool preserves text formatting, images, and the structure of your Kindle books. Perfect for printing, archiving, or reading on devices that don't support MOBI format.</p>
-      <p>All conversion happens locally in your browser using advanced rendering technology, ensuring your books remain private.</p>
+      <p>MOBI and its Kindle successors AZW and AZW3 are Amazon formats, which means they open on Kindle devices and Kindle apps and essentially nowhere else. If you want to read a MOBI file on a work laptop or print a few pages of it, you need a different format.</p>
+      <p>This converts all three variants to PDF. Chapter structure becomes bookmarks, embedded images are placed in position, and the text is paginated at the page size you pick.</p>
+      <p>Only files without DRM can be converted. Books purchased from the Kindle store are usually protected, and the conversion will report that rather than producing a broken document.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload MOBI File', description: 'Drag and drop your .mobi, .azw, or .azw3 file or click to select from your device.' },
-      { step: 2, title: 'Wait for Conversion', description: 'The tool will render and convert all pages of your e-book.' },
-      { step: 3, title: 'Download PDF', description: 'Click Download to save your converted PDF document.' },
+      { step: 1, title: 'Add your ebook', description: 'Drop in a .mobi, .azw or .azw3 file.' },
+      { step: 2, title: 'Choose the page size', description: 'A5 for print-like pages, A4 for more text per page.' },
+      { step: 3, title: 'Set font size and margins', description: 'These determine both readability and the final page count.' },
+      { step: 4, title: 'Convert and download', description: 'Save the PDF with chapter bookmarks.' },
     ],
     useCases: [
-      { title: 'Print Kindle Books', description: 'Convert Kindle e-books to PDF for physical printing.', icon: 'printer' },
-      { title: 'Archive Books', description: 'Store Kindle books in universal PDF format.', icon: 'archive' },
-      { title: 'Cross-Device Reading', description: 'Read Kindle books on devices that only support PDF.', icon: 'tablet-smartphone' },
+      { title: 'Reading outside the Kindle app', description: 'A MOBI file readable in any PDF viewer on any device.', icon: 'book-open' },
+      { title: 'Printing a section', description: 'Convert, then extract the chapter you actually want on paper.', icon: 'printer' },
+      { title: 'Long-term archiving', description: 'A format that will still open in twenty years without a proprietary reader.', icon: 'archive' },
     ],
     faq: [
-      { question: 'What MOBI formats are supported?', answer: 'This tool supports .mobi, .azw, and .azw3 files (non-DRM versions).' },
-      { question: 'Are DRM-protected Kindle books supported?', answer: 'No, DRM-protected e-books cannot be converted. Only DRM-free files are supported.' },
-      { question: 'Will my formatting be preserved?', answer: 'Yes! The tool uses native MOBI rendering to preserve text, images, and layout.' },
+      { question: 'Can I convert books bought from Amazon?', answer: 'Only if they carry no DRM. Most store purchases are protected, and stripping that protection may breach your licence.' },
+      { question: 'What is the difference between MOBI, AZW and AZW3?', answer: 'They are successive generations of the same lineage. AZW3 supports richer formatting. All three convert here.' },
+      { question: 'Are chapters preserved?', answer: 'Yes, as a PDF bookmark tree built from the ebook table of contents.' },
+      { question: 'Why is the layout different from my Kindle?', answer: 'Kindle reflows text to your device and font settings. A PDF has fixed pages, so the layout reflects the page size you chose here.' },
     ],
   },
 
   'djvu-to-pdf': {
-    title: 'DJVU to PDF',
-    metaDescription: 'Convert DJVU document files to PDF. High-quality rendering for scanned documents and books.',
-    keywords: ['djvu to pdf', 'convert djvu', 'djvu converter', 'djvu pdf', 'djv to pdf'],
+    title: 'DjVu to PDF',
+    metaTitle: 'DjVu to PDF - Convert Scanned DjVu Documents',
+    metaDescription: 'Convert DjVu and DJV files to PDF with DPI and quality control. Common for scanned books, academic archives and historical documents.',
+    keywords: ['djvu to pdf', 'djv to pdf', 'convert djvu', 'djvu converter', 'scanned book to pdf'],
     description: `
-      <p>DJVU to PDF converts DjVu document files into high-quality PDF documents. DjVu is a computer file format designed primarily to store scanned documents, especially those containing a combination of text, line drawings, and photographs.</p>
-      <p>This tool renders each page of your DJVU file at your chosen DPI (dots per inch) and combines them into a searchable PDF document. Perfect for converting scanned books, technical manuals, and archival documents.</p>
-      <p>All conversion happens locally in your browser, ensuring your documents remain private and secure.</p>
+      <p>DjVu was built for one job and does it well: compressing scanned pages far smaller than PDF could at the time. That is why digital libraries, university archives and Russian-language book collections are full of DjVu files - and why anyone who finds one needs a converter, since almost no mainstream software opens it.</p>
+      <p>Converting to PDF trades some file size for universal access. You control that trade-off through the DPI and quality settings: 300 DPI is right for printing, 150 for screen reading at a much smaller size.</p>
+      <p>Multi-page DjVu files convert to multi-page PDFs with page order preserved, which matters because most DjVu files in the wild are entire scanned books.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload DJVU File', description: 'Drag and drop your .djvu or .djv file, or click to select from your device.' },
-      { step: 2, title: 'Configure Options', description: 'Choose output DPI (72, 150, or 300) and image quality for the PDF.' },
-      { step: 3, title: 'Convert & Download', description: 'Click Convert to PDF and download your converted document.' },
+      { step: 1, title: 'Add your DjVu file', description: 'Drop in a .djvu or .djv document.' },
+      { step: 2, title: 'Set DPI and quality', description: '300 DPI for print, 150 for screen. Higher settings mean larger files.' },
+      { step: 3, title: 'Convert', description: 'Every page is rendered in order. Long scanned books take a while.' },
+      { step: 4, title: 'Download the PDF', description: 'Save the result.' },
     ],
     useCases: [
-      { title: 'Archive Documents', description: 'Convert DJVU archives to universal PDF format.', icon: 'archive' },
-      { title: 'Share Scanned Books', description: 'Share scanned books in PDF format for wider compatibility.', icon: 'share-2' },
-      { title: 'Print Documents', description: 'Convert DJVU to high-quality PDF for printing.', icon: 'printer' },
+      { title: 'Academic archives', description: 'Digitised journals and monographs distributed as DjVu, converted for reading and citing.', icon: 'graduation-cap' },
+      { title: 'Scanned book collections', description: 'A DjVu book turned into a PDF that opens on a phone or a tablet.', icon: 'book' },
+      { title: 'Historical documents', description: 'Library scans made accessible to readers with no specialist viewer.', icon: 'landmark' },
     ],
     faq: [
-      { question: 'What is DJVU format?', answer: 'DjVu is a file format designed for storing scanned documents, especially those with text, drawings, and images. It offers better compression than PDF for scanned content.' },
-      { question: 'What DPI should I choose?', answer: '72 DPI is suitable for web viewing, 150 DPI for standard documents, and 300 DPI for high-quality printing.' },
-      { question: 'Will the text be searchable?', answer: 'The text will be rendered as images. If you need searchable text, consider using our OCR PDF tool after conversion.' },
+      { question: 'Why is the PDF bigger than the DjVu?', answer: 'DjVu compression is unusually efficient for scanned text. PDF cannot always match it, so expect growth - lower the DPI if size matters more than detail.' },
+      { question: 'Which DPI should I choose?', answer: '300 for printing or OCR. 150 for on-screen reading, which typically halves the file size.' },
+      { question: 'Is the converted PDF searchable?', answer: 'Not unless the DjVu carried a text layer. Run OCR PDF on the output to add one.' },
+      { question: 'Are all pages converted?', answer: 'Yes. Multi-page DjVu files convert page for page, in order.' },
     ],
   },
 
   'fb2-to-pdf': {
     title: 'FB2 to PDF',
-    metaDescription: 'Convert FictionBook (FB2) e-books to PDF. Supports multiple files with high-quality rendering.',
-    keywords: ['fb2 to pdf', 'convert fb2', 'fictionbook to pdf', 'fb2 converter', 'fb2.zip to pdf'],
+    metaTitle: 'FB2 to PDF - FictionBook Ebook Converter',
+    metaDescription: 'Convert FB2 and FB2.ZIP FictionBook ebooks to PDF with chapters, cover images and formatting preserved. Batch up to 20 files.',
+    keywords: ['fb2 to pdf', 'fictionbook to pdf', 'convert fb2', 'fb2 zip to pdf', 'russian ebook to pdf'],
     description: `
-      <p>FB2 to PDF converts FictionBook (FB2) e-book files into high-quality PDF documents. FB2 is a popular XML-based e-book format widely used in Russia and Eastern Europe.</p>
-      <p>This tool supports both .fb2 and .fb2.zip files, and can process multiple files at once. It preserves text formatting, images, and the chapter structure of your e-books.</p>
-      <p>All conversion happens locally in your browser using advanced rendering technology, ensuring your books remain private and the conversion is fast.</p>
+      <p>FB2, or FictionBook, is an XML-based ebook format widely used in Russian-language digital libraries and among fiction collectors. It stores structure cleanly, which makes it a good conversion source - and it is supported by very little mainstream software, which makes conversion necessary.</p>
+      <p>Chapters, sections, epigraphs, poem formatting and embedded images all convert, along with the cover. Chapter structure becomes a PDF bookmark tree so navigation survives.</p>
+      <p>Compressed .fb2.zip archives are read directly, and up to 20 files can be converted in one batch - useful when a whole series arrives as separate files.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload FB2 Files', description: 'Drag and drop one or more .fb2 or .fb2.zip files, or click to select from your device.' },
-      { step: 2, title: 'Select Quality', description: 'Choose output quality: Low (72 DPI), Medium (150 DPI), or High (300 DPI).' },
-      { step: 3, title: 'Convert & Download', description: 'Click Convert to PDF and download your converted document(s).' },
+      { step: 1, title: 'Add your FB2 files', description: 'Drop in up to 20 .fb2 or .fb2.zip files. Archives are unpacked automatically.' },
+      { step: 2, title: 'Choose the page size', description: 'A5 for print-like pages, A4 for more text per page.' },
+      { step: 3, title: 'Set the type', description: 'Font size and margins, which set the final page count.' },
+      { step: 4, title: 'Convert and download', description: 'Each book becomes its own PDF with chapter bookmarks.' },
     ],
     useCases: [
-      { title: 'Print E-books', description: 'Convert FB2 e-books to PDF for physical printing.', icon: 'printer' },
-      { title: 'Batch Conversion', description: 'Convert multiple FB2 files to PDF at once.', icon: 'layers' },
-      { title: 'Universal Format', description: 'Share e-books in PDF format that works on any device.', icon: 'share-2' },
+      { title: 'Reading FB2 on any device', description: 'A format almost nothing supports becomes one that everything supports.', icon: 'book-text' },
+      { title: 'Converting a whole series', description: 'Twenty volumes converted in one batch rather than one at a time.', icon: 'library' },
+      { title: 'Printing fiction', description: 'A5 pages that read like a paperback when printed and bound.', icon: 'printer' },
     ],
     faq: [
-      { question: 'Can I convert multiple FB2 files at once?', answer: 'Yes! This tool supports batch conversion of up to 20 FB2 files simultaneously.' },
-      { question: 'Are .fb2.zip files supported?', answer: 'Yes, the tool automatically extracts and converts FB2 files from .fb2.zip archives.' },
-      { question: 'Is the formatting preserved?', answer: 'Yes! The tool uses native FB2 rendering, preserving text formatting, images, and chapter structure with high fidelity.' },
+      { question: 'Can I convert .fb2.zip directly?', answer: 'Yes. The archive is unpacked and the FB2 inside is converted - no need to extract it first.' },
+      { question: 'Is the cover image included?', answer: 'Yes. The embedded cover becomes the first page.' },
+      { question: 'Does poetry formatting survive?', answer: 'Yes. FB2 marks verse and epigraphs explicitly, and that structure is respected in the layout.' },
+      { question: 'How many files at once?', answer: 'Up to 20 per batch, each producing its own PDF.' },
+    ],
+  },
+
+  'markdown-to-pdf': {
+    title: 'Markdown to PDF',
+    metaTitle: 'Markdown to PDF - GFM, Code Highlighting & Themes',
+    metaDescription: 'Convert Markdown to PDF with CommonMark and GitHub Flavoured Markdown support, syntax-highlighted code blocks, tables and selectable themes.',
+    keywords: ['markdown to pdf', 'md to pdf', 'convert markdown', 'readme to pdf', 'gfm to pdf'],
+    description: `
+      <p>Markdown is where technical writing actually happens - READMEs, runbooks, design docs, meeting notes. It is also plain text, so sending it to someone who does not read Markdown means sending them a file full of hash symbols and backticks.</p>
+      <p>This renders it properly. CommonMark and GitHub Flavoured Markdown are both supported, which means tables, task lists, strikethrough and fenced code blocks all work rather than appearing as literal punctuation. Code blocks get syntax highlighting by language.</p>
+      <p>Themes control the finished look - a clean document style for reports, a GitHub-like style for technical docs, or a compact style when you want it to fit on fewer pages. Headings become PDF bookmarks so long documents stay navigable.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Add your Markdown', description: 'Drop in up to 10 .md, .markdown or .txt files.' },
+      { step: 2, title: 'Pick a theme', description: 'Document, GitHub-style or compact, depending on where the PDF is going.' },
+      { step: 3, title: 'Set page options', description: 'Page size, margins and whether code blocks are highlighted.' },
+      { step: 4, title: 'Convert and download', description: 'Save the PDF with headings as bookmarks.' },
+    ],
+    useCases: [
+      { title: 'Documentation hand-off', description: 'A README delivered as a formatted PDF to someone who will not open a repository.', icon: 'file-code' },
+      { title: 'Technical reports', description: 'Notes written in Markdown converted into a document with syntax-highlighted examples.', icon: 'file-text' },
+      { title: 'Runbooks for print', description: 'An operational procedure printed and pinned up next to the machine it applies to.', icon: 'printer' },
+    ],
+    faq: [
+      { question: 'Which Markdown flavour is supported?', answer: 'CommonMark plus GitHub Flavoured Markdown extensions - tables, task lists, strikethrough and fenced code blocks.' },
+      { question: 'Do code blocks get highlighted?', answer: 'Yes, by the language tag on the fence. Untagged blocks render as plain monospace.' },
+      { question: 'What happens to embedded images?', answer: 'Images referenced by a URL are fetched where accessible. Local relative paths cannot be resolved, since the converter only receives the text file.' },
+      { question: 'Are headings turned into bookmarks?', answer: 'Yes. The heading hierarchy becomes a PDF bookmark tree.' },
+    ],
+  },
+
+  'email-to-pdf': {
+    title: 'Email to PDF',
+    metaTitle: 'Email to PDF - Convert EML and MSG Files',
+    metaDescription: 'Convert .eml and .msg email files to PDF with headers, inline images, clickable links and attachments embedded in the output.',
+    keywords: ['email to pdf', 'eml to pdf', 'msg to pdf', 'outlook email to pdf', 'save email as pdf'],
+    description: `
+      <p>Emails need to be archived as evidence more often than anyone expects - a disputed instruction, a complaint trail, a record for an audit. Forwarding them is not archiving, and a screenshot loses the headers that establish who sent what and when.</p>
+      <p>This converts .eml and .msg files into a PDF that keeps the full header block: from, to, cc, bcc, subject and timestamp. Inline images referenced by CID are resolved and placed correctly instead of appearing as broken references, and links stay clickable.</p>
+      <p>Attachments are embedded into the PDF, so the record is self-contained: one file holding the message, its formatting and everything that came with it. Date formatting and time zone handling are configurable, which matters when the timestamp is the point of the exercise.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Add your email files', description: 'Drop in up to 10 .eml or .msg files. Each becomes its own PDF.' },
+      { step: 2, title: 'Choose which headers to show', description: 'Include or omit CC and BCC, and set the date format and time zone.' },
+      { step: 3, title: 'Decide about attachments', description: 'Embed them into the PDF as file attachments, or list them by name only.' },
+      { step: 4, title: 'Convert and download', description: 'Save the PDF record.' },
+    ],
+    useCases: [
+      { title: 'Evidence for a dispute', description: 'The email chain preserved with headers and timestamps intact, in a format a tribunal accepts.', icon: 'scale' },
+      { title: 'Compliance archiving', description: 'Correspondence stored in a durable format independent of the mail client.', icon: 'archive' },
+      { title: 'Case files', description: 'Client correspondence attached to a matter file as PDF rather than loose message files.', icon: 'folder' },
+    ],
+    faq: [
+      { question: 'What is the difference between EML and MSG?', answer: 'EML is the standard format most clients export. MSG is Outlook proprietary format. Both convert here.' },
+      { question: 'Are attachments really inside the PDF?', answer: 'Yes, embedded as PDF file attachments, so the record travels as a single file. You can also choose to list them by name instead.' },
+      { question: 'Do inline images work?', answer: 'Yes. Images referenced by CID are resolved and placed where they belong rather than left as broken links.' },
+      { question: 'Which headers appear?', answer: 'From, to, subject and date always. CC and BCC are optional, since BCC is sometimes not something you want in a distributed record.' },
+    ],
+  },
+
+  'cbz-to-pdf': {
+    title: 'CBZ to PDF',
+    metaTitle: 'CBZ to PDF - Comic Book Archive Converter',
+    metaDescription: 'Convert CBZ and ZIP comic book archives to PDF. Pages stay in order and you control the page size for tablets or printing.',
+    keywords: ['cbz to pdf', 'comic to pdf', 'convert cbz', 'comic book archive to pdf', 'cbz converter'],
+    description: `
+      <p>A CBZ file is a ZIP archive full of images named in page order, plus a convention that comic readers understand. Outside those readers it is just a ZIP - which is why sharing a CBZ with someone usually ends in confusion.</p>
+      <p>This unpacks the archive and assembles the images into a PDF, keeping the page order the filenames imply. Mixed image formats inside the archive are handled, and cover images are placed first.</p>
+      <p>Page size is worth thinking about. Fitting each page to its image preserves the original aspect ratio, which is what you want on a tablet. A fixed size like A4 makes the result printable and consistent.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Add your CBZ files', description: 'Drop in up to 10 .cbz or .zip archives.' },
+      { step: 2, title: 'Check the page order', description: 'Pages are ordered by filename. The preview shows the sequence so you can confirm it.' },
+      { step: 3, title: 'Choose the page size', description: 'Fit to image for tablets, or a fixed size for printing.' },
+      { step: 4, title: 'Convert and download', description: 'Save the PDF.' },
+    ],
+    useCases: [
+      { title: 'Reading comics on any device', description: 'A CBZ becomes a PDF that opens without a specialist reader.', icon: 'book-open' },
+      { title: 'Sharing scanned artwork', description: 'An image archive delivered as one document rather than a ZIP the recipient has to unpack.', icon: 'share-2' },
+      { title: 'Printing a page set', description: 'Fixed page sizes so the printed output is consistent.', icon: 'printer' },
+    ],
+    faq: [
+      { question: 'How is page order determined?', answer: 'By filename, which is the CBZ convention. The preview lets you confirm before converting.' },
+      { question: 'Are CBR files supported?', answer: 'No. CBR uses RAR compression. Repack it as a ZIP or CBZ first.' },
+      { question: 'Which image formats inside the archive work?', answer: 'JPG, PNG, WebP and BMP, and they can be mixed within one archive.' },
+      { question: 'Will the file get bigger?', answer: 'Slightly, from PDF structure overhead. The images themselves are embedded without a second round of compression.' },
     ],
   },
 
@@ -1195,1428 +1383,1509 @@ export const toolContentEn: Record<string, ToolContent> = {
 
   'pdf-to-jpg': {
     title: 'PDF to JPG',
-    metaDescription: 'Convert PDF pages to JPG images. High-quality extraction with customizable resolution.',
-    keywords: ['pdf to jpg', 'pdf to jpeg', 'convert pdf to image', 'extract pdf images'],
+    metaTitle: 'PDF to JPG - Convert PDF Pages to Images',
+    metaDescription: 'Turn PDF pages into JPG images at the DPI and quality you choose. Convert every page or just the ones you need, and download as a ZIP.',
+    keywords: ['pdf to jpg', 'pdf to jpeg', 'convert pdf to image', 'pdf page to picture', 'extract pdf as jpg'],
     description: `
-      <p>PDF to JPG converts PDF document pages into high-quality JPG images. Extract all pages or select specific pages to convert, with customizable resolution and quality settings.</p>
-      <p>Perfect for extracting images from PDFs, creating thumbnails, or converting documents for web use.</p>
-      <p>All conversion happens in your browser, ensuring your documents remain private.</p>
+      <p>Sometimes a PDF page needs to be an image: to drop into a slide, post somewhere that will not accept a document, or send to someone whose software will not open a PDF at all.</p>
+      <p>Each page is rendered to a JPG at the resolution you set. DPI is the setting that decides whether the result is usable - 96 DPI is fine for a web thumbnail, 150 for screen use, 300 when the image will be printed or run through OCR later.</p>
+      <p>JPEG is the right choice for pages that are mostly photographs, since it compresses continuous tone efficiently. For pages that are mostly text or line art, PDF to PNG will look noticeably cleaner at the same size.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Select Pages and Quality', description: 'Choose which pages to convert and set quality/DPI options.' },
-      { step: 3, title: 'Convert and Download', description: 'Click Convert to extract images and download as ZIP.' },
+      { step: 1, title: 'Load the PDF', description: 'Drop in up to 10 files. Pages are listed with thumbnails.' },
+      { step: 2, title: 'Choose the pages', description: 'Convert everything, or select specific pages or a range.' },
+      { step: 3, title: 'Set DPI and quality', description: '150 DPI for screens, 300 for print. Quality trades sharpness against file size.' },
+      { step: 4, title: 'Convert and download', description: 'Save the images. Multiple pages arrive as a ZIP.' },
     ],
     useCases: [
-      { title: 'Web Publishing', description: 'Convert PDF pages to images for website use.', icon: 'globe' },
-      { title: 'Social Media', description: 'Extract pages as images for social media sharing.', icon: 'share-2' },
-      { title: 'Presentations', description: 'Convert PDF slides to images for presentations.', icon: 'presentation' },
+      { title: 'Slides and documents', description: 'A page from a report dropped into a presentation as an image.', icon: 'image' },
+      { title: 'Posting where PDFs are not allowed', description: 'Social platforms and many forums accept images only.', icon: 'share-2' },
+      { title: 'Preparing pages for OCR', description: 'Export at 300 DPI when the images will be fed to a recognition engine.', icon: 'scan-text' },
     ],
     faq: [
-      { question: 'What quality settings are available?', answer: 'You can set DPI from 72 to 300 and JPEG quality from 1-100.' },
-      { question: 'Can I convert specific pages only?', answer: 'Yes, you can select individual pages or page ranges to convert.' },
-      { question: 'How are multiple pages handled?', answer: 'Each page becomes a separate JPG file, downloaded as a ZIP archive.' },
+      { question: 'What DPI should I use?', answer: '96 for thumbnails, 150 for general screen use, 300 for printing or OCR. Higher DPI means a larger, sharper image.' },
+      { question: 'Should I use JPG or PNG?', answer: 'JPG for photo-heavy pages. PNG for text, charts and line art, where JPEG compression leaves visible artefacts around edges.' },
+      { question: 'Do I get one file per page?', answer: 'Yes, one JPG per converted page, bundled as a ZIP when there is more than one.' },
+      { question: 'Is the text still selectable?', answer: 'No. An image has no text layer. Keep the original PDF if you need searchable text.' },
     ],
   },
 
   'pdf-to-png': {
     title: 'PDF to PNG',
-    metaDescription: 'Convert PDF pages to PNG images. Lossless quality with transparency support.',
-    keywords: ['pdf to png', 'convert pdf to png', 'pdf image extraction', 'lossless pdf conversion'],
+    metaTitle: 'PDF to PNG - Lossless Page Images',
+    metaDescription: 'Convert PDF pages to PNG images with no compression artefacts. Best for text, charts and line art, with optional transparent backgrounds.',
+    keywords: ['pdf to png', 'convert pdf to png', 'pdf page to png', 'lossless pdf image', 'pdf to transparent png'],
     description: `
-      <p>PDF to PNG converts PDF document pages into high-quality PNG images with lossless compression. PNG format preserves image quality perfectly and supports transparency.</p>
-      <p>Ideal for extracting graphics, diagrams, or any content where quality preservation is critical.</p>
-      <p>All conversion happens in your browser, ensuring your documents remain private.</p>
+      <p>PNG is lossless, which is exactly what you want when the page is mostly text, a chart or line art. JPEG compression leaves visible halos and mottling around sharp black-on-white edges; PNG produces none of that, so screenshots of documents stay crisp.</p>
+      <p>PNG also supports transparency. Rendering a page with a transparent background is how you get a diagram or a logo out of a PDF and onto a coloured slide without a white box around it.</p>
+      <p>The trade-off is size. A photographic page as PNG can be several times larger than the same page as JPG. For pages that are mostly photographs, use PDF to JPG instead.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Configure Options', description: 'Select pages and set resolution (DPI) options.' },
-      { step: 3, title: 'Convert and Download', description: 'Click Convert to extract PNG images.' },
+      { step: 1, title: 'Load the PDF', description: 'Drop in up to 10 files.' },
+      { step: 2, title: 'Select pages', description: 'All pages or a specific selection.' },
+      { step: 3, title: 'Set DPI and background', description: 'Choose the resolution, and whether the background is white or transparent.' },
+      { step: 4, title: 'Convert and save', description: 'Download the PNGs, as a ZIP when there are several.' },
     ],
     useCases: [
-      { title: 'Graphics Extraction', description: 'Extract diagrams and graphics with perfect quality.', icon: 'image' },
-      { title: 'Design Assets', description: 'Convert PDF designs to PNG for editing software.', icon: 'palette' },
-      { title: 'Documentation', description: 'Create high-quality images for technical documentation.', icon: 'file-text' },
+      { title: 'Diagrams for a presentation', description: 'A transparent-background PNG that sits on a coloured slide without a white rectangle.', icon: 'chart-no-axes-column' },
+      { title: 'Documentation screenshots', description: 'Text pages exported losslessly, so small type stays legible.', icon: 'monitor' },
+      { title: 'Print-ready page images', description: '300 DPI PNGs with no compression artefacts for a designer to place.', icon: 'printer' },
     ],
     faq: [
-      { question: 'Why choose PNG over JPG?', answer: 'PNG offers lossless compression and transparency support, ideal for graphics and text.' },
-      { question: 'Are transparent backgrounds supported?', answer: 'Yes, PDF pages with transparency are preserved in PNG output.' },
-      { question: 'What DPI should I use?', answer: 'Use 150 DPI for screen viewing, 300 DPI for printing.' },
+      { question: 'Why choose PNG over JPG?', answer: 'Because PNG is lossless. Text and line art keep sharp edges instead of picking up JPEG halos.' },
+      { question: 'How do I get a transparent background?', answer: 'Enable the transparent background option. Anything the page did not draw stays clear.' },
+      { question: 'Why are my PNGs so large?', answer: 'Lossless compression handles photographs badly. If the page is mostly photographic, JPG will be far smaller at similar visual quality.' },
+      { question: 'Does PNG support multiple pages in one file?', answer: 'No. Each page becomes its own PNG. Use PDF to TIFF if you need one multi-page image file.' },
     ],
   },
 
   'pdf-to-webp': {
     title: 'PDF to WebP',
-    metaDescription: 'Convert PDF pages to WebP images. Modern format with excellent compression.',
-    keywords: ['pdf to webp', 'convert pdf to webp', 'modern image format', 'web optimized images'],
+    metaTitle: 'PDF to WebP - Small Images for the Web',
+    metaDescription: 'Convert PDF pages to WebP images, typically 25 to 35 percent smaller than JPG at the same quality. Built for web publishing.',
+    keywords: ['pdf to webp', 'convert pdf to webp', 'pdf page to webp', 'web optimized pdf images', 'small pdf images'],
     description: `
-      <p>PDF to WebP converts PDF document pages into WebP images, Google's modern image format that offers excellent compression with high quality.</p>
-      <p>WebP images are smaller than JPG or PNG while maintaining comparable quality, making them ideal for web use.</p>
-      <p>All conversion happens in your browser, ensuring your documents remain private.</p>
+      <p>If the images are going on a website, WebP is the format to use. At matching visual quality it lands roughly 25 to 35 percent smaller than JPEG, and every current browser supports it, so page weight drops without a fallback strategy.</p>
+      <p>Each PDF page is rendered and encoded as WebP at the DPI and quality you choose. It handles both photographic and text-heavy pages reasonably, which JPEG and PNG each only manage for one of the two.</p>
+      <p>The one caveat is outside the browser: older desktop applications still do not open WebP. If the recipient will open the file in software rather than a browser, JPG or PNG is the safer choice.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Set Quality Options', description: 'Choose pages and set quality/compression settings.' },
-      { step: 3, title: 'Convert and Download', description: 'Click Convert to create WebP images.' },
+      { step: 1, title: 'Load the PDF', description: 'Drop in up to 10 files.' },
+      { step: 2, title: 'Select the pages', description: 'Convert everything or a chosen range.' },
+      { step: 3, title: 'Set quality and DPI', description: 'Quality 80 to 85 is the usual sweet spot for web images.' },
+      { step: 4, title: 'Convert and download', description: 'Save the WebP files, as a ZIP for multiple pages.' },
     ],
     useCases: [
-      { title: 'Web Optimization', description: 'Create web-optimized images from PDF content.', icon: 'globe' },
-      { title: 'Bandwidth Savings', description: 'Reduce image file sizes for faster loading.', icon: 'zap' },
-      { title: 'Modern Websites', description: 'Use modern image formats for contemporary web projects.', icon: 'layout' },
+      { title: 'Document previews on a site', description: 'Page thumbnails that load fast because they are a third smaller than JPGs.', icon: 'globe' },
+      { title: 'Image-heavy web pages', description: 'Lower total page weight and better Core Web Vitals scores.', icon: 'gauge' },
+      { title: 'App and CDN assets', description: 'Smaller files mean less bandwidth per request at scale.', icon: 'cloud' },
     ],
     faq: [
-      { question: 'What is WebP format?', answer: 'WebP is a modern image format by Google offering superior compression.' },
-      { question: 'Is WebP widely supported?', answer: 'Yes, all modern browsers support WebP format.' },
-      { question: 'How much smaller are WebP files?', answer: 'WebP files are typically 25-35% smaller than equivalent JPG files.' },
+      { question: 'How much smaller is WebP than JPG?', answer: 'Typically 25 to 35 percent at comparable visual quality, though it depends on the content of the page.' },
+      { question: 'Do all browsers support WebP?', answer: 'All current versions do. Very old browsers do not, and some desktop applications still cannot open it.' },
+      { question: 'What quality setting should I use?', answer: '80 to 85 for web use. Above 90 the file grows quickly for a difference few people notice.' },
+      { question: 'When should I not use WebP?', answer: 'When the recipient will open the file in desktop software rather than a browser. Use JPG or PNG then.' },
     ],
   },
 
   'pdf-to-bmp': {
     title: 'PDF to BMP',
-    metaDescription: 'Convert PDF pages to BMP bitmap images. Uncompressed format for maximum compatibility.',
-    keywords: ['pdf to bmp', 'convert pdf to bitmap', 'uncompressed images', 'legacy format'],
+    metaTitle: 'PDF to BMP - Uncompressed Bitmap Export',
+    metaDescription: 'Convert PDF pages to uncompressed BMP bitmaps for legacy software and imaging systems that accept nothing else.',
+    keywords: ['pdf to bmp', 'convert pdf to bitmap', 'pdf page to bmp', 'uncompressed pdf image', 'legacy image format'],
     description: `
-      <p>PDF to BMP converts PDF document pages into BMP bitmap images. BMP is an uncompressed format that ensures maximum compatibility with legacy systems and applications.</p>
-      <p>While BMP files are larger than compressed formats, they offer perfect quality and universal compatibility.</p>
-      <p>All conversion happens in your browser, ensuring your documents remain private.</p>
+      <p>Nobody chooses BMP for its merits. You need it because a piece of software refuses everything else - industrial control systems, older medical and laboratory equipment, embedded displays, and legacy Windows applications that were written when BMP was the obvious choice.</p>
+      <p>Each page is rendered to an uncompressed bitmap at the DPI you set. Because there is no compression, there are no artefacts at all, and the files are large: a single A4 page at 300 DPI runs to roughly 25 MB.</p>
+      <p>For anything with a modern image decoder, PNG gives you the same lossless quality at a fraction of the size. BMP is the right answer only when compatibility leaves you no choice.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Select Pages', description: 'Choose which pages to convert and set DPI.' },
-      { step: 3, title: 'Convert and Download', description: 'Click Convert to create BMP images.' },
+      { step: 1, title: 'Load the PDF', description: 'Drop in up to 10 files.' },
+      { step: 2, title: 'Select pages', description: 'Choose which pages to export. Large bitmaps add up fast.' },
+      { step: 3, title: 'Set the DPI', description: 'Use the lowest DPI the target system will accept - file size scales with the square of resolution.' },
+      { step: 4, title: 'Convert and download', description: 'Save the bitmaps, as a ZIP for multiple pages.' },
     ],
     useCases: [
-      { title: 'Legacy Systems', description: 'Create images compatible with older software.', icon: 'history' },
-      { title: 'Windows Applications', description: 'Generate BMP files for Windows-specific applications.', icon: 'monitor' },
-      { title: 'Uncompressed Archives', description: 'Create uncompressed image archives from PDFs.', icon: 'archive' },
+      { title: 'Legacy application input', description: 'Software that will only import BMP, still running because replacing it is not an option.', icon: 'hard-drive' },
+      { title: 'Industrial and lab equipment', description: 'Imaging and control systems with fixed format requirements.', icon: 'cpu' },
+      { title: 'Embedded displays', description: 'Devices with minimal decoders that read raw bitmap data directly.', icon: 'monitor' },
     ],
     faq: [
-      { question: 'Why use BMP format?', answer: 'BMP offers uncompressed quality and maximum compatibility with legacy systems.' },
-      { question: 'Are BMP files larger?', answer: 'Yes, BMP files are uncompressed and significantly larger than JPG or PNG.' },
-      { question: 'What color depths are supported?', answer: '24-bit and 32-bit color depths are supported.' },
+      { question: 'Why are the files so large?', answer: 'BMP stores every pixel with no compression. An A4 page at 300 DPI is about 25 MB.' },
+      { question: 'Should I use PNG instead?', answer: 'Almost always, unless the receiving system specifically requires BMP. PNG is lossless too and far smaller.' },
+      { question: 'What DPI do I need?', answer: 'The lowest the target system accepts. Doubling DPI quadruples the file size.' },
+      { question: 'Is there any quality loss?', answer: 'None from compression. The only limit is the rendering resolution you chose.' },
     ],
   },
 
   'pdf-to-tiff': {
     title: 'PDF to TIFF',
-    metaDescription: 'Convert PDF to TIFF images. Professional quality with multi-page support.',
-    keywords: ['pdf to tiff', 'convert pdf to tiff', 'professional images', 'multi-page tiff'],
+    metaTitle: 'PDF to TIFF - Multi-Page Image Export',
+    metaDescription: 'Convert a PDF to TIFF, including a single multi-page TIFF holding every page. Built for archiving, fax systems and document imaging.',
+    keywords: ['pdf to tiff', 'pdf to tif', 'multipage tiff export', 'pdf to fax format', 'archival tiff'],
     description: `
-      <p>PDF to TIFF converts PDF documents into high-quality TIFF images. TIFF is the preferred format for professional printing and archiving due to its lossless compression.</p>
-      <p>Create single-page TIFFs or combine all pages into a multi-page TIFF file. Perfect for professional and archival purposes.</p>
-      <p>All conversion happens in your browser, ensuring your documents remain private.</p>
+      <p>TIFF matters in document imaging for one reason above the others: a single TIFF file can hold every page of a document. Records systems, fax gateways and archival workflows are often built around exactly that, and will reject a folder of individual images.</p>
+      <p>You can export one multi-page TIFF for the whole document, or separate files per page when the receiving system prefers that. Compression is selectable - LZW for general lossless use, CCITT Group 4 for bitonal scans destined for fax or archival systems, or none where the requirement says so.</p>
+      <p>TIFF is also the format most commonly specified in long-term preservation policies, because it is simple, lossless and has been readable by everything for thirty years.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Configure Output', description: 'Choose single or multi-page TIFF and set DPI.' },
-      { step: 3, title: 'Convert and Download', description: 'Click Convert to create TIFF images.' },
+      { step: 1, title: 'Load the PDF', description: 'Drop in up to 10 files.' },
+      { step: 2, title: 'Choose single or multi-page output', description: 'One TIFF containing all pages, or one file per page.' },
+      { step: 3, title: 'Set DPI and compression', description: '300 DPI with Group 4 is the standard combination for bitonal archival scans.' },
+      { step: 4, title: 'Convert and download', description: 'Save the TIFF output.' },
     ],
     useCases: [
-      { title: 'Professional Printing', description: 'Create print-ready TIFF files from PDF documents.', icon: 'printer' },
-      { title: 'Document Archiving', description: 'Archive documents in high-quality TIFF format.', icon: 'archive' },
-      { title: 'Publishing', description: 'Convert PDFs to TIFF for publishing workflows.', icon: 'book' },
+      { title: 'Document management ingestion', description: 'Records systems that expect one multi-page TIFF per document.', icon: 'database' },
+      { title: 'Fax gateways', description: 'CCITT Group 4 bitonal TIFF is what fax systems are built around.', icon: 'printer' },
+      { title: 'Long-term preservation', description: 'Archival policies frequently name TIFF as the required master format.', icon: 'archive' },
     ],
     faq: [
-      { question: 'Can I create multi-page TIFFs?', answer: 'Yes, you can combine all PDF pages into a single multi-page TIFF.' },
-      { question: 'What compression options are available?', answer: 'LZW, ZIP, and no compression options are available.' },
-      { question: 'What DPI should I use for printing?', answer: 'Use 300 DPI or higher for professional printing.' },
+      { question: 'Can I get all pages in one file?', answer: 'Yes. Multi-page TIFF is the main reason to use this format, and it is the default here.' },
+      { question: 'Which compression should I choose?', answer: 'LZW for general lossless use. CCITT Group 4 for black-and-white scans, which is what fax and archival systems expect. None only if a specification demands it.' },
+      { question: 'What DPI do archival standards require?', answer: 'Commonly 300 DPI for text documents, sometimes 600 for material with fine detail. Check the specific policy you are working to.' },
+      { question: 'Is TIFF lossless?', answer: 'With LZW, PackBits or Group 4, yes. TIFF can also hold JPEG-compressed data, which is not.' },
     ],
   },
 
   'pdf-to-svg': {
     title: 'PDF to SVG',
-    metaDescription: 'Convert PDF pages to SVG vector graphics. Perfect scalability at any size with individual page export.',
-    keywords: ['pdf to svg', 'convert pdf to svg', 'vector graphics', 'scalable pdf', 'svg converter'],
+    metaTitle: 'PDF to SVG - Vector Export, No Rasterising',
+    metaDescription: 'Convert PDF pages to SVG as true vectors, so text and line art stay sharp at any size and remain editable in design software.',
+    keywords: ['pdf to svg', 'convert pdf to vector', 'pdf to editable vector', 'pdf to svg online', 'vector export pdf'],
     description: `
-      <p>PDF to SVG converts each page of your PDF document into a scalable vector graphic (SVG). SVG is a vector format that maintains perfect quality at any zoom level or print size.</p>
-      <p>Unlike raster formats (JPG, PNG), SVG graphics never become pixelated when scaled. This makes them ideal for logos, diagrams, technical drawings, and any content that needs to be displayed at different sizes.</p>
-      <p>Preview each converted page and download them individually or as a ZIP file. All processing happens locally in your browser, ensuring complete privacy for your documents.</p>
+      <p>Exporting a PDF page as an image throws away everything that made it a PDF. Exporting it as SVG keeps the vectors: paths stay paths, text stays text, and the result scales from a favicon to a billboard without a soft edge anywhere.</p>
+      <p>It is also editable. An SVG opens in Illustrator, Inkscape, Figma or Sketch as objects you can select and modify, which is what you need when a logo only exists inside a PDF and you have to recolour it or pull one element out.</p>
+      <p>Because SVG is a web format, the output drops straight into a web page as inline markup - sharp on every display density, with no separate retina asset to manage.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to browse and select.' },
-      { step: 2, title: 'Configure Options', description: 'Set the resolution quality and optionally specify page ranges.' },
-      { step: 3, title: 'Preview and Convert', description: 'Click Convert to process. Preview each page by clicking on thumbnails.' },
-      { step: 4, title: 'Download', description: 'Download individual SVG files or all pages as a ZIP archive.' },
+      { step: 1, title: 'Load the PDF', description: 'Drop in the file. Pages are listed with previews.' },
+      { step: 2, title: 'Choose the pages', description: 'Export every page or select individual ones.' },
+      { step: 3, title: 'Convert', description: 'Each page is translated into vector paths rather than rendered to pixels.' },
+      { step: 4, title: 'Download the SVGs', description: 'Save one SVG per page, bundled as a ZIP for multiple pages.' },
     ],
     useCases: [
-      { title: 'Logos and Graphics', description: 'Extract logos and vector graphics from PDFs for use in design software.', icon: 'pen-tool' },
-      { title: 'Technical Diagrams', description: 'Convert technical drawings and diagrams to scalable SVG format.', icon: 'ruler' },
-      { title: 'Web Development', description: 'Create web-ready SVG files from PDF content for responsive websites.', icon: 'globe' },
-      { title: 'Print at Any Size', description: 'Generate vector graphics that print perfectly at any size.', icon: 'printer' },
+      { title: 'Recovering a logo', description: 'The only copy of a client logo lives inside a PDF. Export it as SVG and it becomes editable again.', icon: 'shapes' },
+      { title: 'Diagrams for the web', description: 'Technical drawings that stay crisp on any display without multiple raster sizes.', icon: 'git-branch' },
+      { title: 'Design edits', description: 'Open the page in Illustrator or Figma and adjust individual elements.', icon: 'palette' },
     ],
     faq: [
-      { question: 'What is SVG format?', answer: 'SVG (Scalable Vector Graphics) is a vector image format that can be scaled to any size without losing quality. It is widely used for logos, icons, and web graphics.' },
-      { question: 'Will the SVG be truly vector?', answer: 'The SVG contains a high-resolution rendering of the PDF page. For PDFs with vector content, you get crisp output at any scale.' },
-      { question: 'Can I preview before downloading?', answer: 'Yes! Click on any thumbnail to see a full-size preview of the SVG. You can download individual pages or all at once.' },
-      { question: 'What resolution should I choose?', answer: 'Higher resolution (216 or 288 DPI) produces larger, more detailed SVGs. Use lower settings for faster processing and smaller files.' },
+      { question: 'Is the output genuinely vector?', answer: 'Yes. Vector content is translated into SVG paths, not rasterised, so there is no resolution limit.' },
+      { question: 'What happens to text?', answer: 'It is exported as text where the font can be referenced or embedded, otherwise converted to outlines - visually identical, but no longer editable as type.' },
+      { question: 'And images inside the page?', answer: 'They are embedded as raster data within the SVG. A photo does not become vector just because the container is.' },
+      { question: 'Can I edit the result?', answer: 'Yes, in any vector editor - Illustrator, Inkscape, Figma or Sketch.' },
     ],
   },
 
   'pdf-to-greyscale': {
     title: 'PDF to Greyscale',
-    metaDescription: 'Convert color PDF to greyscale. Reduce file size and prepare for black-and-white printing.',
-    keywords: ['pdf to greyscale', 'grayscale pdf', 'black and white pdf', 'remove colors'],
+    metaTitle: 'Convert PDF to Greyscale - Cut Printing Costs',
+    metaDescription: 'Convert a colour PDF to greyscale to reduce printing costs and file size, while keeping the text fully selectable and searchable.',
+    keywords: ['pdf to greyscale', 'pdf to grayscale', 'black and white pdf', 'convert pdf colors', 'monochrome pdf'],
     description: `
-      <p>PDF to Greyscale converts color PDF documents to greyscale (black and white). This reduces file size and prepares documents for black-and-white printing.</p>
-      <p>The conversion preserves text clarity and image detail while removing color information. Perfect for draft printing or creating printer-friendly versions.</p>
-      <p>All conversion happens in your browser, ensuring your documents remain private.</p>
+      <p>Colour printing costs several times what greyscale does, and a print queue that detects any colour on the page will bill the whole job at the colour rate - even if the only colour is a blue hyperlink in the footer.</p>
+      <p>Converting to greyscale removes that. Colours are mapped to their luminance values, so the page keeps its tonal structure while containing no colour at all. Printers charge the mono rate, and file size usually drops too.</p>
+      <p>The text layer is not touched. Search, copy and accessibility tools work exactly as they did - this is a colour conversion, not a rasterising step.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your color PDF file or click to select.' },
-      { step: 2, title: 'Preview Conversion', description: 'Preview how the greyscale version will look.' },
-      { step: 3, title: 'Convert and Download', description: 'Click Convert to create the greyscale PDF.' },
+      { step: 1, title: 'Add your PDFs', description: 'Drop in up to 10 files.' },
+      { step: 2, title: 'Convert', description: 'Colours are mapped to greyscale across the whole document.' },
+      { step: 3, title: 'Check the contrast', description: 'Review the preview. Colours of similar lightness can become hard to distinguish once desaturated.' },
+      { step: 4, title: 'Download', description: 'Save the greyscale PDF.' },
     ],
     useCases: [
-      { title: 'Print Savings', description: 'Convert to greyscale to save on color printing costs.', icon: 'printer' },
-      { title: 'Draft Documents', description: 'Create black-and-white drafts for review.', icon: 'file-text' },
-      { title: 'File Size Reduction', description: 'Reduce PDF size by removing color information.', icon: 'minimize-2' },
+      { title: 'Bulk printing', description: 'A 200-page document printed at mono rates rather than colour, because there is no colour left to detect.', icon: 'printer' },
+      { title: 'Fax and scan workflows', description: 'Systems that are monochrome anyway handle a greyscale source more predictably.', icon: 'scan' },
+      { title: 'Smaller files', description: 'Dropping colour channels typically reduces size, especially on image-heavy pages.', icon: 'file-down' },
     ],
     faq: [
-      { question: 'Will text remain readable?', answer: 'Yes, text clarity is preserved during greyscale conversion.' },
-      { question: 'How much smaller will the file be?', answer: 'File size reduction varies but can be 20-50% for color-heavy documents.' },
-      { question: 'Can I convert specific pages only?', answer: 'Yes, you can select which pages to convert to greyscale.' },
+      { question: 'Is the text still searchable?', answer: 'Yes. Only colour values change; the text layer is untouched.' },
+      { question: 'Can I convert it back to colour?', answer: 'No. Colour information is discarded, so keep your original if you might need it.' },
+      { question: 'What happens to charts that rely on colour coding?', answer: 'Series with similar lightness can become indistinguishable. Check the result, and consider adding patterns or labels before converting.' },
+      { question: 'How much smaller will the file be?', answer: 'Often 20 to 40 percent for image-heavy documents. Text-only files change very little.' },
     ],
   },
 
   'pdf-to-json': {
     title: 'PDF to JSON',
-    metaDescription: 'Extract PDF content to JSON format. Get structured data from PDF documents.',
-    keywords: ['pdf to json', 'extract pdf data', 'pdf parser', 'structured pdf data'],
+    metaTitle: 'PDF to JSON - Extract Text and Metadata',
+    metaDescription: 'Extract PDF text, metadata and page structure into structured JSON for scripts, pipelines and search indexing.',
+    keywords: ['pdf to json', 'extract pdf text', 'pdf data extraction', 'pdf text api', 'parse pdf'],
     description: `
-      <p>PDF to JSON extracts content from PDF documents into structured JSON format. Extract text, metadata, page information, and document structure for programmatic use.</p>
-      <p>Perfect for data extraction, document analysis, or integrating PDF content into applications and workflows.</p>
-      <p>All extraction happens in your browser, ensuring your documents remain private.</p>
+      <p>When a PDF is an input to a program rather than something a person reads, you need the content as data. Copying and pasting from a viewer does not scale past the second document.</p>
+      <p>This produces structured JSON: the text of each page, the document metadata - title, author, creation and modification dates, producer - and page-level details such as dimensions and rotation. Text is grouped by page so you can address a specific one rather than parsing one long string.</p>
+      <p>The output is designed to be consumed directly by a script, whether you are indexing documents for search, feeding text into an analysis pipeline, or checking a batch of files for a particular clause.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Select Data to Extract', description: 'Choose what content to extract: text, metadata, structure.' },
-      { step: 3, title: 'Extract and Download', description: 'Click Extract to generate JSON and download.' },
+      { step: 1, title: 'Add your PDFs', description: 'Drop in up to 10 files. Each produces its own JSON.' },
+      { step: 2, title: 'Choose what to include', description: 'Page text, document metadata, page dimensions, or all of it.' },
+      { step: 3, title: 'Extract', description: 'The text layer is read page by page and assembled into the JSON structure.' },
+      { step: 4, title: 'Download the JSON', description: 'Save the file and feed it into your pipeline.' },
     ],
     useCases: [
-      { title: 'Data Extraction', description: 'Extract structured data from PDF documents.', icon: 'database' },
-      { title: 'Document Analysis', description: 'Analyze PDF structure and content programmatically.', icon: 'search' },
-      { title: 'Integration', description: 'Import PDF content into applications via JSON.', icon: 'plug' },
+      { title: 'Search indexing', description: 'Extract text from a document set to populate a search index.', icon: 'search' },
+      { title: 'Automated checks', description: 'Scan a batch of contracts for a required clause without opening any of them.', icon: 'file-search' },
+      { title: 'Feeding an analysis pipeline', description: 'Structured input for text analysis or a machine learning workflow.', icon: 'braces' },
     ],
     faq: [
-      { question: 'What data is extracted?', answer: 'Text content, metadata, page dimensions, fonts, and document structure.' },
-      { question: 'Is the JSON format documented?', answer: 'Yes, the JSON schema is consistent and well-documented.' },
-      { question: 'Can I extract from scanned PDFs?', answer: 'Scanned PDFs require OCR first. Use our OCR PDF tool before extraction.' },
-    ],
-  },
-
-  'pdf-to-pptx': {
-    title: 'PDF to PowerPoint',
-    metaDescription: 'Convert PDF to PowerPoint presentation. Each page becomes a high-quality slide.',
-    keywords: ['pdf to pptx', 'pdf to powerpoint', 'convert pdf slides', 'pdf presentation'],
-    description: `
-      <p>PDF to PowerPoint converts your PDF documents into editable PowerPoint presentations (PPTX). Each PDF page is transformed into a high-quality slide, preserving the visual layout perfectly.</p>
-      <p>This tool is ideal for converting reports, handouts, or any PDF content into presentation format. You can choose the image quality (DPI) to balance between file size and visual clarity.</p>
-      <p>All conversion happens locally in your browser, ensuring your documents remain private and secure.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select it from your device.' },
-      { step: 2, title: 'Choose Quality Settings', description: 'Select the image quality (DPI) for the slides. Higher DPI means better quality but larger file size.' },
-      { step: 3, title: 'Convert and Download', description: 'Click Convert to create your PowerPoint presentation and download the PPTX file.' },
-    ],
-    useCases: [
-      { title: 'Presentation Creation', description: 'Convert PDF reports or documents into presentation slides for meetings.', icon: 'presentation' },
-      { title: 'Training Materials', description: 'Transform PDF training documents into interactive PowerPoint presentations.', icon: 'book-open' },
-      { title: 'Content Repurposing', description: 'Convert existing PDF content into editable slide format for further customization.', icon: 'refresh-cw' },
-    ],
-    faq: [
-      { question: 'Will the slides be editable?', answer: 'Each slide contains a high-quality image of the PDF page. You can add text, shapes, and annotations on top in PowerPoint.' },
-      { question: 'What DPI should I choose?', answer: 'Use 150 DPI for presentations displayed on screens. Use 300 DPI for printing or when you need the highest quality.' },
-      { question: 'Can I convert multi-page PDFs?', answer: 'Yes, each page of your PDF becomes a separate slide in the PowerPoint presentation.' },
-    ],
-  },
-
-  'pdf-to-excel': {
-    title: 'PDF to Excel',
-    metaDescription: 'Convert PDF to Excel spreadsheet. Extract tables to XLSX format.',
-    keywords: ['pdf to excel', 'pdf to xlsx', 'convert pdf tables', 'extract tables'],
-    description: `
-      <p>PDF to Excel converts your PDF documents into editable Microsoft Excel spreadsheets (XLSX). The tool automatically detects tables in your PDF and extracts them into separate sheets.</p>
-      <p>This tool is ideal for analyzing financial reports, invoices, or any data presented in tables. Each page's tables are organized into sheets for easy data manipulation.</p>
-      <p>All conversion happens locally in your browser, ensuring your data remains private and secure.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Process', description: 'The tool will automatically identify and extract tables.' },
-      { step: 3, title: 'Download Excel', description: 'Download your Excel file with extracted tables.' },
-    ],
-    useCases: [
-      { title: 'Financial Analysis', description: 'Convert bank statements or invoices to Excel for analysis.', icon: 'trending-up' },
-      { title: 'Data Extraction', description: 'Pull data tables from research papers or reports.', icon: 'database' },
-      { title: 'Inventory Management', description: 'Convert inventory lists from PDF to spreadsheet.', icon: 'clipboard' },
-    ],
-    faq: [
-      { question: 'How are tables handled?', answer: 'Tables detected on each page are extracted to corresponding sheets in the Excel file.' },
-      { question: 'What if there are no tables?', answer: 'An info sheet will be created indicating no tables were found.' },
-      { question: 'Is formatting preserved?', answer: 'Data is preserved, but complex visual formatting may be simplified for spreadsheet use.' },
-    ],
-  },
-
-  // ==================== ORGANIZE & MANAGE ====================
-  'ocr-pdf': {
-    title: 'OCR PDF',
-    metaDescription: 'Make scanned PDFs searchable with OCR. Extract text from images and scanned documents.',
-    keywords: ['ocr pdf', 'searchable pdf', 'text recognition', 'scan to text'],
-    description: `
-      <p>OCR PDF uses Optical Character Recognition to extract text from scanned documents and images within PDFs. Convert image-based PDFs into searchable, selectable text documents.</p>
-      <p>Support for multiple languages ensures accurate text recognition regardless of the document's language. The original layout is preserved while adding a searchable text layer.</p>
-      <p>All OCR processing happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Scanned PDF', description: 'Drag and drop your scanned PDF or click to select.' },
-      { step: 2, title: 'Select Language', description: 'Choose the document language for accurate recognition.' },
-      { step: 3, title: 'Process and Download', description: 'Click Process to run OCR and download the searchable PDF.' },
-    ],
-    useCases: [
-      { title: 'Digitize Archives', description: 'Make scanned document archives searchable.', icon: 'archive' },
-      { title: 'Document Search', description: 'Enable text search in scanned documents.', icon: 'search' },
-      { title: 'Text Extraction', description: 'Extract text from scanned documents for editing.', icon: 'type' },
-    ],
-    faq: [
-      { question: 'What languages are supported?', answer: 'Over 100 languages are supported including English, Chinese, Japanese, Korean, and more.' },
-      { question: 'Will the original layout be preserved?', answer: 'Yes, the original visual layout is preserved with a searchable text layer added.' },
-      { question: 'How accurate is the OCR?', answer: 'Accuracy depends on scan quality but typically exceeds 95% for clear documents.' },
-    ],
-  },
-
-  'alternate-merge': {
-    title: 'Alternate Merge',
-    metaDescription: 'Merge PDFs by alternating pages. Combine front and back scans into one document.',
-    keywords: ['alternate merge', 'interleave pdf', 'combine scans', 'front back merge'],
-    description: `
-      <p>Alternate Merge combines two PDFs by interleaving their pages alternately. This is perfect for combining separately scanned front and back pages into a single document.</p>
-      <p>Upload two PDFs and the tool will merge them by taking one page from each alternately. You can also reverse the order of one document for back-to-front scanning.</p>
-      <p>All processing happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Two PDFs', description: 'Upload the front pages PDF and back pages PDF.' },
-      { step: 2, title: 'Configure Order', description: 'Choose whether to reverse the second document for back-to-front scans.' },
-      { step: 3, title: 'Merge and Download', description: 'Click Merge to interleave pages and download.' },
-    ],
-    useCases: [
-      { title: 'Duplex Scanning', description: 'Combine separately scanned front and back pages.', icon: 'copy' },
-      { title: 'Document Assembly', description: 'Interleave pages from two related documents.', icon: 'layers' },
-      { title: 'Book Scanning', description: 'Combine odd and even page scans into complete books.', icon: 'book' },
-    ],
-    faq: [
-      { question: 'What if documents have different page counts?', answer: 'Extra pages from the longer document are appended at the end.' },
-      { question: 'Can I reverse page order?', answer: 'Yes, you can reverse either document before merging.' },
-      { question: 'Is this different from regular merge?', answer: 'Yes, regular merge appends documents; alternate merge interleaves pages.' },
-    ],
-  },
-
-  'add-attachments': {
-    title: 'Add Attachments',
-    metaDescription: 'Embed files in PDF documents. Attach any file type to your PDFs.',
-    keywords: ['pdf attachments', 'embed files', 'attach to pdf', 'pdf portfolio'],
-    description: `
-      <p>Add Attachments embeds files of any type into your PDF documents. Attach spreadsheets, images, source files, or any other documents to create comprehensive PDF packages.</p>
-      <p>Attachments are embedded within the PDF and can be extracted by recipients using any PDF reader. Perfect for distributing related files together.</p>
-      <p>All processing happens in your browser, ensuring your files remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Add Attachments', description: 'Select files to attach to the PDF.' },
-      { step: 3, title: 'Save and Download', description: 'Click Save to embed attachments and download.' },
-    ],
-    useCases: [
-      { title: 'Project Packages', description: 'Bundle project files with documentation PDFs.', icon: 'package' },
-      { title: 'Report Distribution', description: 'Attach source data files to report PDFs.', icon: 'paperclip' },
-      { title: 'Contract Bundles', description: 'Include supporting documents with contracts.', icon: 'file-text' },
-    ],
-    faq: [
-      { question: 'What file types can be attached?', answer: 'Any file type can be attached to a PDF.' },
-      { question: 'Is there a size limit?', answer: 'Total PDF size including attachments should not exceed 500MB.' },
-      { question: 'Can recipients extract attachments?', answer: 'Yes, any PDF reader can extract embedded attachments.' },
-    ],
-  },
-
-  'extract-attachments': {
-    title: 'Extract Attachments',
-    metaDescription: 'Extract embedded files from PDFs. Download all attachments from PDF documents.',
-    keywords: ['extract attachments', 'pdf attachments', 'download embedded files', 'pdf extraction'],
-    description: `
-      <p>Extract Attachments retrieves all embedded files from PDF documents. Download attachments individually or as a ZIP archive containing all files.</p>
-      <p>Perfect for accessing source files, data, or supplementary materials embedded in PDF packages.</p>
-      <p>All extraction happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'View Attachments', description: 'See a list of all embedded files in the PDF.' },
-      { step: 3, title: 'Extract and Download', description: 'Download individual files or all as a ZIP.' },
-    ],
-    useCases: [
-      { title: 'Access Source Files', description: 'Extract original data files from PDF reports.', icon: 'download' },
-      { title: 'Recover Attachments', description: 'Retrieve embedded files from PDF packages.', icon: 'folder-open' },
-      { title: 'Batch Extraction', description: 'Extract attachments from multiple PDFs at once.', icon: 'layers' },
-    ],
-    faq: [
-      { question: 'What if there are no attachments?', answer: 'The tool will indicate if no embedded files are found.' },
-      { question: 'Are all attachment types supported?', answer: 'Yes, all embedded file types can be extracted.' },
-      { question: 'Can I extract from multiple PDFs?', answer: 'Yes, you can process multiple PDFs and download all attachments.' },
-    ],
-  },
-
-  'extract-images': {
-    title: 'Extract Images from PDF',
-    metaDescription: 'Extract all embedded images from PDF files. Download individually or as a ZIP archive. Filter small images automatically.',
-    keywords: ['extract pdf images', 'pdf image extraction', 'get images from pdf', 'download pdf images', 'pdf to images'],
-    description: `
-      <p>Extract Images from PDF retrieves all embedded images from your PDF documents. Download high-quality images individually or as a convenient ZIP archive.</p>
-      <p>The tool automatically filters out small images like icons and decorations based on customizable size thresholds. Process multiple PDFs at once for efficient batch extraction.</p>
-      <p>All extraction happens in your browser, ensuring your documents remain private and secure.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDFs', description: 'Drag and drop one or more PDF files or click to select from your device.' },
-      { step: 2, title: 'Set Filter Options', description: 'Adjust minimum width, height, and file size to filter out unwanted small images.' },
-      { step: 3, title: 'Extract Images', description: 'Click Extract to find all embedded images in your PDFs.' },
-      { step: 4, title: 'Download', description: 'Download individual images or all images as a ZIP archive.' },
-    ],
-    useCases: [
-      { title: 'Photo Recovery', description: 'Extract photos and images embedded in PDF documents for reuse or archiving.', icon: 'image' },
-      { title: 'Asset Collection', description: 'Gather all graphics and images from PDF reports, presentations, or brochures.', icon: 'folder' },
-      { title: 'Content Repurposing', description: 'Extract images from PDFs to use in other documents, websites, or presentations.', icon: 'refresh-cw' },
-    ],
-    faq: [
-      { question: 'What image formats are extracted?', answer: 'Images are extracted in their native format (JPEG, PNG, etc.) when possible, or converted to PNG for raw image data.' },
-      { question: 'Why are some images missing?', answer: 'Small images below the size threshold are filtered out. Adjust the filter settings to extract smaller images.' },
-      { question: 'Can I extract from scanned PDFs?', answer: 'Scanned PDFs typically contain the scan as one large image per page. Use PDF to Image tool instead for page-by-page conversion.' },
-    ],
-  },
-
-  'edit-attachments': {
-    title: 'Edit Attachments',
-    metaDescription: 'Manage PDF attachments. View, rename, and remove embedded files.',
-    keywords: ['edit attachments', 'manage pdf files', 'remove attachments', 'rename attachments'],
-    description: `
-      <p>Edit Attachments lets you manage embedded files in PDF documents. View all attachments, rename them, or remove unwanted files from the PDF.</p>
-      <p>Perfect for cleaning up PDF packages or updating attachment information before distribution.</p>
-      <p>All editing happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Manage Attachments', description: 'View, rename, or delete embedded files.' },
-      { step: 3, title: 'Save and Download', description: 'Click Save to apply changes and download.' },
-    ],
-    useCases: [
-      { title: 'Clean Up PDFs', description: 'Remove unnecessary attachments from PDF packages.', icon: 'trash-2' },
-      { title: 'Rename Files', description: 'Update attachment names for clarity.', icon: 'edit' },
-      { title: 'Review Contents', description: 'Audit embedded files before distribution.', icon: 'eye' },
-    ],
-    faq: [
-      { question: 'Can I add new attachments here?', answer: 'Use the Add Attachments tool to embed new files.' },
-      { question: 'Is removal permanent?', answer: 'Yes, removed attachments cannot be recovered from the output file.' },
-      { question: 'Can I preview attachments?', answer: 'You can see file names and sizes; use Extract Attachments to view contents.' },
-    ],
-  },
-
-  'divide-pages': {
-    title: 'Divide Pages',
-    metaDescription: 'Split PDF pages into multiple sections. Divide pages horizontally or vertically.',
-    keywords: ['divide pdf pages', 'split page', 'cut pdf page', 'page sections'],
-    description: `
-      <p>Divide Pages splits individual PDF pages into multiple sections. Cut pages horizontally, vertically, or into a grid to create multiple pages from one.</p>
-      <p>Perfect for splitting scanned documents with multiple items per page, or dividing large format pages into standard sizes.</p>
-      <p>All processing happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Set Division', description: 'Choose horizontal, vertical, or grid division and set the number of sections.' },
-      { step: 3, title: 'Divide and Download', description: 'Click Divide to split pages and download.' },
-    ],
-    useCases: [
-      { title: 'Split Scans', description: 'Divide scanned pages containing multiple documents.', icon: 'scissors' },
-      { title: 'Resize Pages', description: 'Split large pages into standard paper sizes.', icon: 'maximize-2' },
-      { title: 'Create Cards', description: 'Divide pages into card-sized sections for printing.', icon: 'grid' },
-    ],
-    faq: [
-      { question: 'Can I divide into unequal sections?', answer: 'Currently, divisions are equal. Use Crop PDF for custom sections.' },
-      { question: 'What happens to content at division lines?', answer: 'Content is split at the division line; ensure important content is not at boundaries.' },
-      { question: 'Can I divide specific pages only?', answer: 'Yes, you can select which pages to divide.' },
-    ],
-  },
-
-  'add-blank-page': {
-    title: 'Add Blank Page',
-    metaDescription: 'Insert blank pages into PDF documents. Add empty pages at any position.',
-    keywords: ['add blank page', 'insert page', 'empty page', 'pdf page insertion'],
-    description: `
-      <p>Add Blank Page inserts empty pages into your PDF documents at any position. Add pages before, after, or between existing pages with customizable page size.</p>
-      <p>Perfect for adding space for notes, creating section dividers, or preparing documents for printing.</p>
-      <p>All processing happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Choose Position', description: 'Select where to insert blank pages and how many.' },
-      { step: 3, title: 'Add and Download', description: 'Click Add to insert pages and download.' },
-    ],
-    useCases: [
-      { title: 'Note Space', description: 'Add blank pages for handwritten notes.', icon: 'edit-3' },
-      { title: 'Section Dividers', description: 'Insert blank pages between document sections.', icon: 'minus' },
-      { title: 'Print Preparation', description: 'Add pages for duplex printing alignment.', icon: 'printer' },
-    ],
-    faq: [
-      { question: 'Can I choose the page size?', answer: 'Yes, blank pages can match existing pages or use custom dimensions.' },
-      { question: 'Can I add multiple blank pages?', answer: 'Yes, you can add any number of blank pages at once.' },
-      { question: 'Can I add colored pages?', answer: 'Use Background Color tool after adding blank pages to add color.' },
-    ],
-  },
-
-  'reverse-pages': {
-    title: 'Reverse Pages',
-    metaDescription: 'Reverse PDF page order. Flip document pages from last to first.',
-    keywords: ['reverse pdf', 'flip page order', 'invert pages', 'reverse document'],
-    description: `
-      <p>Reverse Pages flips the order of pages in your PDF document, putting the last page first and the first page last. Useful for documents scanned in reverse order or for specific printing needs.</p>
-      <p>The tool processes the entire document or selected page ranges, maintaining all content and formatting.</p>
-      <p>All processing happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Select Pages', description: 'Choose to reverse all pages or a specific range.' },
-      { step: 3, title: 'Reverse and Download', description: 'Click Reverse to flip page order and download.' },
-    ],
-    useCases: [
-      { title: 'Fix Scan Order', description: 'Correct documents scanned in reverse order.', icon: 'refresh-cw' },
-      { title: 'Print Preparation', description: 'Reverse pages for specific printing requirements.', icon: 'printer' },
-      { title: 'Document Reordering', description: 'Quickly flip document order for review.', icon: 'arrow-up-down' },
-    ],
-    faq: [
-      { question: 'Are bookmarks updated?', answer: 'Yes, bookmarks are updated to point to the correct reversed pages.' },
-      { question: 'Can I reverse only some pages?', answer: 'Yes, you can select a page range to reverse.' },
-      { question: 'Is this the same as rotating?', answer: 'No, reversing changes page order; rotating changes page orientation.' },
-    ],
-  },
-
-  'rotate-pdf': {
-    title: 'Rotate PDF',
-    metaDescription: 'Rotate PDF pages. Turn pages 90, 180, or 270 degrees.',
-    keywords: ['rotate pdf', 'turn pdf pages', 'pdf rotation', 'fix orientation'],
-    description: `
-      <p>Rotate PDF turns pages in your document by 90, 180, or 270 degrees. Fix incorrectly oriented scans, rotate landscape pages, or adjust page orientation for viewing.</p>
-      <p>Rotate all pages uniformly or select specific pages to rotate individually. The tool preserves all content and formatting.</p>
-      <p>All processing happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Select Rotation', description: 'Choose rotation angle and which pages to rotate.' },
-      { step: 3, title: 'Rotate and Download', description: 'Click Rotate to apply changes and download.' },
-    ],
-    useCases: [
-      { title: 'Fix Scans', description: 'Correct orientation of scanned documents.', icon: 'rotate-cw' },
-      { title: 'Landscape Pages', description: 'Rotate landscape pages for proper viewing.', icon: 'monitor' },
-      { title: 'Mixed Orientation', description: 'Standardize page orientation in mixed documents.', icon: 'layout' },
-    ],
-    faq: [
-      { question: 'Can I rotate different pages differently?', answer: 'Yes, you can apply different rotations to different pages.' },
-      { question: 'Does rotation affect print quality?', answer: 'No, rotation preserves all content quality.' },
-      { question: 'Can I rotate by custom angles?', answer: 'Rotation is limited to 90-degree increments (90, 180, 270).' },
-    ],
-  },
-
-  'n-up-pdf': {
-    title: 'N-Up PDF',
-    metaDescription: 'Print multiple PDF pages per sheet. Create 2-up, 4-up, or custom layouts.',
-    keywords: ['n-up pdf', 'multiple pages per sheet', '2-up printing', 'page imposition'],
-    description: `
-      <p>N-Up PDF arranges multiple pages onto single sheets, creating 2-up, 4-up, 6-up, 9-up, or custom layouts. Perfect for saving paper when printing or creating handouts.</p>
-      <p>Choose from preset layouts or create custom arrangements. The tool automatically scales and positions pages for optimal results.</p>
-      <p>All processing happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Choose Layout', description: 'Select 2-up, 4-up, 6-up, 9-up, or custom grid.' },
-      { step: 3, title: 'Create and Download', description: 'Click Create to generate the n-up PDF and download.' },
-    ],
-    useCases: [
-      { title: 'Save Paper', description: 'Print multiple pages per sheet to reduce paper usage.', icon: 'leaf' },
-      { title: 'Create Handouts', description: 'Make compact handouts from presentation slides.', icon: 'file-text' },
-      { title: 'Review Documents', description: 'Print documents in reduced size for review.', icon: 'eye' },
-    ],
-    faq: [
-      { question: 'What layouts are available?', answer: '2-up, 4-up, 6-up, 9-up, and custom grid layouts are available.' },
-      { question: 'Can I add borders between pages?', answer: 'Yes, you can add borders and gutters between pages.' },
-      { question: 'Is page order preserved?', answer: 'Yes, pages are arranged in reading order (left-to-right, top-to-bottom).' },
-    ],
-  },
-
-  'combine-single-page': {
-    title: 'Combine to Single Page',
-    metaDescription: 'Stitch PDF pages into one continuous page. Create scrollable single-page documents.',
-    keywords: ['combine pages', 'single page pdf', 'stitch pages', 'continuous scroll'],
-    description: `
-      <p>Combine to Single Page stitches all PDF pages into one continuous page. Create scrollable documents perfect for web viewing or continuous reading.</p>
-      <p>Pages are joined vertically with customizable spacing. The result is a single long page containing all content.</p>
-      <p>All processing happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Set Spacing', description: 'Choose the gap between stitched pages.' },
-      { step: 3, title: 'Combine and Download', description: 'Click Combine to create the single-page PDF.' },
-    ],
-    useCases: [
-      { title: 'Web Documents', description: 'Create scrollable PDFs for web embedding.', icon: 'globe' },
-      { title: 'Continuous Reading', description: 'Convert paginated documents to continuous scroll.', icon: 'scroll' },
-      { title: 'Long-Form Content', description: 'Combine pages for seamless long-form reading.', icon: 'file-text' },
-    ],
-    faq: [
-      { question: 'Is there a page limit?', answer: 'Very long documents may be limited by browser memory.' },
-      { question: 'Can I add separators between pages?', answer: 'Yes, you can add spacing or lines between original pages.' },
-      { question: 'Will this work for printing?', answer: 'The result is best for screen viewing; use N-Up for print layouts.' },
-    ],
-  },
-
-  'view-metadata': {
-    title: 'View Metadata',
-    metaDescription: 'View PDF document properties. See author, title, dates, and other metadata.',
-    keywords: ['pdf metadata', 'document properties', 'pdf info', 'view pdf details'],
-    description: `
-      <p>View Metadata displays all document properties and metadata from your PDF files. See author, title, subject, keywords, creation date, modification date, and more.</p>
-      <p>Useful for auditing documents, checking file information, or verifying document authenticity.</p>
-      <p>All viewing happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'View Properties', description: 'See all metadata displayed in an organized format.' },
-      { step: 3, title: 'Export if Needed', description: 'Optionally export metadata as JSON.' },
-    ],
-    useCases: [
-      { title: 'Document Audit', description: 'Review document properties for compliance.', icon: 'clipboard-check' },
-      { title: 'Verify Authenticity', description: 'Check creation dates and author information.', icon: 'shield' },
-      { title: 'File Information', description: 'Get detailed information about PDF files.', icon: 'info' },
-    ],
-    faq: [
-      { question: 'What metadata is shown?', answer: 'Title, author, subject, keywords, creator, producer, dates, and PDF version.' },
-      { question: 'Can I edit metadata here?', answer: 'Use the Edit Metadata tool to modify document properties.' },
-      { question: 'Is XMP metadata included?', answer: 'Yes, both standard and XMP metadata are displayed.' },
-    ],
-  },
-
-  'edit-metadata': {
-    title: 'Edit Metadata',
-    metaDescription: 'Edit PDF document properties. Change title, author, subject, and keywords.',
-    keywords: ['edit pdf metadata', 'change pdf properties', 'pdf author', 'document info'],
-    description: `
-      <p>Edit Metadata allows you to modify document properties in your PDF files. Change the title, author, subject, keywords, and other metadata fields.</p>
-      <p>Perfect for correcting document information, adding proper attribution, or preparing files for distribution.</p>
-      <p>All editing happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Edit Properties', description: 'Modify title, author, subject, keywords, and other fields.' },
-      { step: 3, title: 'Save and Download', description: 'Click Save to apply changes and download.' },
-    ],
-    useCases: [
-      { title: 'Add Attribution', description: 'Set proper author and creator information.', icon: 'user' },
-      { title: 'SEO Optimization', description: 'Add keywords and descriptions for searchability.', icon: 'search' },
-      { title: 'Document Preparation', description: 'Prepare documents with proper metadata before sharing.', icon: 'file-check' },
-    ],
-    faq: [
-      { question: 'What fields can I edit?', answer: 'Title, author, subject, keywords, creator, and producer fields.' },
-      { question: 'Can I clear all metadata?', answer: 'Use Remove Metadata tool to strip all document properties.' },
-      { question: 'Are dates editable?', answer: 'Creation and modification dates are updated automatically.' },
-    ],
-  },
-
-  'pdf-to-zip': {
-    title: 'PDFs to ZIP',
-    metaDescription: 'Package multiple PDFs into a ZIP archive. Compress and bundle PDF files.',
-    keywords: ['pdf to zip', 'compress pdfs', 'bundle pdfs', 'archive pdfs'],
-    description: `
-      <p>PDFs to ZIP packages multiple PDF files into a single ZIP archive. Compress and bundle your PDFs for easier sharing, storage, or backup.</p>
-      <p>The tool creates a compressed archive containing all your PDF files, reducing total size and simplifying file management.</p>
-      <p>All processing happens in your browser, ensuring your files remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload PDFs', description: 'Drag and drop multiple PDF files or click to select.' },
-      { step: 2, title: 'Configure Archive', description: 'Optionally set archive name and compression level.' },
-      { step: 3, title: 'Create and Download', description: 'Click Create to generate the ZIP archive.' },
-    ],
-    useCases: [
-      { title: 'File Sharing', description: 'Bundle multiple PDFs for easier sharing.', icon: 'share-2' },
-      { title: 'Backup Creation', description: 'Create compressed backups of PDF collections.', icon: 'archive' },
-      { title: 'Email Attachments', description: 'Combine PDFs into one attachment for email.', icon: 'mail' },
-    ],
-    faq: [
-      { question: 'How much compression is applied?', answer: 'ZIP compression typically reduces total size by 10-30%.' },
-      { question: 'Is there a file limit?', answer: 'You can include up to 100 PDFs in a single archive.' },
-      { question: 'Can I set a password?', answer: 'Password-protected ZIP creation is not currently supported.' },
-    ],
-  },
-
-  'compare-pdfs': {
-    title: 'Compare PDFs',
-    metaDescription: 'Compare two PDF documents. Highlight differences between versions.',
-    keywords: ['compare pdfs', 'pdf diff', 'document comparison', 'version comparison'],
-    description: `
-      <p>Compare PDFs analyzes two PDF documents and highlights the differences between them. Perfect for reviewing document revisions, checking contract changes, or verifying edits.</p>
-      <p>View documents side-by-side or in overlay mode with differences highlighted. The tool identifies text changes, additions, and deletions.</p>
-      <p>All comparison happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Two PDFs', description: 'Upload the original and modified PDF documents.' },
-      { step: 2, title: 'Compare Documents', description: 'View differences highlighted in side-by-side or overlay mode.' },
-      { step: 3, title: 'Export Results', description: 'Download a comparison report or annotated PDF.' },
-    ],
-    useCases: [
-      { title: 'Contract Review', description: 'Compare contract versions to identify changes.', icon: 'file-text' },
-      { title: 'Document Revision', description: 'Review edits between document versions.', icon: 'git-compare' },
-      { title: 'Quality Assurance', description: 'Verify that only intended changes were made.', icon: 'check-circle' },
-    ],
-    faq: [
-      { question: 'What types of differences are detected?', answer: 'Text additions, deletions, modifications, and formatting changes.' },
-      { question: 'Can I compare scanned documents?', answer: 'Scanned documents should be OCR processed first for text comparison.' },
-      { question: 'Is visual comparison available?', answer: 'Yes, overlay mode shows visual differences between pages.' },
-    ],
-  },
-
-  'posterize-pdf': {
-    title: 'Posterize PDF',
-    metaDescription: 'Split large PDF pages into printable tiles. Create posters from PDF pages.',
-    keywords: ['posterize pdf', 'tile pdf', 'large format printing', 'pdf poster'],
-    description: `
-      <p>Posterize PDF splits large PDF pages into smaller tiles that can be printed on standard paper and assembled into posters. Perfect for printing large diagrams, maps, or artwork.</p>
-      <p>Configure the grid size and overlap for easy assembly. The tool automatically calculates tile dimensions for your target output size.</p>
-      <p>All processing happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your large-format PDF or click to select.' },
-      { step: 2, title: 'Configure Tiles', description: 'Set grid size, overlap, and output paper size.' },
-      { step: 3, title: 'Create and Download', description: 'Click Create to generate printable tiles.' },
-    ],
-    useCases: [
-      { title: 'Poster Printing', description: 'Print large posters on standard paper.', icon: 'maximize-2' },
-      { title: 'Map Printing', description: 'Print large maps in sections for assembly.', icon: 'map' },
-      { title: 'Artwork Reproduction', description: 'Create large prints from PDF artwork.', icon: 'image' },
-    ],
-    faq: [
-      { question: 'What overlap should I use?', answer: 'A 10-20mm overlap is recommended for easy alignment during assembly.' },
-      { question: 'Can I add crop marks?', answer: 'Yes, crop marks can be added to help with cutting and alignment.' },
-      { question: 'What paper sizes are supported?', answer: 'A4, Letter, A3, and custom sizes are supported.' },
-    ],
-  },
-
-  // ==================== OPTIMIZE & REPAIR ====================
-  'fix-page-size': {
-    title: 'Fix Page Size',
-    metaDescription: 'Standardize PDF page sizes. Convert all pages to uniform dimensions.',
-    keywords: ['fix page size', 'standardize pdf', 'uniform pages', 'resize pdf pages'],
-    description: `
-      <p>Fix Page Size standardizes all pages in your PDF to uniform dimensions. Convert mixed-size documents to consistent page sizes for professional presentation or printing.</p>
-      <p>Choose from standard sizes (A4, Letter, etc.) or set custom dimensions. Content is scaled or positioned to fit the new page size.</p>
-      <p>All processing happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Select Target Size', description: 'Choose a standard size or enter custom dimensions.' },
-      { step: 3, title: 'Apply and Download', description: 'Click Apply to standardize pages and download.' },
-    ],
-    useCases: [
-      { title: 'Print Preparation', description: 'Standardize pages for consistent printing.', icon: 'printer' },
-      { title: 'Document Cleanup', description: 'Fix documents with inconsistent page sizes.', icon: 'file-check' },
-      { title: 'Professional Documents', description: 'Create uniform documents for distribution.', icon: 'briefcase' },
-    ],
-    faq: [
-      { question: 'How is content handled?', answer: 'Content is scaled to fit or centered on the new page size.' },
-      { question: 'Can I preserve aspect ratio?', answer: 'Yes, content can be scaled proportionally to fit.' },
-      { question: 'What standard sizes are available?', answer: 'A4, A3, Letter, Legal, and other common sizes.' },
-    ],
-  },
-
-  'linearize-pdf': {
-    title: 'Linearize PDF',
-    metaDescription: 'Optimize PDF for fast web viewing. Enable progressive loading.',
-    keywords: ['linearize pdf', 'fast web view', 'optimize pdf', 'progressive pdf'],
-    description: `
-      <p>Linearize PDF optimizes your documents for fast web viewing. Linearized PDFs can begin displaying before the entire file is downloaded, improving user experience.</p>
-      <p>Also known as "Fast Web View," this optimization reorganizes the PDF structure for progressive loading in web browsers.</p>
-      <p>All processing happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Linearize', description: 'Click Linearize to optimize for web viewing.' },
-      { step: 3, title: 'Download', description: 'Download your optimized PDF.' },
-    ],
-    useCases: [
-      { title: 'Web Publishing', description: 'Optimize PDFs for website downloads.', icon: 'globe' },
-      { title: 'Email Attachments', description: 'Create PDFs that open faster for recipients.', icon: 'mail' },
-      { title: 'Online Documents', description: 'Improve viewing experience for online documents.', icon: 'cloud' },
-    ],
-    faq: [
-      { question: 'What is linearization?', answer: 'Linearization reorganizes PDF data for progressive loading.' },
-      { question: 'Does it reduce file size?', answer: 'Linearization may slightly increase file size due to added structure.' },
-      { question: 'Is it compatible with all viewers?', answer: 'Yes, linearized PDFs work in all PDF readers.' },
-    ],
-  },
-
-  'page-dimensions': {
-    title: 'Page Dimensions',
-    metaDescription: 'Analyze PDF page sizes. View dimensions of all pages in your document.',
-    keywords: ['pdf page size', 'page dimensions', 'pdf measurements', 'document size'],
-    description: `
-      <p>Page Dimensions analyzes and displays the size of every page in your PDF document. View dimensions in various units (inches, mm, points) and identify pages with non-standard sizes.</p>
-      <p>Useful for print preparation, document analysis, or identifying inconsistent page sizes.</p>
-      <p>All analysis happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'View Dimensions', description: 'See page sizes displayed for all pages.' },
-      { step: 3, title: 'Export Report', description: 'Optionally export dimensions as JSON.' },
-    ],
-    useCases: [
-      { title: 'Print Planning', description: 'Check page sizes before printing.', icon: 'printer' },
-      { title: 'Document Analysis', description: 'Identify pages with unusual dimensions.', icon: 'search' },
-      { title: 'Quality Control', description: 'Verify page sizes meet specifications.', icon: 'check-circle' },
-    ],
-    faq: [
-      { question: 'What units are available?', answer: 'Inches, millimeters, centimeters, and points.' },
-      { question: 'Does it show orientation?', answer: 'Yes, portrait or landscape orientation is indicated.' },
-      { question: 'Can I fix inconsistent sizes?', answer: 'Use Fix Page Size tool to standardize dimensions.' },
-    ],
-  },
-
-  'remove-restrictions': {
-    title: 'Remove Restrictions',
-    metaDescription: 'Remove PDF restrictions. Unlock printing, copying, and editing permissions.',
-    keywords: ['remove pdf restrictions', 'unlock pdf', 'pdf permissions', 'unrestrict pdf'],
-    description: `
-      <p>Remove Restrictions unlocks PDFs that have permission restrictions preventing printing, copying, or editing. This tool removes owner password restrictions while preserving document content.</p>
-      <p>Note: This tool cannot remove user passwords that prevent opening the document. Use Decrypt PDF for password-protected files.</p>
-      <p>All processing happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Restricted PDF', description: 'Drag and drop your restricted PDF or click to select.' },
-      { step: 2, title: 'Remove Restrictions', description: 'Click Remove to unlock the document.' },
-      { step: 3, title: 'Download', description: 'Download the unrestricted PDF.' },
-    ],
-    useCases: [
-      { title: 'Enable Printing', description: 'Unlock PDFs that prevent printing.', icon: 'printer' },
-      { title: 'Enable Copying', description: 'Allow text selection and copying.', icon: 'copy' },
-      { title: 'Enable Editing', description: 'Remove restrictions on document editing.', icon: 'edit' },
-    ],
-    faq: [
-      { question: 'Is this legal?', answer: 'Removing restrictions from documents you own or have rights to is generally legal.' },
-      { question: 'Can it remove open passwords?', answer: 'No, use Decrypt PDF for password-protected documents.' },
-      { question: 'Will content be affected?', answer: 'No, only restrictions are removed; content remains unchanged.' },
-    ],
-  },
-
-  'repair-pdf': {
-    title: 'Repair PDF',
-    metaDescription: 'Fix corrupted PDF files. Recover and repair damaged documents.',
-    keywords: ['repair pdf', 'fix pdf', 'recover pdf', 'corrupted pdf'],
-    description: `
-      <p>Repair PDF attempts to fix corrupted or damaged PDF files. The tool analyzes the document structure and rebuilds it to recover as much content as possible.</p>
-      <p>Useful for recovering files that won't open, display errors, or have missing content due to corruption.</p>
-      <p>All repair happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Damaged PDF', description: 'Drag and drop your corrupted PDF or click to select.' },
-      { step: 2, title: 'Repair Document', description: 'Click Repair to attempt recovery.' },
-      { step: 3, title: 'Download', description: 'Download the repaired PDF if successful.' },
-    ],
-    useCases: [
-      { title: 'Recover Files', description: 'Recover PDFs that won\'t open properly.', icon: 'refresh-cw' },
-      { title: 'Fix Errors', description: 'Repair files showing error messages.', icon: 'wrench' },
-      { title: 'Restore Content', description: 'Recover content from partially corrupted files.', icon: 'file-check' },
-    ],
-    faq: [
-      { question: 'Can all PDFs be repaired?', answer: 'Success depends on the type and extent of corruption.' },
-      { question: 'Will all content be recovered?', answer: 'The tool recovers as much as possible; severely damaged files may have losses.' },
-      { question: 'Should I keep the original?', answer: 'Yes, always keep the original file as a backup.' },
-    ],
-  },
-
-  // ==================== SECURE PDF ====================
-  'encrypt-pdf': {
-    title: 'Encrypt PDF',
-    metaDescription: 'Password protect PDF files. Add encryption and set permissions.',
-    keywords: ['encrypt pdf', 'password protect pdf', 'secure pdf', 'pdf encryption'],
-    description: `
-      <p>Encrypt PDF adds password protection and encryption to your PDF documents. Set user passwords to prevent opening, and owner passwords to control permissions like printing and copying.</p>
-      <p>Choose from different encryption levels (128-bit or 256-bit AES) for varying security needs.</p>
-      <p>All encryption happens in your browser, ensuring your passwords and documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Set Passwords', description: 'Enter user password and/or owner password. Configure permissions.' },
-      { step: 3, title: 'Encrypt and Download', description: 'Click Encrypt to secure your PDF and download.' },
-    ],
-    useCases: [
-      { title: 'Confidential Documents', description: 'Protect sensitive business documents.', icon: 'lock' },
-      { title: 'Personal Files', description: 'Secure personal documents like tax returns.', icon: 'shield' },
-      { title: 'Controlled Distribution', description: 'Limit what recipients can do with documents.', icon: 'key' },
-    ],
-    faq: [
-      { question: 'What\'s the difference between user and owner passwords?', answer: 'User password prevents opening; owner password controls permissions.' },
-      { question: 'What encryption is used?', answer: '128-bit or 256-bit AES encryption options are available.' },
-      { question: 'Can I set permissions without a user password?', answer: 'Yes, you can set an owner password only to control permissions.' },
-    ],
-  },
-
-  'sanitize-pdf': {
-    title: 'Sanitize PDF',
-    metaDescription: 'Remove hidden data from PDFs. Clean metadata, scripts, and sensitive information.',
-    keywords: ['sanitize pdf', 'clean pdf', 'remove hidden data', 'pdf privacy'],
-    description: `
-      <p>Sanitize PDF removes hidden data and potentially sensitive information from your documents. Strip metadata, embedded scripts, attachments, comments, and other hidden content.</p>
-      <p>Essential for preparing documents for public distribution or when privacy is a concern.</p>
-      <p>All sanitization happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Select What to Remove', description: 'Choose which types of hidden data to strip.' },
-      { step: 3, title: 'Sanitize and Download', description: 'Click Sanitize to clean the PDF and download.' },
-    ],
-    useCases: [
-      { title: 'Public Release', description: 'Prepare documents for public distribution.', icon: 'globe' },
-      { title: 'Privacy Protection', description: 'Remove personal information before sharing.', icon: 'shield' },
-      { title: 'Security Compliance', description: 'Meet security requirements for document handling.', icon: 'check-circle' },
-    ],
-    faq: [
-      { question: 'What hidden data is removed?', answer: 'Metadata, scripts, attachments, comments, form data, and hidden layers.' },
-      { question: 'Will visible content be affected?', answer: 'No, only hidden data is removed; visible content remains.' },
-      { question: 'Is this reversible?', answer: 'No, removed data cannot be recovered. Keep a backup of the original.' },
-    ],
-  },
-
-  'find-and-redact': {
-    title: 'Find and Redact',
-    metaDescription: 'Search and redact text across all pages of a PDF. Batch redact sensitive information like account numbers, names, and more.',
-    keywords: ['redact pdf', 'find and redact', 'batch redact', 'remove text', 'pdf censorship', 'hide sensitive data'],
-    description: `
-      <p>Find and Redact allows you to search for specific text, numbers, or patterns across all pages of your PDF and redact all matching occurrences at once. Perfect for removing sensitive information like account numbers, names, addresses, or any confidential data.</p>
-      <p>Preview all matches before applying redactions, and selectively choose which occurrences to redact. Supports case-sensitive search, whole word matching, and regular expressions for advanced pattern matching.</p>
-      <p>All processing happens in your browser, ensuring your documents remain private and secure.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Search for Text', description: 'Enter the text, number, or regex pattern you want to find and redact.' },
-      { step: 3, title: 'Review and Select', description: 'Preview all matches and select which ones to redact.' },
-      { step: 4, title: 'Apply Redaction', description: 'Customize redaction appearance and apply to selected matches.' },
-    ],
-    useCases: [
-      { title: 'Privacy Compliance', description: 'Redact personal information to comply with GDPR, HIPAA, or other regulations.', icon: 'shield' },
-      { title: 'Legal Documents', description: 'Remove confidential data from legal documents before sharing.', icon: 'scale' },
-      { title: 'Financial Records', description: 'Redact account numbers, SSNs, or financial data from statements.', icon: 'credit-card' },
-    ],
-    faq: [
-      { question: 'Is redaction permanent?', answer: 'Yes, redaction permanently removes the underlying text. The original content cannot be recovered. Always keep a backup of the original file.' },
-      { question: 'Can I redact images or scanned text?', answer: 'This tool works with text-based PDFs. For scanned documents, you would need to use manual area-based redaction.' },
-      { question: 'Can I customize the redaction appearance?', answer: 'Yes, you can set the redaction color, add borders, and optionally include replacement text like "[REDACTED]".' },
-      { question: 'How does regex search work?', answer: 'Enable "Use Regular Expression" to search using regex patterns. For example, \\d{4}-\\d{4}-\\d{4}-\\d{4} to find credit card numbers.' },
-    ],
-  },
-
-
-  'decrypt-pdf': {
-    title: 'Decrypt PDF',
-    metaDescription: 'Remove password from PDF files. Unlock password-protected documents.',
-    keywords: ['decrypt pdf', 'remove pdf password', 'unlock pdf', 'pdf password remover'],
-    description: `
-      <p>Decrypt PDF removes password protection from PDF documents. Enter the current password to unlock the file and create an unprotected copy.</p>
-      <p>This tool requires you to know the current password. It cannot crack or bypass unknown passwords.</p>
-      <p>All decryption happens in your browser, ensuring your passwords and documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Protected PDF', description: 'Drag and drop your password-protected PDF.' },
-      { step: 2, title: 'Enter Password', description: 'Enter the current document password.' },
-      { step: 3, title: 'Decrypt and Download', description: 'Click Decrypt to remove protection and download.' },
-    ],
-    useCases: [
-      { title: 'Remove Old Passwords', description: 'Unlock documents when password is no longer needed.', icon: 'unlock' },
-      { title: 'Simplify Access', description: 'Create unprotected copies for easier sharing.', icon: 'share-2' },
-      { title: 'Archive Documents', description: 'Remove passwords before long-term archiving.', icon: 'archive' },
-    ],
-    faq: [
-      { question: 'Can it crack unknown passwords?', answer: 'No, you must know the current password to decrypt.' },
-      { question: 'Is the original file modified?', answer: 'No, a new unprotected copy is created.' },
-      { question: 'What if I forgot the password?', answer: 'Unfortunately, we cannot recover forgotten passwords.' },
-    ],
-  },
-
-  'flatten-pdf': {
-    title: 'Flatten PDF',
-    metaDescription: 'Flatten PDF forms and annotations. Make content non-editable.',
-    keywords: ['flatten pdf', 'flatten forms', 'flatten annotations', 'non-editable pdf'],
-    description: `
-      <p>Flatten PDF converts interactive elements like form fields and annotations into static content. The flattened PDF looks the same but can no longer be edited.</p>
-      <p>Perfect for finalizing filled forms, preserving annotations, or creating non-editable document versions.</p>
-      <p>All processing happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF with forms or annotations.' },
-      { step: 2, title: 'Select What to Flatten', description: 'Choose to flatten forms, annotations, or both.' },
-      { step: 3, title: 'Flatten and Download', description: 'Click Flatten to create the static PDF.' },
-    ],
-    useCases: [
-      { title: 'Finalize Forms', description: 'Lock filled form data to prevent changes.', icon: 'lock' },
-      { title: 'Preserve Annotations', description: 'Make annotations permanent in the document.', icon: 'check-circle' },
-      { title: 'Archive Documents', description: 'Create non-editable versions for archiving.', icon: 'archive' },
-    ],
-    faq: [
-      { question: 'Is flattening reversible?', answer: 'No, flattening is permanent. Keep a backup of the original.' },
-      { question: 'Will the appearance change?', answer: 'No, the document looks the same but is no longer interactive.' },
-      { question: 'Does it reduce file size?', answer: 'Sometimes, as interactive elements are converted to simpler content.' },
-    ],
-  },
-
-  'remove-metadata': {
-    title: 'Remove Metadata',
-    metaDescription: 'Strip metadata from PDF files. Remove author, dates, and document properties.',
-    keywords: ['remove pdf metadata', 'strip metadata', 'pdf privacy', 'anonymous pdf'],
-    description: `
-      <p>Remove Metadata strips all document properties and metadata from your PDF files. Remove author names, creation dates, software information, and other identifying data.</p>
-      <p>Essential for privacy when sharing documents or when metadata could reveal sensitive information.</p>
-      <p>All processing happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Remove Metadata', description: 'Click Remove to strip all metadata.' },
-      { step: 3, title: 'Download', description: 'Download the metadata-free PDF.' },
-    ],
-    useCases: [
-      { title: 'Privacy Protection', description: 'Remove personal information before sharing.', icon: 'shield' },
-      { title: 'Anonymous Documents', description: 'Create documents without author attribution.', icon: 'user-x' },
-      { title: 'Clean Distribution', description: 'Distribute documents without internal metadata.', icon: 'send' },
-    ],
-    faq: [
-      { question: 'What metadata is removed?', answer: 'Author, title, subject, keywords, dates, creator, and producer information.' },
-      { question: 'Is XMP metadata removed?', answer: 'Yes, both standard and XMP metadata are stripped.' },
-      { question: 'Will content be affected?', answer: 'No, only metadata is removed; document content remains unchanged.' },
-    ],
-  },
-
-  'change-permissions': {
-    title: 'Change Permissions',
-    metaDescription: 'Modify PDF permissions. Control printing, copying, and editing access.',
-    keywords: ['pdf permissions', 'change pdf access', 'restrict pdf', 'pdf security'],
-    description: `
-      <p>Change Permissions modifies the access controls on your PDF documents. Enable or disable printing, copying, editing, and annotation permissions.</p>
-      <p>Set an owner password to enforce these restrictions. Recipients can view the document but are limited in what actions they can perform.</p>
-      <p>All processing happens in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Set Permissions', description: 'Enable or disable printing, copying, editing, and annotations.' },
-      { step: 3, title: 'Apply and Download', description: 'Set owner password and download the restricted PDF.' },
-    ],
-    useCases: [
-      { title: 'Prevent Copying', description: 'Disable text copying to protect content.', icon: 'copy' },
-      { title: 'Control Printing', description: 'Restrict or allow document printing.', icon: 'printer' },
-      { title: 'Limit Editing', description: 'Prevent modifications to the document.', icon: 'edit-3' },
-    ],
-    faq: [
-      { question: 'Do I need a password?', answer: 'An owner password is required to enforce permissions.' },
-      { question: 'Can permissions be removed?', answer: 'Yes, with the owner password or using Remove Restrictions tool.' },
-      { question: 'Are all PDF readers compatible?', answer: 'Most PDF readers respect permissions, but some may not enforce them.' },
+      { question: 'Does this work on scanned PDFs?', answer: 'No. A scan has no text layer, so extraction returns nothing. Run OCR PDF first, then extract.' },
+      { question: 'Is the reading order reliable?', answer: 'For single-column documents, yes. Multi-column layouts and complex tables can interleave, because PDFs store positioned glyphs rather than logical flow.' },
+      { question: 'Which metadata fields come through?', answer: 'Title, author, subject, keywords, creator, producer, and creation and modification dates, where the document sets them.' },
+      { question: 'Can I get tables as structured data?', answer: 'Use Extract Tables for that. It detects table structure and exports rows and columns rather than a flat text run.' },
     ],
   },
 
   'pdf-to-docx': {
     title: 'PDF to Word',
-    metaDescription: 'Convert PDF to editable Word (DOCX) documents. Preserve formatting and layout.',
-    keywords: ['pdf to word', 'convert pdf to docx', 'pdf to doc', 'editable pdf'],
+    metaTitle: 'PDF to Word - Convert PDF to Editable DOCX',
+    metaDescription: 'Convert a PDF into an editable Word document, keeping paragraphs, headings, tables and images in place. Opens in Word, Docs and LibreOffice.',
+    keywords: ['pdf to word', 'pdf to docx', 'convert pdf to editable', 'pdf to doc', 'edit pdf in word'],
     description: `
-      <p>PDF to Word converts your PDF documents into editable Microsoft Word (DOCX) files. The tool preserves the original layout, formatting, images, and text flow.</p>
-      <p>Easily edit your PDF content in Word without retyping. Perfect for contracts, reports, and resumes.</p>
-      <p>All conversion happens locally in your browser using WebAssembly technology, ensuring your documents never leave your device.</p>
+      <p>PDFs are built to be read, not revised, which is a problem when you have the PDF and need the text - the original document is gone, or was never yours, and retyping four pages is an hour you will not get back.</p>
+      <p>This reconstructs an editable Word document from the PDF. Paragraphs are rebuilt as flowing text rather than isolated lines, headings are detected from font size and weight, tables are rebuilt as Word tables, and images are placed in position.</p>
+      <p>It will not be a perfect facsimile. PDF stores glyph positions, not document structure, so reconstruction involves inference - complex multi-column layouts and heavily designed pages need cleaning up afterwards. For text-led documents, the result is usually close.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Convert', description: 'Wait for the conversion process to complete.' },
-      { step: 3, title: 'Download Word Doc', description: 'Download your fully editable DOCX file.' },
+      { step: 1, title: 'Load the PDF', description: 'Drop in the file. Text-based PDFs convert well; scans need OCR first.' },
+      { step: 2, title: 'Convert', description: 'Text is analysed for paragraph, heading and table structure.' },
+      { step: 3, title: 'Download the DOCX', description: 'Save the Word file.' },
+      { step: 4, title: 'Tidy up in Word', description: 'Check headings and tables. Complex layouts usually need a few adjustments.' },
     ],
     useCases: [
-      { title: 'Edit Contracts', description: 'Convert PDF contracts to Word for editing and revision.', icon: 'file-text' },
-      { title: 'Resume Updates', description: 'Update old PDF resumes by converting them to Word.', icon: 'user' },
-      { title: 'Content Repurposing', description: 'Extract content from PDF reports for other documents.', icon: 'copy' },
+      { title: 'Reusing content you no longer have the source for', description: 'Last year report exists only as a PDF. Convert it and edit this year figures in.', icon: 'file-text' },
+      { title: 'Repurposing text', description: 'Pull the wording out of a PDF proposal for a new document without retyping it.', icon: 'copy' },
+      { title: 'Filling in a flat form', description: 'A form with no fields becomes a Word document you can type into.', icon: 'edit' },
     ],
     faq: [
-      { question: 'Is formatting preserved?', answer: 'Yes, the tool aims to preserve layout, fonts, and images as closely as possible.' },
-      { question: 'Can I convert scanned PDFs?', answer: 'Scanned PDFs will be converted as images in Word unless you use OCR first.' },
-      { question: 'Is it compatible with Word?', answer: 'Yes, the output is a standard .docx file compatible with Microsoft Word and Google Docs.' },
+      { question: 'How accurate is the conversion?', answer: 'Good for text-led documents. Multi-column layouts, sidebars and heavy design work need manual cleanup, because PDF does not record document structure.' },
+      { question: 'Will it work on a scanned PDF?', answer: 'Not directly - a scan is an image. Run OCR PDF first to add a text layer, then convert.' },
+      { question: 'Are tables preserved?', answer: 'Detected tables are rebuilt as real Word tables. Tables drawn without ruling lines are harder to detect and may come out as text.' },
+      { question: 'Does it open in Google Docs?', answer: 'Yes. The output is standard DOCX, which Word, Google Docs, LibreOffice and Pages all open.' },
+    ],
+  },
+
+  'pdf-to-pptx': {
+    title: 'PDF to PowerPoint',
+    metaTitle: 'PDF to PowerPoint - Convert PDF to PPTX Slides',
+    metaDescription: 'Convert a PDF into a PowerPoint presentation with one slide per page, so a deck that only exists as a PDF becomes editable again.',
+    keywords: ['pdf to powerpoint', 'pdf to pptx', 'pdf to slides', 'convert pdf to presentation', 'edit pdf deck'],
+    description: `
+      <p>Decks circulate as PDFs. When you need to present one, update three numbers, or reuse two slides in your own deck, the PDF is the wrong end of the pipeline and the original PPTX is usually nowhere to be found.</p>
+      <p>This converts each PDF page into a slide. Layout and images are preserved in position, and text is placed in text boxes so you can edit it rather than being handed a flat picture per slide.</p>
+      <p>It reconstructs appearance, not the original design system. Master slides, theme colours and animations were never in the PDF, so a converted deck needs restyling if it has to match a template exactly.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the file. Each page becomes one slide.' },
+      { step: 2, title: 'Convert', description: 'Pages are analysed for text blocks and images and rebuilt as slide elements.' },
+      { step: 3, title: 'Download the PPTX', description: 'Save the presentation.' },
+      { step: 4, title: 'Restyle in PowerPoint', description: 'Apply your template and adjust the text boxes that need it.' },
+    ],
+    useCases: [
+      { title: 'Editing a deck you only have as PDF', description: 'Update the figures on three slides without rebuilding the whole presentation.', icon: 'presentation' },
+      { title: 'Reusing slides', description: 'Pull two slides out of a supplied PDF deck into your own.', icon: 'copy' },
+      { title: 'Presenting from PowerPoint', description: 'Get presenter view and notes, which a PDF viewer does not offer.', icon: 'monitor-play' },
+    ],
+    faq: [
+      { question: 'Will the text be editable?', answer: 'Yes, text is placed in editable text boxes. Positioning may need adjusting since PDF records where glyphs sit, not how they were laid out.' },
+      { question: 'Does one page become one slide?', answer: 'Yes, in order, at the page aspect ratio.' },
+      { question: 'Do animations come back?', answer: 'No. They were removed when the deck became a PDF and cannot be recovered.' },
+      { question: 'Will it match our corporate template?', answer: 'Not automatically. Theme and master information is not stored in a PDF, so apply your template afterwards.' },
+    ],
+  },
+
+  'pdf-to-excel': {
+    title: 'PDF to Excel',
+    metaTitle: 'PDF to Excel - Extract Tables Into a Spreadsheet',
+    metaDescription: 'Pull tables out of a PDF into an Excel spreadsheet with rows and columns intact, so numbers land in cells you can calculate with.',
+    keywords: ['pdf to excel', 'pdf to xlsx', 'extract pdf tables', 'pdf table to spreadsheet', 'convert pdf to spreadsheet'],
+    description: `
+      <p>Financial statements, price lists and statistical reports arrive as PDFs, and the numbers in them are read-only. Retyping a 200-row table is slow and introduces errors in exactly the places that matter.</p>
+      <p>This detects the table structure and writes it into an XLSX file with values in individual cells - so a column of figures is a column you can sum, not a paragraph of text. Multiple tables can go to separate worksheets, which keeps a multi-table report navigable.</p>
+      <p>Detection works best on tables with visible ruling lines or consistent column alignment. Tables held together only by whitespace, and cells spanning several columns, are where you should expect to check the output.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the file. Pages are scanned for table structures.' },
+      { step: 2, title: 'Review what was detected', description: 'Confirm the tables found and their column boundaries.' },
+      { step: 3, title: 'Choose the sheet layout', description: 'All tables on one sheet, or one worksheet per table.' },
+      { step: 4, title: 'Download the XLSX', description: 'Open it in Excel, Google Sheets or LibreOffice and check the totals.' },
+    ],
+    useCases: [
+      { title: 'Financial analysis', description: 'Statement tables from a PDF annual report, in cells you can build a model on.', icon: 'table' },
+      { title: 'Price list imports', description: 'A supplier PDF catalogue turned into a spreadsheet ready for your system.', icon: 'file-spreadsheet' },
+      { title: 'Research data', description: 'Result tables from a published paper, extracted for your own analysis.', icon: 'chart-line' },
+    ],
+    faq: [
+      { question: 'How accurate is table detection?', answer: 'Reliable for tables with ruling lines or clean column alignment. Whitespace-only tables and merged cells need checking.' },
+      { question: 'Does it work on scanned PDFs?', answer: 'Not directly. Run OCR PDF first so there is a text layer to work from.' },
+      { question: 'Are numbers real numbers in Excel?', answer: 'Numeric-looking cells are written as numbers so you can calculate with them. Currency symbols and thousands separators may need a format pass.' },
+      { question: 'What if I only want the raw table data?', answer: 'Extract Tables exports to CSV, JSON or Markdown, which is often easier to feed into a script.' },
     ],
   },
 
   'pdf-to-markdown': {
     title: 'PDF to Markdown',
-    metaDescription: 'Convert PDF to Markdown format. Extract text and preserve formatting like headings and lists.',
-    keywords: ['pdf to markdown', 'convert pdf to md', 'pdf text extraction', 'markdown converter', 'pdf to text'],
+    metaTitle: 'PDF to Markdown - Convert PDF for Docs and Wikis',
+    metaDescription: 'Convert PDF text to Markdown with headings, lists and paragraph structure detected, ready for a wiki, a repository or a static site.',
+    keywords: ['pdf to markdown', 'pdf to md', 'convert pdf to markdown', 'pdf to wiki', 'pdf to plain text structure'],
     description: `
-      <p>PDF to Markdown converts your PDF documents into clean, well-structured Markdown files. The tool intelligently extracts text content and attempts to preserve formatting like headings, lists, and paragraphs.</p>
-      <p>Perfect for converting PDF documents to editable formats for documentation, note-taking, or content management systems that support Markdown.</p>
-      <p>All conversion happens locally in your browser, ensuring your documents remain private and secure.</p>
+      <p>Documentation increasingly lives in Markdown - in repositories, wikis and static site generators. Legacy documentation lives in PDFs. Moving from one to the other by hand is the kind of task that quietly consumes a week.</p>
+      <p>This converts the PDF text into Markdown with structure preserved. Headings are detected from font size and weight and written as hash levels, bulleted and numbered lists are recognised and marked up, and paragraphs are joined into single blocks rather than left as one line per PDF line.</p>
+      <p>You can restrict the conversion to a page range, which is useful when only one chapter of a long manual needs to move into the new system.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Configure Options', description: 'Set page range, choose to include page numbers, and adjust line break settings.' },
-      { step: 3, title: 'Convert and Download', description: 'Click Convert to generate your Markdown file and download.' },
+      { step: 1, title: 'Load the PDF', description: 'Drop in the file. It needs a text layer, so run OCR first on scans.' },
+      { step: 2, title: 'Choose a page range', description: 'Convert the whole document or just the section you need.' },
+      { step: 3, title: 'Convert', description: 'Structure is inferred from typography and written as Markdown.' },
+      { step: 4, title: 'Download and review', description: 'Save the .md file and check the heading levels came out as you expected.' },
     ],
     useCases: [
-      { title: 'Documentation', description: 'Convert PDF manuals and guides to Markdown for version-controlled documentation.', icon: 'file-text' },
-      { title: 'Note Taking', description: 'Extract content from PDF articles and books for your note-taking system.', icon: 'edit-3' },
-      { title: 'Content Migration', description: 'Migrate PDF content to CMS platforms that support Markdown.', icon: 'copy' },
+      { title: 'Migrating documentation', description: 'A PDF manual moved into a docs site or repository as Markdown.', icon: 'file-code' },
+      { title: 'Wiki imports', description: 'Legacy PDFs turned into wiki pages that can be searched and edited.', icon: 'book-open' },
+      { title: 'Version-controlled text', description: 'Content in a format where changes produce a readable diff.', icon: 'git-commit' },
     ],
     faq: [
-      { question: 'Is formatting preserved?', answer: 'The tool attempts to detect headings based on font size and bullet points/numbered lists. Complex layouts may require manual adjustment.' },
-      { question: 'Can I convert specific pages?', answer: 'Yes, you can specify a page range like "1-3, 5, 7" to convert only those pages.' },
-      { question: 'Does it work with scanned PDFs?', answer: 'Scanned PDFs contain images, not text. Use our OCR tool first to extract text before converting to Markdown.' },
+      { question: 'How are headings identified?', answer: 'By relative font size and weight. Documents with consistent typography convert cleanly; inconsistent ones need heading levels adjusted afterwards.' },
+      { question: 'Do tables convert?', answer: 'Simple tables become Markdown pipe tables. Complex or merged-cell tables are better handled by Extract Tables.' },
+      { question: 'What happens to images?', answer: 'Markdown references text, not binary data. Use Extract Images to pull the images out separately and link them.' },
+      { question: 'Will it work on a scan?', answer: 'Only after OCR. Without a text layer there is nothing to convert.' },
     ],
   },
 
-  // ==================== NEW TOOLS ====================
-  'deskew-pdf': {
-    title: 'Deskew PDF',
-    metaDescription: 'Automatically straighten scanned or tilted PDF pages. Fix skewed documents with precision angle detection.',
-    keywords: ['deskew pdf', 'straighten pdf', 'fix tilted scan', 'auto rotate pdf', 'correct pdf angle'],
+  'ocr-pdf': {
+    title: 'OCR PDF',
+    metaTitle: 'OCR PDF - Make Scanned PDFs Searchable',
+    metaDescription: 'Run OCR on a scanned PDF to add a searchable text layer, so you can find and copy text. Supports multiple languages, entirely in your browser.',
+    keywords: ['ocr pdf', 'searchable pdf', 'scanned pdf to text', 'pdf text recognition', 'make pdf searchable'],
     description: `
-      <p>Deskew PDF automatically detects and corrects tilted or skewed pages in your PDF documents using advanced projection profile variance analysis. This is essential for scanned documents that were fed into the scanner at an angle.</p>
-      <p>The tool analyzes the text and content alignment at different angles to find the optimal rotation, then applies the correction. You can adjust the sensitivity threshold (1-30) and DPI settings (72-300) for optimal results.</p>
-      <p>All processing happens locally in your browser using WebAssembly technology, ensuring your documents remain private and secure.</p>
+      <p>A scanned PDF is a photograph of a document. It looks like text to you and is completely opaque to your computer - Ctrl+F finds nothing, you cannot copy a sentence, and screen readers have nothing to read. Which is why a folder of scanned contracts is effectively unsearchable.</p>
+      <p>OCR fixes that by recognising the characters in the image and adding an invisible text layer positioned behind them. The page looks identical; search, copy and text selection start working.</p>
+      <p>Recognition runs in your browser, which is unusual for OCR and the reason this is safe to use on documents you cannot send to a third-party service. Multiple languages are supported, and picking the right one measurably improves accuracy - the engine uses language models, not just letter shapes.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your scanned PDF file or click to select.' },
-      { step: 2, title: 'Configure Settings', description: 'Adjust threshold sensitivity and DPI if needed for better detection.' },
-      { step: 3, title: 'Process and Download', description: 'Click Deskew to straighten pages and download the corrected PDF.' },
+      { step: 1, title: 'Load the scanned PDF', description: 'Drop in the file. Higher-resolution scans give better results - 300 DPI is the usual target.' },
+      { step: 2, title: 'Choose the language', description: 'Select the language of the document. This matters more than people expect.' },
+      { step: 3, title: 'Run recognition', description: 'Pages are processed in turn. Expect a few seconds per page; the language data downloads once on first use.' },
+      { step: 4, title: 'Download the searchable PDF', description: 'The result looks the same but the text is now selectable and searchable.' },
     ],
     useCases: [
-      { title: 'Scanned Documents', description: 'Fix pages that were scanned at an angle from document feeders.', icon: 'scan' },
-      { title: 'Mobile Scans', description: 'Correct tilted photos of documents taken with smartphones.', icon: 'smartphone' },
-      { title: 'Archive Restoration', description: 'Straighten old scanned archives for better readability.', icon: 'archive' },
+      { title: 'Making an archive searchable', description: 'Years of scanned invoices become a set you can search by supplier name.', icon: 'search' },
+      { title: 'Quoting from a scanned document', description: 'Copy a clause out of a scanned contract instead of retyping it.', icon: 'copy' },
+      { title: 'Accessibility', description: 'Screen readers cannot read an image. A text layer makes the document accessible.', icon: 'accessibility' },
     ],
     faq: [
-      { question: 'How accurate is the angle detection?', answer: 'The tool uses projection profile variance analysis to detect skew angles up to ±10 degrees with high accuracy. It automatically skips pages with angles less than 0.3 degrees.' },
-      { question: 'Will text quality be affected?', answer: 'For rotations at multiples of 90 degrees, no quality loss occurs. For other angles, the tool rounds to the nearest degree and maintains good quality.' },
-      { question: 'Can I deskew specific pages only?', answer: 'The tool analyzes all pages but only corrects those with detected skew above the sensitivity threshold. Pages with minimal skew are left unchanged.' },
-      { question: 'What is the sensitivity threshold?', answer: 'Values 1-10 correct obvious tilts only, 11-20 detect moderate skew, and 21-30 catch subtle angles. Default is 10 for balanced detection.' },
-      { question: 'How long does processing take?', answer: 'Processing time depends on file size and DPI. 150 DPI (default) provides good balance between speed and accuracy. Higher DPI is more accurate but slower.' },
+      { question: 'How accurate is it?', answer: 'On a clean 300 DPI scan of printed text, typically above 95 percent. Accuracy falls with low resolution, skew, faint print and handwriting.' },
+      { question: 'Does the page look different afterwards?', answer: 'No. The text layer is invisible and sits behind the image, so the appearance is unchanged.' },
+      { question: 'Is my document uploaded for processing?', answer: 'No. Recognition runs in your browser, which is what makes it usable for confidential material.' },
+      { question: 'How can I improve the results?', answer: 'Deskew the scan first, make sure the resolution is at least 300 DPI, and select the correct language before running.' },
     ],
   },
 
-  'pdf-booklet': {
-    title: 'PDF Booklet Creator',
-    metaDescription: 'Create booklet layouts from PDF for printing. Arrange pages for saddle-stitch binding with multiple grid options.',
-    keywords: ['pdf booklet', 'booklet creator', 'print booklet', 'saddle stitch', 'imposition'],
+  'extract-images': {
+    title: 'Extract Images',
+    metaTitle: 'Extract Images From a PDF at Full Quality',
+    metaDescription: 'Pull the embedded images out of a PDF at their original resolution, filter out icons and specks, and download everything as a ZIP.',
+    keywords: ['extract images from pdf', 'pdf image extractor', 'save pdf images', 'get pictures from pdf', 'pdf to images'],
     description: `
-      <p>PDF Booklet Creator arranges your PDF pages into booklet layouts ready for print-and-fold production. Perfect for creating brochures, zines, booklets, and saddle-stitched publications.</p>
-      <p>Choose from various grid modes (1x2, 2x2, 2x4, 4x4), paper sizes, and orientation options. The tool automatically handles page imposition for proper folding sequence.</p>
-      <p>All processing happens locally in your browser, ensuring your documents remain private.</p>
+      <p>There is an important difference between extracting images and converting pages to images. Converting renders the whole page, including text, at whatever resolution you pick. Extracting pulls out the original embedded image files at the resolution they were stored at - which is often much higher than the page displays.</p>
+      <p>That matters when you want the photograph, not a picture of the page it sits on. A brochure page might display an image at 4 inches wide while carrying a 3,000 pixel original.</p>
+      <p>The small-image filter is the setting that makes the output usable. Without it you get every bullet glyph, rule and logo fragment on every page - hundreds of files. Filtering by minimum dimensions leaves you with the images you actually wanted.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Upload the PDF document you want to convert to a booklet.' },
-      { step: 2, title: 'Choose Layout', description: 'Select grid mode, paper size, orientation, and rotation options.' },
-      { step: 3, title: 'Create and Download', description: 'Generate the booklet layout and download for printing.' },
+      { step: 1, title: 'Load your PDFs', description: 'Drop in up to 20 files. Embedded images are catalogued per page.' },
+      { step: 2, title: 'Set the size filter', description: 'Choose minimum width and height to exclude icons, bullets and decorative fragments.' },
+      { step: 3, title: 'Review the list', description: 'Found images are shown with their dimensions and formats.' },
+      { step: 4, title: 'Download as a ZIP', description: 'All images are saved at their original resolution and format.' },
     ],
     useCases: [
-      { title: 'Brochures', description: 'Create fold-ready brochures from standard PDF documents.', icon: 'book-open' },
-      { title: 'Zines', description: 'Produce self-published zines with proper page imposition.', icon: 'book' },
-      { title: 'Event Programs', description: 'Create professional program booklets for events.', icon: 'calendar' },
+      { title: 'Recovering photographs', description: 'Get the full-resolution photos out of a brochure whose source files are long gone.', icon: 'image' },
+      { title: 'Reusing figures', description: 'Pull the charts from a published report to reference in a new document.', icon: 'chart-no-axes-column' },
+      { title: 'Auditing a document', description: 'See exactly which images a PDF contains, including any that are cropped or hidden on the page.', icon: 'file-search' },
     ],
     faq: [
-      { question: 'What is saddle-stitch binding?', answer: 'Saddle-stitch is a binding method where folded sheets are nested and stapled through the fold.' },
-      { question: 'Which grid mode should I use?', answer: '1x2 is standard for booklets. Use 2x2 or larger for multi-up printing to save paper.' },
-      { question: 'Can I preview the layout?', answer: 'Yes, the tool provides a visual preview before generating the final booklet.' },
+      { question: 'How is this different from PDF to JPG?', answer: 'PDF to JPG renders whole pages. This extracts the original embedded image files, usually at higher resolution than the page displays.' },
+      { question: 'Why did I get hundreds of tiny files?', answer: 'Bullets, rules and logo fragments are all images. Raise the minimum size filter.' },
+      { question: 'What formats do the images come out as?', answer: 'Whatever they were stored as - usually JPEG or PNG. No re-encoding, so no quality loss.' },
+      { question: 'Can it recover an image that is cropped on the page?', answer: 'Often yes. PDFs frequently store the full image and display only part of it, so the extracted file can contain more than you saw.' },
+    ],
+  },
+
+  'extract-tables': {
+    title: 'Extract Tables',
+    metaTitle: 'Extract Tables From a PDF to CSV or JSON',
+    metaDescription: 'Detect tables in a PDF and export them as CSV, JSON or Markdown with rows and columns intact, ready for a script or a spreadsheet.',
+    keywords: ['extract tables from pdf', 'pdf table to csv', 'pdf table extraction', 'pdf to json table', 'scrape pdf table'],
+    description: `
+      <p>Table data locked in a PDF is the most common data-entry trap there is. Copying and pasting a table into a spreadsheet produces a single column of mush, because PDFs store where each piece of text sits rather than which cell it belongs to.</p>
+      <p>This detects table structure - from ruling lines where they exist, and from column alignment where they do not - and exports real rows and columns. Three output formats cover the usual destinations: CSV for spreadsheets, JSON for scripts, and Markdown for documentation.</p>
+      <p>Every detected table is previewed before export, so you can confirm the column boundaries landed correctly rather than discovering a misalignment after you have built something on top of the data.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the file. Pages are analysed for table structures.' },
+      { step: 2, title: 'Check the detected tables', description: 'Each is previewed with its rows and columns so you can verify the boundaries.' },
+      { step: 3, title: 'Choose the export format', description: 'CSV for spreadsheets, JSON for code, Markdown for docs.' },
+      { step: 4, title: 'Download', description: 'Save the extracted data.' },
+    ],
+    useCases: [
+      { title: 'Financial data into a model', description: 'Statement tables exported as CSV and dropped straight into a spreadsheet.', icon: 'table' },
+      { title: 'Automated data collection', description: 'JSON output feeding a script that processes many reports on a schedule.', icon: 'braces' },
+      { title: 'Documentation', description: 'Markdown tables pasted directly into a wiki page or README.', icon: 'file-code' },
+    ],
+    faq: [
+      { question: 'What makes a table detectable?', answer: 'Ruling lines, or consistent column alignment. Tables held together only by irregular whitespace are the hard case.' },
+      { question: 'How are merged cells handled?', answer: 'A merged cell is assigned to its first position and the remaining cells are left empty. Check the preview when your table has spanning headers.' },
+      { question: 'Does it work on scanned PDFs?', answer: 'Not directly. OCR the document first so there is text to analyse.' },
+      { question: 'Should I use this or PDF to Excel?', answer: 'PDF to Excel produces a formatted spreadsheet. This gives you raw CSV, JSON or Markdown, which is better for scripts and version control.' },
     ],
   },
 
   'rasterize-pdf': {
     title: 'Rasterize PDF',
-    metaDescription: 'Convert PDF pages to high-quality images. Export as PNG, JPEG, or WebP with custom DPI settings.',
-    keywords: ['rasterize pdf', 'pdf to image', 'pdf to png', 'pdf to jpeg', 'convert pdf pages'],
+    metaTitle: 'Rasterize PDF - Flatten Pages to Images',
+    metaDescription: 'Convert PDF pages to flat images at a chosen DPI and re-wrap them as a PDF. Removes text, fonts and hidden layers by turning pages into pictures.',
+    keywords: ['rasterize pdf', 'flatten pdf to image', 'convert pdf to image pdf', 'remove pdf text layer', 'pdf image only'],
     description: `
-      <p>Rasterize PDF converts your PDF pages into high-quality raster images. Choose from PNG, JPEG, or WebP output formats with full control over DPI and quality settings.</p>
-      <p>Perfect for creating thumbnails, social media graphics, or archiving PDF content as images. Supports page range selection and batch processing.</p>
-      <p>All processing happens locally in your browser, ensuring your documents remain private.</p>
+      <p>Rasterising turns every page into a picture of itself. It sounds destructive, and it is - that is the point. Once a page is an image there is no text layer to copy, no fonts to go missing, no form fields to interact with, and no hidden or cropped-off content lurking in the file.</p>
+      <p>People reach for this in three situations: printing where a printer keeps mangling unusual fonts, distributing a document where the text should not be extractable, and preparing something to feed into a system that only accepts images.</p>
+      <p>You control the DPI, and this is the whole decision. 150 is fine on screen, 300 is right for printing, 600 for fine detail at the cost of a much larger file. Output can be a new PDF of image pages, or the images themselves as PNG, JPEG or WebP.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop your PDF file or click to select.' },
-      { step: 2, title: 'Configure Output', description: 'Select DPI, output format (PNG/JPEG/WebP), quality, and page range.' },
-      { step: 3, title: 'Convert and Download', description: 'Process pages and download images individually or as a ZIP archive.' },
+      { step: 1, title: 'Add your PDFs', description: 'Drop in up to 10 files.' },
+      { step: 2, title: 'Set the DPI', description: '150 for screen, 300 for print, 600 for fine detail. Higher means larger.' },
+      { step: 3, title: 'Choose the output', description: 'A PDF of rasterised pages, or PNG, JPEG or WebP image files.' },
+      { step: 4, title: 'Convert and download', description: 'Save the result.' },
     ],
     useCases: [
-      { title: 'Social Media', description: 'Convert PDF slides to images for social media posting.', icon: 'share-2' },
-      { title: 'Thumbnails', description: 'Generate preview thumbnails for PDF documents.', icon: 'image' },
-      { title: 'Web Publishing', description: 'Convert PDF content to web-friendly image formats.', icon: 'globe' },
+      { title: 'Fixing a stubborn print job', description: 'A printer choking on unusual embedded fonts will handle flat images without complaint.', icon: 'printer' },
+      { title: 'Preventing text extraction', description: 'Distribute a document where copying the text is not straightforward.', icon: 'lock' },
+      { title: 'Guaranteed identical rendering', description: 'An image cannot be re-rendered differently by a different viewer.', icon: 'image' },
     ],
     faq: [
-      { question: 'What DPI should I use?', answer: '72 DPI for screen, 150 DPI for general use, 300 DPI for print quality.' },
-      { question: 'Which format is best?', answer: 'PNG for quality/transparency, JPEG for small size, WebP for modern web use.' },
-      { question: 'Can I convert specific pages?', answer: 'Yes, specify page ranges like "1-5, 8, 10-15" to convert only those pages.' },
+      { question: 'Will the text still be searchable?', answer: 'No. Rasterising removes the text layer entirely. Keep your original, or run OCR afterwards if you need search back.' },
+      { question: 'Does the file get bigger?', answer: 'Usually, especially for text-heavy documents where vector text is far more compact than pixels. Lower the DPI or compress afterwards.' },
+      { question: 'What DPI should I use?', answer: '150 for screen reading, 300 for printing, 600 only when fine detail genuinely matters.' },
+      { question: 'Is this the same as flattening?', answer: 'No. Flatten PDF merges form fields and annotations into the page but keeps the text. Rasterising converts everything to pixels.' },
     ],
   },
 
-  'markdown-to-pdf': {
-    title: 'Markdown to PDF',
-    metaDescription: 'Convert Markdown files to beautifully formatted PDF documents. Support for GitHub Flavored Markdown and syntax highlighting.',
-    keywords: ['markdown to pdf', 'md to pdf', 'convert markdown', 'gfm to pdf', 'markdown converter'],
+  // ==================== PAGE LAYOUT & ASSEMBLY ====================
+
+  'alternate-merge': {
+    title: 'Alternate and Mix PDF',
+    metaTitle: 'Alternate Merge PDF - Interleave Two Scans',
+    metaDescription: 'Interleave pages from two PDFs, taking one from each in turn. Fixes single-sided scans where fronts and backs ended up in separate files.',
+    keywords: ['alternate merge pdf', 'interleave pdf pages', 'mix pdf pages', 'combine front and back scans', 'zip merge pdf'],
     description: `
-      <p>Markdown to PDF converts your Markdown files into professionally styled PDF documents. Support for CommonMark and GitHub Flavored Markdown (GFM) including tables, task lists, and code blocks.</p>
-      <p>Choose from multiple themes (light, dark, GitHub) and customize page size and margins. Code blocks are syntax-highlighted for better readability.</p>
-      <p>All conversion happens locally in your browser, ensuring your content remains private.</p>
+      <p>This exists to solve one specific and very common problem. You have a stack of double-sided paper and a scanner that only does one side. You scan all the fronts, flip the stack, scan all the backs - and end up with two files that need to be interleaved 1, 1, 2, 2, 3, 3 rather than concatenated.</p>
+      <p>Alternate merge takes one page from each document in turn. Load the fronts and the backs and you get a correctly ordered double-sided document without dragging 80 thumbnails into position by hand.</p>
+      <p>The reverse option handles the flipped stack: when you turn the pile over, the backs come out in the opposite order, so reversing the second document during the merge is usually exactly what you need.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Markdown File', description: 'Upload your .md or .markdown file.' },
-      { step: 2, title: 'Choose Theme', description: 'Select a visual theme and configure page settings.' },
-      { step: 3, title: 'Convert and Download', description: 'Generate the styled PDF and download.' },
+      { step: 1, title: 'Load both documents', description: 'Add the fronts first, then the backs. Up to 10 files can be interleaved.' },
+      { step: 2, title: 'Reverse if needed', description: 'If the second stack was scanned after flipping the pile, enable reverse so the backs line up with their fronts.' },
+      { step: 3, title: 'Check the preview', description: 'The interleaved order is listed page by page. Confirm page 2 is the back of page 1.' },
+      { step: 4, title: 'Merge and download', description: 'Save the correctly ordered document.' },
     ],
     useCases: [
-      { title: 'Documentation', description: 'Convert README files and docs to shareable PDFs.', icon: 'file-text' },
-      { title: 'Notes Export', description: 'Export Markdown notes to PDF for printing or sharing.', icon: 'edit-3' },
-      { title: 'Reports', description: 'Create reports from Markdown with professional styling.', icon: 'bar-chart' },
+      { title: 'Single-sided scanner, double-sided paper', description: 'Fronts and backs in two files, interleaved into one correct document.', icon: 'combine' },
+      { title: 'Translations side by side', description: 'Alternate original and translated pages so each is followed by its counterpart.', icon: 'languages' },
+      { title: 'Forms and their attachments', description: 'Interleave each form page with its supporting document.', icon: 'files' },
     ],
     faq: [
-      { question: 'Is GitHub Flavored Markdown supported?', answer: 'Yes, tables, task lists, strikethrough, and other GFM features are supported.' },
-      { question: 'Can I customize the styling?', answer: 'Choose from preset themes or add custom CSS for full control.' },
-      { question: 'Are code blocks highlighted?', answer: 'Yes, code blocks include syntax highlighting for common languages.' },
+      { question: 'What if the two files have different page counts?', answer: 'Interleaving continues until one runs out, then the remaining pages are appended in order.' },
+      { question: 'When do I need the reverse option?', answer: 'When you flipped the whole stack before the second scan, which puts the backs in opposite order. This is the usual case.' },
+      { question: 'Can I interleave more than two documents?', answer: 'Yes, up to 10. Pages are taken from each in rotation.' },
+      { question: 'How is this different from normal merge?', answer: 'A normal merge appends one document after another. This weaves them together page by page.' },
     ],
   },
 
-  'email-to-pdf': {
-    title: 'Email to PDF',
-    metaDescription: 'Convert email files (.eml, .msg) to PDF documents. Preserve formatting, inline images, clickable links, and embed attachments.',
-    keywords: ['email to pdf', 'eml to pdf', 'msg to pdf', 'convert email', 'email converter', 'save email as pdf', 'outlook to pdf'],
+  'add-attachments': {
+    title: 'Add Attachments',
+    metaTitle: 'Attach Files to a PDF - Embed Any Format',
+    metaDescription: 'Embed files of any type inside a PDF - spreadsheets, images, source data - so one document carries everything that belongs with it.',
+    keywords: ['add attachment to pdf', 'embed file in pdf', 'pdf file attachment', 'attach spreadsheet to pdf', 'pdf portfolio'],
     description: `
-      <p>Email to PDF converts your email files (.eml and .msg formats) into well-formatted PDF documents. The tool preserves the email header information, body content, inline images with CID replacement, clickable links, and embeds attachments directly into the PDF.</p>
-      <p>Customize output options including page size (A4, Letter, Legal), date formatting with timezone support, and whether to include CC/BCC fields and attachment information.</p>
-      <p>All conversion happens locally in your browser, ensuring your emails remain private and secure.</p>
+      <p>PDFs can carry other files inside them, which is one of the format most useful and least known capabilities. The report and the spreadsheet behind its numbers travel as a single document, and cannot be separated in a forwarded email.</p>
+      <p>Any file type can be embedded - XLSX, CSV, images, ZIP archives, source documents. Each attachment gets a description, so the recipient understands what they are looking at rather than finding an unexplained file called data_final_v3.</p>
+      <p>Attachments appear in the attachments pane of Acrobat and most desktop readers, where they can be opened or saved out. Browser-based viewers vary in whether they surface them, so it is worth mentioning the attachments in the document text as well.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Email File', description: 'Upload your .eml or .msg email file.' },
-      { step: 2, title: 'Configure Options', description: 'Set page size, date format, timezone, and choose which fields to include.' },
-      { step: 3, title: 'Convert and Download', description: 'Convert to PDF with embedded attachments and download the result.' },
+      { step: 1, title: 'Load the PDF', description: 'Drop in the document that will carry the attachments.' },
+      { step: 2, title: 'Add the files', description: 'Select any files to embed. There is no format restriction.' },
+      { step: 3, title: 'Describe each one', description: 'Add a short description so recipients know what each attachment is for.' },
+      { step: 4, title: 'Save', description: 'Download the PDF with the files embedded inside it.' },
     ],
     useCases: [
-      { title: 'Legal Records', description: 'Archive important emails as PDF with embedded attachments for legal documentation.', icon: 'scale' },
-      { title: 'Business Archives', description: 'Convert business correspondence to PDF for long-term record keeping.', icon: 'briefcase' },
-      { title: 'Evidence Preservation', description: 'Save email evidence with inline images and attachments in a non-editable PDF format.', icon: 'shield' },
+      { title: 'Report plus source data', description: 'The analysis as pages, the spreadsheet behind it embedded, so the working is always available.', icon: 'paperclip' },
+      { title: 'Contracts with schedules', description: 'Supporting documents attached to the agreement rather than sent as separate files.', icon: 'file-text' },
+      { title: 'Submissions with evidence', description: 'One file to upload, carrying everything the reviewer needs.', icon: 'package' },
     ],
     faq: [
-      { question: 'What email formats are supported?', answer: 'Both .eml (RFC 822) and .msg (Microsoft Outlook) files are fully supported.' },
-      { question: 'Are attachments included?', answer: 'Yes! Attachments are embedded directly into the PDF file. You can extract them from the PDF using a compatible PDF reader.' },
-      { question: 'Are inline images displayed?', answer: 'Yes, inline images referenced via CID (Content-ID) are automatically converted to base64 data URIs and displayed in the PDF.' },
-      { question: 'Are links clickable?', answer: 'Yes, all HTML links (<a> tags) and URLs in plain text emails are converted to clickable links in the PDF.' },
-      { question: 'Is the email formatting preserved?', answer: 'Yes, HTML emails maintain their formatting as closely as possible, including styles, images, and links.' },
+      { question: 'Which file types can I attach?', answer: 'Any. PDF treats attachments as opaque data, so spreadsheets, images, archives and source files all work.' },
+      { question: 'How does the recipient get them out?', answer: 'Through the attachments panel in Acrobat, Preview and most desktop readers. Browser viewers are less consistent, so mention them in the document text.' },
+      { question: 'Does this make the PDF much larger?', answer: 'It grows by roughly the size of the attached files, since they are stored as-is.' },
+      { question: 'Are attachments encrypted with the document?', answer: 'If you password-protect the PDF afterwards, the attachments are protected too.' },
     ],
   },
 
-  'cbz-to-pdf': {
-    title: 'CBZ to PDF',
-    metaDescription: 'Convert comic book archives (CBZ) to PDF. Preserve image order and quality for digital comics.',
-    keywords: ['cbz to pdf', 'comic to pdf', 'convert cbz', 'comic book converter', 'cbz converter'],
+  'extract-attachments': {
+    title: 'Extract Attachments',
+    metaTitle: 'Extract Attachments From a PDF',
+    metaDescription: 'Find and save every file embedded in a PDF. Batch process several documents and download all attachments as a ZIP.',
+    keywords: ['extract pdf attachments', 'get files from pdf', 'save pdf embedded files', 'pdf attachment extractor', 'pdf portfolio extract'],
     description: `
-      <p>CBZ to PDF converts Comic Book Archive files into PDF documents. The tool extracts all images from the CBZ archive and compiles them into a PDF while maintaining the correct reading order.</p>
-      <p>Choose from various page size options including original image dimensions or standardized comic book sizes. Perfect for reading comics on devices that support PDF but not CBZ.</p>
-      <p>All conversion happens locally in your browser, ensuring your comics remain private.</p>
+      <p>Embedded files are easy to miss. Many browser PDF viewers do not show the attachments panel at all, so a document can arrive carrying the spreadsheet you actually needed and you would never know it was there.</p>
+      <p>This lists everything embedded in the file with names, sizes and types, and saves it all out as a ZIP. You can run several PDFs at once, which is the practical way to check a whole batch rather than opening each one to look.</p>
+      <p>It is also a useful audit step. Attachments are content that travels with a document without appearing on any page, so knowing what is inside a file matters before you forward it on.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload CBZ File', description: 'Upload your .cbz comic book archive file.' },
-      { step: 2, title: 'Select Options', description: 'Choose page size and image quality settings.' },
-      { step: 3, title: 'Convert and Download', description: 'Convert to PDF and download your comic.' },
+      { step: 1, title: 'Load your PDFs', description: 'Drop in up to 10 files. Each is scanned for embedded attachments.' },
+      { step: 2, title: 'Review what was found', description: 'Attachments are listed with filename, size and type, grouped by source document.' },
+      { step: 3, title: 'Download as a ZIP', description: 'Save everything at once, organised by source file.' },
     ],
     useCases: [
-      { title: 'E-Reader Compatibility', description: 'Convert CBZ to PDF for e-readers that only support PDF.', icon: 'book' },
-      { title: 'Comic Archives', description: 'Create PDF archives of your digital comic collection.', icon: 'archive' },
-      { title: 'Print Preparation', description: 'Convert digital comics to PDF for printing.', icon: 'printer' },
+      { title: 'Getting the data behind a report', description: 'The spreadsheet embedded in a published PDF, extracted rather than requested by email.', icon: 'download' },
+      { title: 'Unpacking a PDF portfolio', description: 'Multi-document portfolios split back into their component files.', icon: 'package-open' },
+      { title: 'Auditing before forwarding', description: 'Check what a document is carrying that does not appear on any page.', icon: 'file-search' },
     ],
     faq: [
-      { question: 'What is CBZ format?', answer: 'CBZ is a ZIP archive containing comic book pages as image files, renamed with .cbz extension.' },
-      { question: 'Is image quality preserved?', answer: 'Yes, images are embedded at their original quality in the PDF.' },
-      { question: 'Are nested folders supported?', answer: 'Yes, images from all folders within the archive are extracted and sorted.' },
+      { question: 'Why did I not know there were attachments?', answer: 'Most browser PDF viewers do not display the attachments panel. The files are there; the interface just never mentions them.' },
+      { question: 'Can I extract from several PDFs at once?', answer: 'Yes, up to 10 per run, with the output organised by source document.' },
+      { question: 'What if the PDF is password protected?', answer: 'Remove the password first with the Unlock PDF tool, then extract.' },
+      { question: 'Are the extracted files identical to the originals?', answer: 'Yes. Attachments are stored as opaque data and come out byte for byte.' },
+    ],
+  },
+
+  'edit-attachments': {
+    title: 'Manage Attachments',
+    metaTitle: 'Manage PDF Attachments - View, Rename, Remove',
+    metaDescription: 'See every file embedded in a PDF, rename them for clarity, and remove the ones that should not be there before you send the document on.',
+    keywords: ['manage pdf attachments', 'remove pdf attachment', 'rename pdf attachment', 'edit embedded files pdf', 'pdf attachment manager'],
+    description: `
+      <p>Attachments accumulate. A document passes through several hands, each adding a supporting file, and by the time it is ready to go out it carries three superseded versions of a spreadsheet and someone internal notes.</p>
+      <p>This shows you the full list and lets you act on it: rename attachments so they describe themselves, and remove the ones that should not be distributed. The document pages are untouched - only the embedded file list changes.</p>
+      <p>The removal side is a privacy control worth knowing about. Embedded files are invisible in the page content, so a document can leak data through an attachment nobody remembered was there.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the document. Every embedded file is listed with its name and size.' },
+      { step: 2, title: 'Rename what is unclear', description: 'Give attachments descriptive names so recipients know what they are.' },
+      { step: 3, title: 'Remove what should not travel', description: 'Delete superseded versions and anything internal.' },
+      { step: 4, title: 'Save', description: 'Download the PDF with the revised attachment list.' },
+    ],
+    useCases: [
+      { title: 'Cleaning up before distribution', description: 'Remove the three old versions of the model before the report goes to the client.', icon: 'file-x' },
+      { title: 'Making attachments understandable', description: 'Rename final_v3_actual.xlsx to something a reader can interpret.', icon: 'pencil' },
+      { title: 'Pre-release privacy check', description: 'Confirm nothing is riding along that should not leave the building.', icon: 'shield-check' },
+    ],
+    faq: [
+      { question: 'Does removing an attachment shrink the file?', answer: 'Yes, by roughly the size of the file removed, since attachments are stored in full.' },
+      { question: 'Can I add attachments here too?', answer: 'Use Add Attachments for that. This tool manages what is already embedded.' },
+      { question: 'Are the document pages affected?', answer: 'No. Only the embedded file list changes; page content is untouched.' },
+      { question: 'Can removed attachments be recovered?', answer: 'Not from the new file. Keep your original if you may need them.' },
+    ],
+  },
+
+  'divide-pages': {
+    title: 'Divide Pages',
+    metaTitle: 'Divide PDF Pages - Split Each Page in Half',
+    metaDescription: 'Cut each PDF page into two or more pages horizontally or vertically. Fixes book scans where two pages were captured as one spread.',
+    keywords: ['divide pdf pages', 'split pdf page in half', 'separate book scan pages', 'cut pdf page', 'split spread pdf'],
+    description: `
+      <p>Scan an open book and you capture two pages as one wide image. Read it on a tablet and you are either zooming and panning constantly or squinting at two pages at once. The document needs each spread cut down the middle.</p>
+      <p>This divides every page along the axis you choose. A vertical cut splits a landscape spread into two portrait pages. A horizontal cut suits documents printed two-up on a sheet. You can also divide into more than two parts for four-up layouts.</p>
+      <p>The cut position is adjustable, because the gutter of a book scan is rarely exactly centred. Nudge the split line until it lands in the gutter rather than through the text.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the scanned document.' },
+      { step: 2, title: 'Choose the axis', description: 'Vertical for book spreads, horizontal for two-up printed sheets.' },
+      { step: 3, title: 'Set the divisions and position', description: 'Two parts for a spread, more for four-up. Adjust the split line to sit in the gutter.' },
+      { step: 4, title: 'Divide and download', description: 'Save the document with each original page split into separate pages.' },
+    ],
+    useCases: [
+      { title: 'Book scans', description: 'A 200-page scan of open spreads becomes 400 single pages that read properly on a tablet.', icon: 'book-open' },
+      { title: 'Two-up printed documents', description: 'A booklet printed two pages per sheet, separated back into single pages.', icon: 'columns' },
+      { title: 'Wide sheets for smaller screens', description: 'Divide A3 landscape pages into readable A4 portions.', icon: 'scissors' },
+    ],
+    faq: [
+      { question: 'Can I move the split line off centre?', answer: 'Yes, and you usually need to. Book gutters are rarely exactly centred.' },
+      { question: 'How many parts can one page become?', answer: 'Two or more. Four is common for four-up layouts.' },
+      { question: 'Does dividing lose quality?', answer: 'No. The page content is preserved and the visible area is redefined - nothing is re-rendered.' },
+      { question: 'Is this the same as Split PDF?', answer: 'No. Split PDF separates a document into multiple files. This cuts individual pages into smaller pages within one document.' },
+    ],
+  },
+
+  'add-blank-page': {
+    title: 'Add Blank Page',
+    metaTitle: 'Insert a Blank Page Into a PDF',
+    metaDescription: 'Insert blank pages anywhere in a PDF - for double-sided printing, notes space, or section breaks. Choose position, size and how many.',
+    keywords: ['add blank page pdf', 'insert page in pdf', 'add empty page', 'pdf blank page insert', 'double sided printing pdf'],
+    description: `
+      <p>Blank pages are usually about printing. Duplex printing puts the next section on the back of the last page of the previous one, which is wrong when each chapter is supposed to start on a right-hand page. A blank verso fixes it.</p>
+      <p>They also serve as deliberate space: a notes page after each section of a handout, or a separator before an appendix in a bound document.</p>
+      <p>Choose where the page goes - at the start, at the end, or after a specific page - how many to insert, and what size. Matching the surrounding pages is the default, which is what you want unless you are inserting a different-format insert on purpose.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the document.' },
+      { step: 2, title: 'Choose the position', description: 'Start, end, or after a specific page number.' },
+      { step: 3, title: 'Set the count and size', description: 'How many blanks, and whether they match the surrounding pages or use a standard size.' },
+      { step: 4, title: 'Insert and save', description: 'Download the updated PDF.' },
+    ],
+    useCases: [
+      { title: 'Chapters that start on the right', description: 'A blank verso so each section begins on a recto page when printed double-sided.', icon: 'file-plus' },
+      { title: 'Notes pages in a handout', description: 'A blank page after each section for attendees to write on.', icon: 'notebook-pen' },
+      { title: 'Section separators', description: 'A blank sheet before each appendix in a bound document.', icon: 'layers' },
+    ],
+    faq: [
+      { question: 'What size will the blank page be?', answer: 'By default it matches the surrounding pages. You can override it with a standard size if you need to.' },
+      { question: 'Can I insert several blanks in different places?', answer: 'Run the tool once per position, or use the PDF Multi Tool to do it all in one session.' },
+      { question: 'Will page numbers be affected?', answer: 'Existing stamped numbers are page content and do not shift. Re-run Add Page Numbers if you need a corrected sequence.' },
+      { question: 'Are the blank pages truly empty?', answer: 'Yes - no content, no watermark, nothing to print.' },
+    ],
+  },
+
+  'reverse-pages': {
+    title: 'Reverse Page Order',
+    metaTitle: 'Reverse PDF Page Order',
+    metaDescription: 'Flip a PDF so the last page comes first. Fixes documents scanned back to front or fed through a printer in reverse.',
+    keywords: ['reverse pdf pages', 'flip pdf order', 'reverse page order pdf', 'backwards pdf fix', 'invert pdf page order'],
+    description: `
+      <p>Documents come out backwards more often than they should. A sheet feeder that stacks face-up produces a reversed scan. Some printers deliver output in reverse. Occasionally a document was simply assembled the wrong way round.</p>
+      <p>Reversing is one click. Page 40 becomes page 1 and so on down the document, with page content untouched.</p>
+      <p>Up to 10 files can be reversed in a single run, which matters when a scanning session produced a whole folder in the wrong order rather than one file.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Add your PDFs', description: 'Drop in up to 10 files.' },
+      { step: 2, title: 'Reverse', description: 'Page order is inverted for each document.' },
+      { step: 3, title: 'Download', description: 'Save the corrected files.' },
+    ],
+    useCases: [
+      { title: 'Backwards scans', description: 'A face-up sheet feeder produced a reversed document. One pass fixes it.', icon: 'flip-vertical' },
+      { title: 'Reversed print output', description: 'Correcting a file that was assembled in printer output order.', icon: 'printer' },
+      { title: 'A batch in the wrong order', description: 'Ten files from one scanning session, all reversed together.', icon: 'files' },
+    ],
+    faq: [
+      { question: 'Does reversing affect page content?', answer: 'No. Only the order changes. Nothing on any page is modified.' },
+      { question: 'What happens to bookmarks?', answer: 'They follow their pages to the new positions.' },
+      { question: 'Can I reverse only part of the document?', answer: 'Not here - this reverses the whole file. Use Organize PDF to rearrange a specific range.' },
+      { question: 'How many files at once?', answer: 'Up to 10 per run, each reversed independently.' },
+    ],
+  },
+
+  'rotate-pdf': {
+    title: 'Rotate PDF',
+    metaTitle: 'Rotate PDF - Fix Sideways Pages and Save',
+    metaDescription: 'Rotate PDF pages 90, 180 or 270 degrees and save the change permanently, so the document opens the right way up for everyone.',
+    keywords: ['rotate pdf', 'turn pdf pages', 'fix sideways pdf', 'rotate and save pdf', 'landscape to portrait pdf'],
+    description: `
+      <p>Rotating a page in a PDF viewer does not save anything. The next person who opens the file sees the same sideways page, because the viewer only changed the display for you.</p>
+      <p>This writes the rotation into the document. Turn pages 90 degrees clockwise or anticlockwise, or 180 for pages scanned upside down, and the change is stored so the file opens correctly everywhere.</p>
+      <p>You can rotate the whole document or select individual pages, which is the normal case - one or two sheets went through the scanner the wrong way while the rest were fine.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the file. Pages appear as thumbnails at their current orientation.' },
+      { step: 2, title: 'Select the pages', description: 'Choose the ones that are wrong, or select all.' },
+      { step: 3, title: 'Pick the rotation', description: '90 clockwise, 90 anticlockwise, or 180 for upside-down pages.' },
+      { step: 4, title: 'Apply and download', description: 'Save the PDF with the rotation stored permanently.' },
+    ],
+    useCases: [
+      { title: 'Sideways scanner pages', description: 'Three landscape sheets in a portrait document, turned upright and saved.', icon: 'rotate-cw' },
+      { title: 'Upside-down scans', description: 'Pages fed in the wrong way, corrected with a 180 degree turn.', icon: 'flip-vertical-2' },
+      { title: 'Wide tables and drawings', description: 'Landscape content rotated so it reads correctly in a portrait document.', icon: 'table' },
+    ],
+    faq: [
+      { question: 'Why does rotating in my PDF viewer not stick?', answer: 'Viewers change the display only. Writing the rotation into the file is what makes it permanent.' },
+      { question: 'Can I rotate individual pages?', answer: 'Yes. Select any combination of pages and apply the rotation only to them.' },
+      { question: 'Does rotating reduce quality?', answer: 'No. It sets a page attribute rather than re-rendering anything.' },
+      { question: 'What if I need an angle other than 90 or 180?', answer: 'Use Rotate Custom, which handles arbitrary angles - useful for straightening a crooked scan.' },
+    ],
+  },
+
+  'rotate-custom': {
+    title: 'Rotate by Custom Angle',
+    metaTitle: 'Rotate PDF by Any Angle - Straighten Scans',
+    metaDescription: 'Rotate PDF pages by any angle, including fractions of a degree, to straighten crooked scans that 90-degree rotation cannot fix.',
+    keywords: ['rotate pdf custom angle', 'straighten pdf', 'rotate pdf 5 degrees', 'fix crooked scan', 'precise pdf rotation'],
+    description: `
+      <p>Standard rotation only offers 90 degree steps, which is no help at all for the most common orientation problem: a page that went through the scanner two degrees off square. Two degrees is enough to look careless and enough to degrade OCR accuracy.</p>
+      <p>This accepts any angle, including decimals, so you can enter 1.5 or minus 3.2 and straighten the page properly. A live preview shows the result, so you can nudge the value until the text baselines look level.</p>
+      <p>For a whole batch of crooked scans, Deskew PDF detects the angle automatically. Use this tool when you want to set the angle yourself, or when automatic detection has picked the wrong reference line.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the document with the crooked pages.' },
+      { step: 2, title: 'Enter the angle', description: 'Any value, positive or negative, decimals included. Small corrections are usually under 5 degrees.' },
+      { step: 3, title: 'Check the preview', description: 'Adjust until the text baselines sit level against the page edge.' },
+      { step: 4, title: 'Apply and save', description: 'Choose which pages to rotate and download the result.' },
+    ],
+    useCases: [
+      { title: 'Straightening a scan', description: 'A page 2.5 degrees off square, corrected so the document looks deliberate.', icon: 'rotate-3d' },
+      { title: 'Improving OCR accuracy', description: 'Recognition engines expect horizontal text. Straightening first measurably improves results.', icon: 'scan-text' },
+      { title: 'Photographed documents', description: 'Phone photos are never perfectly square. A small rotation fixes the tilt.', icon: 'smartphone' },
+    ],
+    faq: [
+      { question: 'What angles can I use?', answer: 'Any value, including decimals, positive or negative. Fine corrections are usually a few degrees or less.' },
+      { question: 'Will the corners get cut off?', answer: 'Rotating a rectangle inside a fixed page can clip the corners. The page box is expanded where needed to avoid losing content.' },
+      { question: 'Should I use this or Deskew PDF?', answer: 'Deskew detects the angle automatically across a batch. Use this when you want to set the angle yourself, or when detection got it wrong.' },
+      { question: 'Does rotating by an odd angle degrade the page?', answer: 'Vector content and text rotate cleanly. Raster images are resampled, so a very large rotation can soften them slightly.' },
+    ],
+  },
+
+  'n-up-pdf': {
+    title: 'N-Up Pages',
+    metaTitle: 'N-Up PDF - Print 2, 4 or 9 Pages Per Sheet',
+    metaDescription: 'Place multiple PDF pages on one sheet - 2-up, 4-up, 6-up or 9-up - to save paper on handouts, drafts and reference copies.',
+    keywords: ['n-up pdf', '2 pages per sheet pdf', '4 up printing pdf', 'multiple pages one sheet', 'save paper printing pdf'],
+    description: `
+      <p>Printing a 200-page document to read once uses 200 sheets. At 2-up it uses 100, at 4-up it uses 50, and for a draft you are marking up rather than presenting, 4-up is usually perfectly legible.</p>
+      <p>This builds the imposed document for you rather than relying on a printer driver setting that behaves differently on every machine. Layouts from 2-up to 9-up are available, and you control margins and the spacing between the tiled pages.</p>
+      <p>Because the result is a normal PDF, it prints identically anywhere, can be shared, and can be checked on screen before a single sheet is used.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the document you want to condense.' },
+      { step: 2, title: 'Choose the layout', description: '2-up for readable drafts, 4-up for reference copies, 9-up for thumbnail overviews.' },
+      { step: 3, title: 'Set margins and gaps', description: 'Leave a margin if the sheets will be hole-punched or bound.' },
+      { step: 4, title: 'Generate and download', description: 'Save the imposed PDF, ready to print.' },
+    ],
+    useCases: [
+      { title: 'Draft review copies', description: 'A long document at 4-up, marked up with a pen for a fraction of the paper.', icon: 'grid-2x2' },
+      { title: 'Slide handouts', description: 'Six slides per page for attendees, printed from a converted deck.', icon: 'presentation' },
+      { title: 'Contact sheets', description: '9-up thumbnails of a long document as a visual index.', icon: 'layout-grid' },
+    ],
+    faq: [
+      { question: 'Which layout stays readable?', answer: '2-up keeps body text comfortable. 4-up is fine for most documents. 9-up is really a thumbnail overview rather than something to read.' },
+      { question: 'Is the text still selectable?', answer: 'Yes. Pages are scaled and placed as vector content, not rasterised.' },
+      { question: 'How is this different from the printer 2-up setting?', answer: 'This produces an actual PDF, so the result is identical on any printer and can be checked or shared beforehand.' },
+      { question: 'Can I control the reading order?', answer: 'Pages are placed left to right, top to bottom, which matches how the sheet reads.' },
+    ],
+  },
+
+  'grid-combine': {
+    title: 'Grid Combine',
+    metaTitle: 'Combine PDFs Into a Grid on One Page',
+    metaDescription: 'Arrange pages from multiple PDFs into a grid on a single page. Useful for comparison sheets, contact sheets and visual summaries.',
+    keywords: ['combine pdf into grid', 'pdf collage', 'multiple pdfs one page', 'pdf comparison sheet', 'pdf contact sheet'],
+    description: `
+      <p>Sometimes the point is to see several documents at once. Six design variants laid out side by side make differences obvious in a way that flipping between six separate files never does.</p>
+      <p>This takes pages from multiple PDFs and tiles them into a grid on a single page. You set the number of rows and columns, the spacing between cells, and the overall page size - up to 100 source files in one composition.</p>
+      <p>Unlike N-Up, which imposes the pages of one document to save paper, this is about assembling material from different sources into one comparison view.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Add your PDFs', description: 'Drop in up to 100 files. The first page of each is used by default.' },
+      { step: 2, title: 'Set the grid', description: 'Choose rows and columns - 2 by 3 gives six cells per page.' },
+      { step: 3, title: 'Adjust spacing and page size', description: 'Set the gap between cells and the output page dimensions.' },
+      { step: 4, title: 'Generate and download', description: 'Save the combined grid document.' },
+    ],
+    useCases: [
+      { title: 'Design comparison', description: 'Six concepts on one sheet so a client can see them together.', icon: 'layout-grid' },
+      { title: 'Visual index', description: 'A contact sheet of many documents as a single reference page.', icon: 'grid-3x3' },
+      { title: 'Before and after', description: 'Two versions side by side to make the changes obvious.', icon: 'columns-2' },
+    ],
+    faq: [
+      { question: 'How many files can I combine?', answer: 'Up to 100. They flow across as many grid pages as the layout requires.' },
+      { question: 'Are the pages scaled to fit?', answer: 'Yes, proportionally, so nothing is distorted. Cells may have space around them where aspect ratios differ.' },
+      { question: 'How is this different from N-Up?', answer: 'N-Up imposes pages from one document to save paper. This assembles pages from many documents into a comparison view.' },
+      { question: 'Can I use pages other than the first of each file?', answer: 'Extract the pages you want first, then combine those into the grid.' },
+    ],
+  },
+
+  'combine-single-page': {
+    title: 'Combine Into One Page',
+    metaTitle: 'Combine PDF Pages Into One Long Page',
+    metaDescription: 'Stitch every PDF page into one continuous long page, so the document scrolls without pagination - ideal for phones and web embedding.',
+    keywords: ['combine pdf into one page', 'single page pdf', 'continuous scroll pdf', 'long page pdf', 'stitch pdf pages'],
+    description: `
+      <p>Page breaks exist because paper has edges. On a phone they are pure friction - you scroll, hit a break, lose your place, and scroll again. Content designed for continuous reading works better without them.</p>
+      <p>This stitches every page into one tall page. A 10-page document becomes a single page ten times the height, scrolling smoothly from top to bottom with no interruptions.</p>
+      <p>The result is not printable in any useful sense - it is one enormous sheet. That is the trade-off: this is for screen reading, embedding in a web page, or capturing a document as a single continuous image.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the document you want stitched together.' },
+      { step: 2, title: 'Set the spacing', description: 'Choose a gap between the joined pages, or zero for a seamless run.' },
+      { step: 3, title: 'Combine', description: 'All pages are stacked vertically into one page.' },
+      { step: 4, title: 'Download', description: 'Save the single-page PDF.' },
+    ],
+    useCases: [
+      { title: 'Reading on a phone', description: 'Continuous scrolling with no page breaks to lose your place at.', icon: 'smartphone' },
+      { title: 'Embedding in a web page', description: 'One continuous page behaves better in an iframe than a paginated document.', icon: 'globe' },
+      { title: 'Capturing a whole document as one image', description: 'A single-page source converts to a single tall image.', icon: 'image' },
+    ],
+    faq: [
+      { question: 'Can I print the result?', answer: 'Not sensibly. It is one very tall page. Keep your paginated original for printing.' },
+      { question: 'Is there a limit on how many pages?', answer: 'PDF has a maximum page dimension, so extremely long documents may need splitting into a few long pages.' },
+      { question: 'Is the text still selectable?', answer: 'Yes. Content is repositioned, not rasterised.' },
+      { question: 'What spacing should I use?', answer: 'Zero for a seamless flow, or a small gap if you want the original page boundaries to remain visible.' },
+    ],
+  },
+
+  'posterize-pdf': {
+    title: 'Posterize PDF',
+    metaTitle: 'Posterize PDF - Split One Page Across Sheets',
+    metaDescription: 'Split a large PDF page across multiple printable sheets with overlap for taping, so you can print a poster on an ordinary printer.',
+    keywords: ['posterize pdf', 'print poster on multiple pages', 'split large pdf page', 'tile pdf for printing', 'a0 poster on a4'],
+    description: `
+      <p>You have an A0 poster and an A4 printer. Printing to fit produces something the size of a postcard. Posterising goes the other way: the large page is divided across a grid of ordinary sheets that you assemble into the full-size result.</p>
+      <p>The overlap setting is what makes it work in practice. A few millimetres of shared content along each edge gives you something to align when taping the sheets together - without it, matching the seams exactly is near impossible.</p>
+      <p>Choose the grid to match your output size: 2 by 2 sheets for a poster twice as wide and tall, 3 by 3 for larger. Alignment marks are printed in the overlap so the joins line up.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the large-format document.' },
+      { step: 2, title: 'Set the grid', description: 'Choose how many sheets across and down - 2 by 2, 3 by 3, or larger.' },
+      { step: 3, title: 'Set the overlap', description: '5 to 10 mm gives you enough shared content to align the sheets when taping.' },
+      { step: 4, title: 'Generate and print', description: 'Download the tiled PDF, print all sheets, and assemble along the overlap marks.' },
+    ],
+    useCases: [
+      { title: 'Posters on an office printer', description: 'An A1 design printed across nine A4 sheets and taped together.', icon: 'layout-dashboard' },
+      { title: 'Large technical drawings', description: 'An engineering drawing printed at full scale without a plotter.', icon: 'ruler' },
+      { title: 'Full-size templates', description: 'A sewing or woodworking pattern printed at 1:1 across several sheets.', icon: 'scissors' },
+    ],
+    faq: [
+      { question: 'How much overlap should I use?', answer: '5 to 10 mm. Enough to align and tape, not so much that you waste printable area.' },
+      { question: 'Do I get alignment marks?', answer: 'Yes, printed in the overlap area so you can match the sheets precisely.' },
+      { question: 'Will the print be at true scale?', answer: 'Yes, provided you print at 100 percent with no fit-to-page scaling in the print dialog. That setting is the usual cause of a wrong-size result.' },
+      { question: 'How is this different from N-Up?', answer: 'N-Up puts many pages on one sheet. This spreads one page across many sheets - the opposite operation.' },
+    ],
+  },
+
+  'pdf-booklet': {
+    title: 'PDF Booklet',
+    metaTitle: 'PDF Booklet - Saddle-Stitch Imposition',
+    metaDescription: 'Reorder PDF pages for booklet printing so that folding and stapling the stack produces a correctly sequenced booklet.',
+    keywords: ['pdf booklet', 'saddle stitch pdf', 'booklet imposition', 'print pdf as booklet', 'fold and staple pdf'],
+    description: `
+      <p>Booklet printing has a counterintuitive requirement. To make a folded, stapled booklet read correctly, the pages must be printed in a scrambled order - on a 16-page booklet, the first sheet carries pages 16 and 1 on one side and 2 and 15 on the other. Working that out by hand is where the mistakes happen.</p>
+      <p>This calculates the imposition for you. Give it the document and it reorders and pairs the pages so that printing double-sided, folding the stack down the middle and stapling the spine produces a booklet that reads 1, 2, 3 straight through.</p>
+      <p>Page counts are padded to a multiple of four automatically, because a folded sheet always produces four pages. Standard paper sizes are supported, and the preview shows which pages land on which sheet before you print anything.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the document you want as a booklet.' },
+      { step: 2, title: 'Choose the paper size', description: 'Pick the sheet you will print on - two booklet pages are placed on each side.' },
+      { step: 3, title: 'Review the imposition', description: 'The preview shows the page pairing per sheet. Padding to a multiple of four is added automatically.' },
+      { step: 4, title: 'Print double-sided', description: 'Download, print duplex with short-edge binding, fold the stack and staple the spine.' },
+    ],
+    useCases: [
+      { title: 'Event programmes', description: 'A folded A5 booklet from A4 sheets, printed in-house.', icon: 'book' },
+      { title: 'Instruction manuals', description: 'A compact stapled booklet to go in the box with a product.', icon: 'book-open' },
+      { title: 'Zines and short publications', description: 'Small print runs produced on an office printer.', icon: 'newspaper' },
+    ],
+    faq: [
+      { question: 'Why is the page order scrambled?', answer: 'Because folding reorders them. Sheet one carries the last and first pages together; the imposition accounts for the fold.' },
+      { question: 'What if my page count is not a multiple of four?', answer: 'Blank pages are added automatically. A folded sheet always yields four pages, so the total has to be divisible by four.' },
+      { question: 'Which duplex setting do I need?', answer: 'Double-sided with short-edge binding. Long-edge binding produces upside-down alternate pages.' },
+      { question: 'Does this work for thick documents?', answer: 'Saddle stitching works up to roughly 60 to 80 pages before the fold bulges. Beyond that, split into signatures and bind them separately.' },
+    ],
+  },
+
+  // ==================== METADATA & INSPECTION ====================
+
+  'view-metadata': {
+    title: 'View PDF Metadata',
+    metaTitle: 'View PDF Metadata - Author, Dates & Producer',
+    metaDescription: 'Inspect the hidden properties of a PDF: author, title, creation and modification dates, producer software and keywords. Export as JSON.',
+    keywords: ['view pdf metadata', 'pdf properties', 'pdf document info', 'check pdf author', 'pdf metadata viewer'],
+    description: `
+      <p>Every PDF carries a block of information that never appears on a page: who created it, with which software, when it was made and when it was last changed. Most people have no idea it is there, and it is frequently more revealing than the document itself.</p>
+      <p>This displays all of it - title, author, subject, keywords, creator and producer applications, and both timestamps - along with structural facts like page count, page dimensions and whether the file is encrypted or linearised.</p>
+      <p>Worth checking before you send anything out. The author field often holds a full name or an internal username, and the producer field tells the recipient exactly which software your organisation runs.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the file. Nothing is modified - this is read-only.' },
+      { step: 2, title: 'Read the properties', description: 'Document metadata, timestamps and structural details are listed together.' },
+      { step: 3, title: 'Export if needed', description: 'Save the metadata as JSON for a record or for scripted processing.' },
+    ],
+    useCases: [
+      { title: 'Pre-release privacy check', description: 'Confirm the author field does not carry a name or username you did not intend to publish.', icon: 'file-search' },
+      { title: 'Verifying provenance', description: 'Creation dates and producer software help establish where a document came from.', icon: 'shield-question' },
+      { title: 'Cataloguing a document set', description: 'Export metadata as JSON to build an index of an archive.', icon: 'database' },
+    ],
+    faq: [
+      { question: 'What information does a PDF actually store?', answer: 'Title, author, subject, keywords, the creating and producing applications, and creation and modification timestamps - plus structural details such as page count and encryption state.' },
+      { question: 'Why does this matter?', answer: 'Because it travels with the file. Author names, internal usernames and software versions are routinely disclosed by accident.' },
+      { question: 'Is my file changed?', answer: 'No. This tool only reads.' },
+      { question: 'How do I remove what I find?', answer: 'Use Edit Metadata to change specific fields, or Remove Metadata to strip everything.' },
+    ],
+  },
+
+  'edit-metadata': {
+    title: 'Edit PDF Metadata',
+    metaTitle: 'Edit PDF Metadata - Title, Author & Keywords',
+    metaDescription: 'Change the title, author, subject and keywords stored in a PDF, so search results and document systems show the right information.',
+    keywords: ['edit pdf metadata', 'change pdf author', 'set pdf title', 'pdf properties editor', 'pdf keywords'],
+    description: `
+      <p>The title field matters more than most people realise. It is what a browser tab shows, what document management systems index, and what search engines display - so a PDF whose title reads Microsoft Word - untitled2.docx looks careless in every one of those places.</p>
+      <p>Here you can set the title, author, subject and keywords properly. Keywords are searchable in document systems, which makes them worth filling in for anything that will be filed and retrieved later.</p>
+      <p>The same tool lets you correct or anonymise the author field, which is the field most likely to carry information you did not mean to publish.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the file. Existing metadata is read and shown in editable fields.' },
+      { step: 2, title: 'Edit the fields', description: 'Set title, author, subject and keywords. A descriptive title is the highest-value change.' },
+      { step: 3, title: 'Save', description: 'Download the PDF with the updated properties.' },
+    ],
+    useCases: [
+      { title: 'Documents that will be published', description: 'A proper title so search results and browser tabs show something meaningful.', icon: 'file-text' },
+      { title: 'Document management systems', description: 'Filled-in keywords and subject so the file is findable later.', icon: 'database' },
+      { title: 'Anonymising authorship', description: 'Replace a personal name with an organisation before distribution.', icon: 'user-x' },
+    ],
+    faq: [
+      { question: 'Which field matters most?', answer: 'Title. Browsers, search engines and document systems all display it, and it is the field most often left as a filename.' },
+      { question: 'Do timestamps change when I edit metadata?', answer: 'The modification date updates, since the file has been rewritten. Creation date is preserved.' },
+      { question: 'What format should keywords be in?', answer: 'Comma-separated terms someone might actually search for. There is no strict limit, but a focused list indexes better than a long one.' },
+      { question: 'Can I clear a field completely?', answer: 'Yes - leave it empty. To strip everything at once, use Remove Metadata.' },
+    ],
+  },
+
+  'page-dimensions': {
+    title: 'Page Dimensions',
+    metaTitle: 'Check PDF Page Dimensions and Orientation',
+    metaDescription: 'Measure every page in a PDF in millimetres, inches or points, see the orientation, and find pages that do not match the rest.',
+    keywords: ['pdf page dimensions', 'pdf page size checker', 'measure pdf page', 'pdf page mm inches', 'check pdf orientation'],
+    description: `
+      <p>Mixed page sizes are the reason a print job comes back wrong. A document assembled from several sources can be A4 throughout except for two Letter pages and one landscape insert, and nothing on screen tells you that.</p>
+      <p>This lists every page with its exact dimensions in millimetres, inches or points, its orientation, and the standard size it corresponds to where there is one. Pages that differ from the document majority are highlighted, which is the fastest way to find the odd ones in a 200-page file.</p>
+      <p>Useful before sending anything to a commercial printer, and useful for diagnosing why a document that looks fine on screen prints with unexpected margins.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the file. Every page is measured.' },
+      { step: 2, title: 'Choose your units', description: 'Millimetres, inches or PDF points, depending on who you are talking to.' },
+      { step: 3, title: 'Review the report', description: 'Pages are listed with dimensions, orientation and standard-size match. Outliers are flagged.' },
+      { step: 4, title: 'Export if needed', description: 'Save the report as JSON for a record or a pre-print check.' },
+    ],
+    useCases: [
+      { title: 'Pre-print checks', description: 'Confirm every page is the size the printer expects before committing to a run.', icon: 'ruler' },
+      { title: 'Finding the odd page out', description: 'Locate the two Letter pages in an otherwise A4 document.', icon: 'file-search' },
+      { title: 'Diagnosing print problems', description: 'Unexpected margins usually trace back to a page size mismatch.', icon: 'printer' },
+    ],
+    faq: [
+      { question: 'What is a PDF point?', answer: 'One 72nd of an inch, the native PDF unit. A4 is 595 by 842 points; Letter is 612 by 792.' },
+      { question: 'Why do my pages differ by a fraction of a millimetre?', answer: 'Rounding between points and millimetres. Differences under half a millimetre are not real inconsistencies.' },
+      { question: 'How do I fix mixed sizes?', answer: 'Use Fix Page Size to standardise the whole document onto one page size.' },
+      { question: 'Does it report crop boxes as well as page size?', answer: 'The visible page dimensions are reported, which is what a printer works from.' },
+    ],
+  },
+
+  'compare-pdfs': {
+    title: 'Compare PDFs',
+    metaTitle: 'Compare Two PDFs - Find the Differences',
+    metaDescription: 'Compare two PDF versions side by side or as an overlay, with differences highlighted so you can see exactly what changed.',
+    keywords: ['compare pdf', 'pdf diff', 'find pdf differences', 'compare two pdf versions', 'pdf comparison tool'],
+    description: `
+      <p>Someone returns a contract saying they made a couple of small changes. Reading 30 pages twice to find them is slow, and the change that matters is exactly the one you will skim past.</p>
+      <p>This compares two versions and highlights what differs. Side-by-side view puts the documents next to each other with changes marked on both. Overlay view stacks them so shifted text and moved elements become immediately visible - which side-by-side reading tends to hide.</p>
+      <p>Both text and visual differences are picked up, so an amended clause and a swapped logo are both caught. Everything is compared locally, which matters when the two versions are drafts of something confidential.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load both versions', description: 'Add the original and the revised document.' },
+      { step: 2, title: 'Choose a view', description: 'Side by side for reading, overlay for spotting moved or shifted content.' },
+      { step: 3, title: 'Work through the differences', description: 'Changes are highlighted and can be stepped through page by page.' },
+      { step: 4, title: 'Export the comparison', description: 'Save a marked-up PDF as a record of what changed.' },
+    ],
+    useCases: [
+      { title: 'Contract redlines', description: 'Find the two clauses that were quietly amended in a returned draft.', icon: 'file-diff' },
+      { title: 'Version control', description: 'Confirm what actually changed between revision 4 and revision 5.', icon: 'git-compare' },
+      { title: 'Proof checking', description: 'Verify a corrected proof contains only the corrections that were requested.', icon: 'check-check' },
+    ],
+    faq: [
+      { question: 'Which view should I use?', answer: 'Side by side to read the changes. Overlay to catch content that moved or shifted, which side-by-side reading often misses.' },
+      { question: 'Does it detect image changes?', answer: 'Yes. Visual differences are compared as well as text, so a replaced image or logo is flagged.' },
+      { question: 'Can I compare scanned documents?', answer: 'Visual comparison works. Text comparison needs a text layer, so OCR both files first for that.' },
+      { question: 'Are my documents uploaded?', answer: 'No. Both files are compared in your browser.' },
+    ],
+  },
+
+  'pdf-to-zip': {
+    title: 'PDFs to ZIP',
+    metaTitle: 'Package Multiple PDFs Into a ZIP Archive',
+    metaDescription: 'Bundle many PDFs into one ZIP archive with optional compression. Easier to send and store than dozens of separate attachments.',
+    keywords: ['pdf to zip', 'zip pdf files', 'bundle pdfs', 'package pdf archive', 'compress pdfs into zip'],
+    description: `
+      <p>Thirty separate PDF attachments is an email nobody wants to receive, and many systems cap the number of attachments regardless of total size. One archive solves both.</p>
+      <p>This bundles up to 100 PDFs into a single ZIP. Compression is optional and honest about what it achieves: PDFs are already compressed internally, so expect a few percent rather than dramatic savings. The real benefit is having one file instead of a hundred.</p>
+      <p>If you actually need the files to be smaller, run Compress PDF on them first and then archive the results - that works on the image data inside each document, which is where the size is.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Add your PDFs', description: 'Drop in up to 100 files.' },
+      { step: 2, title: 'Choose compression', description: 'Enable it for a small reduction, or skip it for a faster archive.' },
+      { step: 3, title: 'Create and download', description: 'Save the ZIP.' },
+    ],
+    useCases: [
+      { title: 'Sending many documents at once', description: 'One attachment instead of thirty, within any attachment count limit.', icon: 'file-archive' },
+      { title: 'Archiving a project', description: 'All documents for a matter stored as a single dated bundle.', icon: 'archive' },
+      { title: 'Batch handover', description: 'A complete document set transferred as one file.', icon: 'package' },
+    ],
+    faq: [
+      { question: 'How much smaller will the ZIP be?', answer: 'Usually only a few percent. PDF content is already compressed, so there is little redundancy left for ZIP to remove.' },
+      { question: 'Then why bother?', answer: 'Convenience and attachment limits. One file is far easier to send, store and track than a hundred.' },
+      { question: 'How do I actually reduce the size?', answer: 'Run Compress PDF on the files first, then archive them. That reduces the image data inside each document.' },
+      { question: 'Are folder structures preserved?', answer: 'Files are added flat by name. Rename beforehand if the grouping matters.' },
+    ],
+  },
+
+  // ==================== OPTIMIZE & REPAIR ====================
+
+  'fix-page-size': {
+    title: 'Fix Page Size',
+    metaTitle: 'Fix PDF Page Size - Standardise Every Page',
+    metaDescription: 'Standardise every page in a PDF to one size, so a document assembled from mixed sources prints consistently.',
+    keywords: ['fix pdf page size', 'standardize pdf pages', 'resize pdf pages', 'uniform pdf page size', 'a4 pdf conversion'],
+    description: `
+      <p>Documents assembled from several sources end up with mixed page sizes: A4 from one contributor, Letter from another, a landscape insert from a third. On screen the difference barely registers. In a printer it produces inconsistent margins, unexpected scaling and occasionally a paper tray change halfway through the job.</p>
+      <p>This resizes every page to a single target - A4, Letter, Legal or a custom size. Content is scaled proportionally and centred, so nothing is distorted or cropped.</p>
+      <p>Worth running before any print job that came from multiple contributors, and before submitting to a system that requires a specific page size.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the file. Current page sizes are detected and listed.' },
+      { step: 2, title: 'Choose the target size', description: 'A4, Letter, Legal or custom dimensions.' },
+      { step: 3, title: 'Set the scaling behaviour', description: 'Fit content within the new page and centre it, preserving aspect ratio.' },
+      { step: 4, title: 'Apply and download', description: 'Save the standardised document.' },
+    ],
+    useCases: [
+      { title: 'Print jobs from mixed sources', description: 'A bundle of A4 and Letter pages standardised so the whole run prints consistently.', icon: 'printer' },
+      { title: 'Submission requirements', description: 'Portals and registries that require a specific page size throughout.', icon: 'upload' },
+      { title: 'Professional-looking bundles', description: 'A merged document where every page is the same size, as though it were produced as one.', icon: 'layout' },
+    ],
+    faq: [
+      { question: 'Will content be cropped?', answer: 'No. It is scaled proportionally to fit and centred, so nothing is lost - though smaller content may sit within wider margins.' },
+      { question: 'Does this distort the pages?', answer: 'No. Aspect ratio is preserved, which is why fitting a landscape page into portrait leaves space above and below.' },
+      { question: 'How do I see what sizes I currently have?', answer: 'Run Page Dimensions first. It lists every page and flags the outliers.' },
+      { question: 'Is text still selectable afterwards?', answer: 'Yes. Content is scaled as vector data, not rasterised.' },
+    ],
+  },
+
+  'linearize-pdf': {
+    title: 'Linearize PDF',
+    metaTitle: 'Linearize PDF for Fast Web View',
+    metaDescription: 'Restructure a PDF for fast web view so the first page displays before the whole file has downloaded. Ideal for large documents online.',
+    keywords: ['linearize pdf', 'fast web view pdf', 'optimize pdf for web', 'progressive pdf loading', 'pdf streaming'],
+    description: `
+      <p>A normal PDF stores the information a viewer needs to start rendering at the end of the file, which means a browser has to download the whole thing before it can show page 1. On a 50 MB document over a slow connection, the reader watches a blank screen and gives up.</p>
+      <p>Linearising reorganises the internal structure so the first page and the objects it needs come first. A viewer can then render page 1 as soon as the opening chunk has arrived, and fetch the rest in the background or on demand.</p>
+      <p>The file size barely changes - this is a reordering, not a compression. It only matters for documents served over a network; a file that is downloaded before opening sees no benefit.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Add your PDFs', description: 'Drop in up to 10 files.' },
+      { step: 2, title: 'Linearise', description: 'The internal object order is rebuilt for progressive loading.' },
+      { step: 3, title: 'Download', description: 'Save the optimised files and serve them from your site.' },
+    ],
+    useCases: [
+      { title: 'Documents published on a website', description: 'A large report where the first page appears immediately instead of after a full download.', icon: 'globe' },
+      { title: 'Slow or mobile connections', description: 'Readers on limited bandwidth see content rather than a blank viewer.', icon: 'signal' },
+      { title: 'Document portals', description: 'Faster perceived load times across a whole library of files.', icon: 'server' },
+    ],
+    faq: [
+      { question: 'Will the file get smaller?', answer: 'Barely. Linearising reorders content rather than compressing it. Use Compress PDF for size.' },
+      { question: 'How do I know it worked?', answer: 'View Metadata reports whether a file is linearised, and Acrobat shows Fast Web View as Yes in document properties.' },
+      { question: 'Does it help for files that are downloaded first?', answer: 'No. The benefit only appears when a viewer streams the file over a network.' },
+      { question: 'Does the document look any different?', answer: 'No. Content and appearance are identical; only the internal layout changes.' },
+    ],
+  },
+
+  'repair-pdf': {
+    title: 'Repair PDF',
+    metaTitle: 'Repair a Damaged or Corrupted PDF File',
+    metaDescription: 'Fix PDFs that will not open by rebuilding the internal structure and recovering the readable pages. Works on truncated and damaged files.',
+    keywords: ['repair pdf', 'fix corrupted pdf', 'recover pdf file', 'damaged pdf repair', 'pdf will not open'],
+    description: `
+      <p>A PDF that will not open is usually not destroyed. Most often the cross-reference table - the index that tells a viewer where each object lives - is damaged or missing, while the page content is sitting there intact. Transfers that failed halfway, unreliable storage and buggy software that wrote the file badly all produce this.</p>
+      <p>Repair works by scanning the file for the objects it can find and rebuilding the index from scratch, rather than trusting the broken one. Pages that are still readable are recovered; anything genuinely absent cannot be invented.</p>
+      <p>How much comes back depends on the damage. A bad index with intact content usually recovers fully. A file truncated at 60 percent gives you roughly the first 60 percent of the pages. Either way it is worth trying before you conclude the document is gone.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Add the damaged files', description: 'Drop in up to 10 PDFs, including ones that refuse to open elsewhere.' },
+      { step: 2, title: 'Run the repair', description: 'The file is scanned for recoverable objects and the structure is rebuilt.' },
+      { step: 3, title: 'Check what was recovered', description: 'The report shows how many pages came back and what could not be read.' },
+      { step: 4, title: 'Download the repaired file', description: 'Save the rebuilt PDF and verify the pages you needed are present.' },
+    ],
+    useCases: [
+      { title: 'A file that will not open', description: 'The viewer reports the file is damaged, but the content is intact behind a broken index.', icon: 'wrench' },
+      { title: 'An interrupted download or transfer', description: 'Recover whatever portion of the document did arrive.', icon: 'download' },
+      { title: 'Recovering from failing storage', description: 'Salvage readable pages from a file rescued off a failing drive.', icon: 'hard-drive' },
+    ],
+    faq: [
+      { question: 'Can every damaged PDF be repaired?', answer: 'No. Structural damage with intact content usually recovers fully. Content that was never written or has been overwritten cannot be reconstructed.' },
+      { question: 'Will I lose pages?', answer: 'Only the ones that are genuinely unreadable. The report tells you exactly what was recovered.' },
+      { question: 'What actually causes this?', answer: 'A damaged or missing cross-reference table, most often from an interrupted transfer, storage faults, or software that wrote the file incorrectly.' },
+      { question: 'Should I keep the broken original?', answer: 'Yes, until you have confirmed the repaired file contains everything you need.' },
+    ],
+  },
+
+  'deskew-pdf': {
+    title: 'Deskew PDF',
+    metaTitle: 'Deskew PDF - Auto-Straighten Scanned Pages',
+    metaDescription: 'Detect and correct the tilt in scanned PDF pages automatically. Straighter pages look better and give measurably better OCR results.',
+    keywords: ['deskew pdf', 'straighten scanned pdf', 'fix tilted pdf', 'auto straighten pdf', 'correct pdf skew'],
+    description: `
+      <p>Paper never goes through a scanner perfectly square. A degree or two of tilt is normal, invisible on any single page, and obvious across forty of them - the document reads as sloppy even though nothing is wrong with the content.</p>
+      <p>It also costs you accuracy. OCR engines expect horizontal text lines, and recognition rates fall measurably on skewed pages. Deskewing before OCR is one of the cheapest accuracy improvements available.</p>
+      <p>Detection is automatic and per page, because different sheets in the same batch tilt by different amounts. The angle is measured from the dominant text baselines, and each page is corrected by its own value. Up to 10 files can be processed in one run.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Add your scanned PDFs', description: 'Drop in up to 10 files.' },
+      { step: 2, title: 'Let it detect the angles', description: 'Each page is measured independently from its text baselines.' },
+      { step: 3, title: 'Review the corrections', description: 'Detected angles are listed per page so you can spot any that look wrong.' },
+      { step: 4, title: 'Apply and download', description: 'Save the straightened document.' },
+    ],
+    useCases: [
+      { title: 'Cleaning up a batch scan', description: 'Forty pages, each tilted differently, corrected in one pass.', icon: 'scan' },
+      { title: 'Preparing for OCR', description: 'Straightening first measurably improves recognition accuracy.', icon: 'scan-text' },
+      { title: 'Archival scanning', description: 'Digitised records that look deliberate rather than rushed.', icon: 'archive' },
+    ],
+    faq: [
+      { question: 'How is the angle detected?', answer: 'From the dominant text baselines on each page, measured page by page since tilt varies across a batch.' },
+      { question: 'What if it gets a page wrong?', answer: 'Pages dominated by images or unusual layouts can mislead the detector. Use Rotate Custom to set the angle by hand for those.' },
+      { question: 'Does correcting the tilt degrade the image?', answer: 'Rotation resamples raster content, so there is a very slight softening. It is far outweighed by the readability and OCR gains.' },
+      { question: 'Should I deskew before or after OCR?', answer: 'Before, always. OCR accuracy depends on horizontal text lines.' },
     ],
   },
 
   'pdf-to-pdfa': {
     title: 'PDF to PDF/A',
-    metaDescription: 'Convert PDF to PDF/A archival format. Ensure long-term document preservation with ISO standards.',
-    keywords: ['pdf to pdfa', 'pdfa converter', 'archive pdf', 'pdf archival', 'long term preservation'],
+    metaTitle: 'Convert PDF to PDF/A for Archiving',
+    metaDescription: 'Convert to PDF/A-1b, 2b or 3b for long-term archiving. Fonts are embedded and external dependencies removed so the file stays readable.',
+    keywords: ['pdf to pdfa', 'pdfa conversion', 'archival pdf', 'pdf/a-1b', 'long term pdf preservation'],
     description: `
-      <p>PDF to PDF/A converts your PDF documents to PDF/A format, the ISO standard for long-term document archiving. PDF/A ensures that documents will be viewable and reproducible for decades.</p>
-      <p>Choose from PDF/A-1b (basic conformance), PDF/A-2b (recommended, supports transparency), or PDF/A-3b (allows embedded files). The tool embeds fonts and flattens transparency as needed.</p>
-      <p>All conversion happens locally in your browser, ensuring your documents remain private.</p>
+      <p>PDF/A is the ISO standard for documents that must still open correctly decades from now. Its rules exist to remove anything that depends on the outside world: fonts must be embedded rather than referenced, colour must be defined unambiguously, and JavaScript, external links and encryption are prohibited.</p>
+      <p>The result is a file that renders identically on any conforming viewer, now or in thirty years - which is why courts, government archives, libraries and regulated industries mandate it.</p>
+      <p>Three conformance levels are available. PDF/A-1b is the strictest and most widely required. 2b permits JPEG 2000 compression and transparency. 3b additionally allows embedded source files, which is useful when the original spreadsheet must be archived alongside the document.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Upload the PDF you want to convert to PDF/A.' },
-      { step: 2, title: 'Select PDF/A Level', description: 'Choose PDF/A-1b, PDF/A-2b, or PDF/A-3b conformance level.' },
-      { step: 3, title: 'Convert and Download', description: 'Convert to PDF/A and download the archival document.' },
+      { step: 1, title: 'Add your PDFs', description: 'Drop in up to 10 files.' },
+      { step: 2, title: 'Choose the conformance level', description: '1b for the strictest and most commonly mandated, 2b for modern compression, 3b to keep embedded source files.' },
+      { step: 3, title: 'Convert', description: 'Fonts are embedded, colour spaces defined, and prohibited features removed.' },
+      { step: 4, title: 'Download', description: 'Save the PDF/A-compliant file.' },
     ],
     useCases: [
-      { title: 'Legal Archives', description: 'Convert legal documents to PDF/A for court-admissible long-term storage.', icon: 'scale' },
-      { title: 'Government Records', description: 'Comply with government archival requirements using PDF/A.', icon: 'building' },
-      { title: 'Business Archives', description: 'Preserve important business documents for future accessibility.', icon: 'archive' },
+      { title: 'Court and regulatory filing', description: 'Many jurisdictions require PDF/A for electronic submissions.', icon: 'scale' },
+      { title: 'Institutional archives', description: 'Libraries and government archives specify PDF/A as the preservation format.', icon: 'landmark' },
+      { title: 'Long-term business records', description: 'Documents that must remain readable well beyond the life of current software.', icon: 'archive' },
     ],
     faq: [
-      { question: 'Which PDF/A level should I use?', answer: 'PDF/A-2b is recommended for most uses. Use 1b for maximum compatibility or 3b if you need embedded files.' },
-      { question: 'What makes PDF/A different?', answer: 'PDF/A embeds fonts, disables encryption, and ensures all elements are self-contained for future viewing.' },
-      { question: 'Can I convert back from PDF/A?', answer: 'PDF/A files are standard PDFs and can be opened normally. The archival features add restrictions, not limitations.' },
+      { question: 'Which level should I choose?', answer: '1b unless you have been told otherwise - it is the strictest and the most widely mandated. Check the specification you are filing against.' },
+      { question: 'What gets removed in conversion?', answer: 'JavaScript, embedded multimedia, encryption and external font references. All of these would compromise long-term readability.' },
+      { question: 'Will the document look different?', answer: 'Visually it should be identical. Embedding fonts can increase the file size noticeably.' },
+      { question: 'Can I convert PDF/A back to a normal PDF?', answer: 'It already is a normal PDF - just one that follows extra rules. Any reader opens it.' },
     ],
   },
 
   'font-to-outline': {
     title: 'Font to Outline',
-    metaDescription: 'Remove font dependencies from PDF documents by converting pages to high-quality images. Ensures compatibility across all systems.',
-    keywords: ['font to outline', 'outline fonts', 'remove fonts', 'font compatibility', 'flatten pdf fonts', 'pdf font removal'],
+    metaTitle: 'Convert PDF Fonts to Outlines',
+    metaDescription: 'Convert PDF text to vector outlines so it renders identically everywhere, with no font substitution. Standard practice for print hand-off.',
+    keywords: ['pdf font to outline', 'convert text to curves pdf', 'outline pdf fonts', 'flatten pdf fonts', 'print ready pdf'],
     description: `
-      <p>Font to Outline removes all font dependencies from your PDF by converting each page into high-quality rasterized content. This ensures your document looks exactly the same on any system, even if the original fonts are not installed.</p>
-      <p>The tool renders each page at your chosen DPI (150-600), removing embedded fonts while preserving the exact visual appearance. Optionally, you can add an invisible text layer to maintain searchability.</p>
-      <p>This is essential for print preparation, cross-platform compatibility, and avoiding font licensing issues when sharing documents. All processing happens locally in your browser.</p>
+      <p>Font problems in print are expensive and are always discovered late. A font is not embedded, or the print system has a different version of it, and the substituted typeface reflows the text - so the job comes back with a broken layout after the plates have been made.</p>
+      <p>Converting text to outlines eliminates the possibility. Each glyph becomes a vector shape, so there is no font to be missing or substituted. The page renders identically on every device and RIP, which is why print shops routinely ask for outlined files.</p>
+      <p>The cost is that the text stops being text. It cannot be searched, selected, copied or read by a screen reader. Outline for the print master and keep the original for everything else.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Upload the PDF containing fonts you want to remove.' },
-      { step: 2, title: 'Configure Quality', description: 'Choose DPI (300 recommended for print, 150 for screen). Enable searchable text if needed.' },
-      { step: 3, title: 'Convert and Download', description: 'Process the file and download the font-independent PDF.' },
+      { step: 1, title: 'Add your PDFs', description: 'Drop in up to 10 files.' },
+      { step: 2, title: 'Convert the text', description: 'Every glyph is replaced with an equivalent vector path.' },
+      { step: 3, title: 'Download', description: 'Save the outlined PDF for print hand-off.' },
+      { step: 4, title: 'Keep the original', description: 'Retain the text version for search, accessibility and future edits.' },
     ],
     useCases: [
-      { title: 'Print Preparation', description: 'Eliminate font issues at commercial printers by removing all font dependencies.', icon: 'printer' },
-      { title: 'Cross-Platform Sharing', description: 'Share documents that look identical on any device, regardless of installed fonts.', icon: 'share-2' },
-      { title: 'Font Licensing', description: 'Remove embedded fonts to avoid licensing concerns when distributing documents.', icon: 'shield' },
+      { title: 'Commercial print hand-off', description: 'Guaranteed identical rendering with no font substitution risk.', icon: 'printer' },
+      { title: 'Unusual or licensed fonts', description: 'Distribute a design without shipping the font file itself.', icon: 'type' },
+      { title: 'Signage and large format', description: 'Vector outlines scale cleanly to any size on any output device.', icon: 'maximize' },
     ],
     faq: [
-      { question: 'How does this work?', answer: 'The tool renders each page at high resolution (your chosen DPI) and recreates the PDF from these images, removing all font dependencies while preserving visual appearance.' },
-      { question: 'Can I still select text after conversion?', answer: 'By default, no. Text becomes part of the image. However, you can enable "Preserve searchable text" to add an invisible text layer for search and copy functionality.' },
-      { question: 'What DPI should I use?', answer: '300 DPI is recommended for print-quality output. 150 DPI is sufficient for screen viewing and produces smaller files. 600 DPI is for highest quality but creates large files.' },
-      { question: 'Will file size increase?', answer: 'File size depends on DPI and content. 150 DPI usually produces smaller files, 300 DPI may increase size, 600 DPI significantly increases size. Compression is automatically applied.' },
-      { question: 'Is this reversible?', answer: 'No, font data is permanently removed. Keep a backup of the original if you need editable text with the original fonts.' },
-      { question: 'What about vector graphics?', answer: 'Vector graphics (shapes, lines) in the original PDF will be converted to raster along with text. The visual quality is preserved at your chosen DPI.' },
-    ],
-  },
-
-  'extract-tables': {
-    title: 'Extract Tables from PDF',
-    metaDescription: 'Detect and extract tables from PDF documents. Export to JSON, Markdown, or CSV formats.',
-    keywords: ['extract tables', 'pdf table extraction', 'pdf to csv', 'pdf to excel', 'table detection'],
-    description: `
-      <p>Extract Tables from PDF detects tabular data within your PDF documents and exports it in structured formats. Choose JSON for data integration, Markdown for documentation, or CSV for spreadsheets.</p>
-      <p>The tool uses intelligent detection algorithms to identify table structures even in complex documents. Specify page ranges and adjust detection parameters for optimal results.</p>
-      <p>All processing happens locally in your browser, ensuring your documents remain private.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Upload the PDF containing tables you want to extract.' },
-      { step: 2, title: 'Configure Detection', description: 'Set page range and minimum column/row thresholds.' },
-      { step: 3, title: 'Export and Download', description: 'Choose output format (JSON/Markdown/CSV) and download.' },
-    ],
-    useCases: [
-      { title: 'Data Analysis', description: 'Extract table data for analysis in spreadsheets or databases.', icon: 'bar-chart' },
-      { title: 'Report Processing', description: 'Pull tables from PDF reports for further processing.', icon: 'file-text' },
-      { title: 'Documentation', description: 'Convert PDF tables to Markdown for technical documentation.', icon: 'book' },
-    ],
-    faq: [
-      { question: 'Can it detect complex tables?', answer: 'The tool works best with simple grid tables. Complex merged cells may require manual adjustment.' },
-      { question: 'What if no tables are found?', answer: 'Try adjusting the minimum columns/rows threshold or check if the PDF contains actual table structures.' },
-      { question: 'Can I extract from specific pages?', answer: 'Yes, specify a page range to limit extraction to certain pages.' },
+      { question: 'What do I lose?', answer: 'Searchable and selectable text, and screen reader access. The visual result is identical.' },
+      { question: 'Does the file get bigger?', answer: 'Often yes. A vector path per glyph takes more space than a character referencing an embedded font.' },
+      { question: 'Can it be reversed?', answer: 'No. Once glyphs are shapes there is no character data to recover. Keep the original.' },
+      { question: 'Is this the same as rasterising?', answer: 'No. Outlining keeps everything as vectors at infinite resolution. Rasterising converts to pixels.' },
     ],
   },
 
   'ocg-manager': {
-    title: 'PDF Layer Manager (OCG)',
-    metaDescription: 'Manage PDF layers (Optional Content Groups). View, toggle, add, delete, and rename layers in your PDF documents.',
-    keywords: ['pdf layers', 'ocg manager', 'optional content groups', 'pdf layer visibility', 'manage pdf layers'],
+    title: 'Layer Manager',
+    metaTitle: 'Manage PDF Layers - View, Toggle & Delete OCGs',
+    metaDescription: 'Inspect and control PDF layers (optional content groups). Toggle visibility, rename, or delete layers - including hidden ones you did not know existed.',
+    keywords: ['pdf layers', 'optional content groups', 'ocg manager', 'toggle pdf layers', 'remove pdf layer'],
     description: `
-      <p>PDF Layer Manager allows you to view and manage Optional Content Groups (OCG) in your PDF documents. OCG layers are used in technical drawings, maps, and complex documents to organize content into toggleable layers.</p>
-      <p>View all layers in your PDF, toggle their visibility, add new layers, delete unwanted ones, or rename existing layers. This tool is essential for working with layered PDFs like architectural plans, CAD exports, and print-ready documents.</p>
-      <p>All processing happens locally in your browser, ensuring your documents remain private and secure.</p>
+      <p>PDFs can contain layers, formally called optional content groups. CAD exports use them for electrical, plumbing and structural plans on one drawing. Maps use them for roads, labels and terrain. Multilingual documents sometimes hold each language in its own layer.</p>
+      <p>Most viewers hide this entirely, so a document can carry content that is present in the file but not visible on screen - which is a real disclosure risk. A drawing distributed with a hidden internal-notes layer still contains those notes.</p>
+      <p>This lists every layer, shows its visibility state, and lets you toggle, rename or delete them. Deleting removes the content from the file rather than just hiding it, which is what you want before sending a drawing outside your organisation.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Your PDF', description: 'Upload a PDF file that contains layers (OCG) or one you want to add layers to.' },
-      { step: 2, title: 'View Layers', description: 'The tool automatically lists all layers found in the document with their visibility status.' },
-      { step: 3, title: 'Manage Layers', description: 'Toggle layer visibility, rename layers, add new ones, or delete unwanted layers.' },
-      { step: 4, title: 'Save and Download', description: 'Download your modified PDF with the layer changes applied.' },
+      { step: 1, title: 'Load the PDF', description: 'Drop in the file. All optional content groups are listed with their current visibility.' },
+      { step: 2, title: 'Inspect the layers', description: 'Toggle each one to see what it contains, including any that were hidden by default.' },
+      { step: 3, title: 'Rename or delete', description: 'Give layers clearer names, or delete the ones that should not be in the file at all.' },
+      { step: 4, title: 'Save', description: 'Download the PDF with the revised layer set.' },
     ],
     useCases: [
-      { title: 'Technical Drawings', description: 'Manage layers in CAD exports to show/hide dimensions, annotations, or different views.', icon: 'ruler' },
-      { title: 'Map Editing', description: 'Toggle different map layers like topography, roads, and labels for custom map prints.', icon: 'map' },
-      { title: 'Print Preparation', description: 'Prepare layered PDFs for printing by toggling appropriate layers for different versions.', icon: 'printer' },
+      { title: 'CAD drawing hand-off', description: 'Delete the internal-notes layer before the drawing goes to a contractor.', icon: 'layers' },
+      { title: 'Checking for hidden content', description: 'Find layers that are present in the file but not shown on screen.', icon: 'eye-off' },
+      { title: 'Multilingual documents', description: 'Keep the language layer you need and remove the rest.', icon: 'languages' },
     ],
     faq: [
-      { question: 'What are PDF layers (OCG)?', answer: 'Optional Content Groups (OCG) are layers in a PDF that can be shown or hidden. They are commonly used in CAD drawings, maps, and complex documents.' },
-      { question: 'Why does my PDF show no layers?', answer: 'Not all PDFs contain layers. Layers are typically added during PDF creation from design software or CAD applications.' },
-      { question: 'Will layer changes affect the original content?', answer: 'Layer visibility changes only affect what is displayed or printed. The actual content remains in the document.' },
+      { question: 'What is an optional content group?', answer: 'The PDF term for a layer - a named set of content whose visibility can be toggled. CAD, mapping and multilingual documents use them heavily.' },
+      { question: 'Does deleting a layer remove the content?', answer: 'Yes. The content is removed from the file, not just hidden - which is the point when the layer holds something confidential.' },
+      { question: 'Why can I not see layers in my usual viewer?', answer: 'Most browser viewers do not expose the layers panel at all, so hidden content stays invisible and undiscovered.' },
+      { question: 'Can I add new layers?', answer: 'Yes, though most workflows use this to inspect and remove what is already there.' },
     ],
   },
 
-  'pdf-reader': {
-    title: 'PDF Reader',
-    metaDescription: 'Free online PDF reader. View, navigate, zoom, rotate, and print PDF documents directly in your browser.',
-    keywords: ['pdf reader', 'pdf viewer', 'view pdf online', 'read pdf', 'pdf browser viewer'],
+  // ==================== SECURE PDF ====================
+
+  'encrypt-pdf': {
+    title: 'Encrypt PDF',
+    metaTitle: 'Password Protect a PDF with AES Encryption',
+    metaDescription: 'Encrypt a PDF with a password using AES-256. Set separate open and permissions passwords, all handled in your browser.',
+    keywords: ['encrypt pdf', 'password protect pdf', 'pdf password', 'secure pdf', 'aes 256 pdf'],
     description: `
-      <p>PDF Reader is a full-featured PDF viewer that lets you read and navigate PDF documents directly in your browser. No software installation required - just upload your PDF and start reading.</p>
-      <p>Navigate between pages, zoom in and out, rotate the view, and use fullscreen mode for distraction-free reading. You can also print documents or download them for offline access.</p>
-      <p>All viewing happens locally in your browser. Your documents are never uploaded to any server, ensuring complete privacy.</p>
+      <p>Email is not a secure channel, and attachments get forwarded. Encrypting the document means the content is unreadable without the password, wherever the file ends up.</p>
+      <p>Two passwords do different jobs. The user password is required to open the document at all - without it, the content cannot be read. The owner password controls permissions such as printing and copying while still allowing the file to be opened. You can set either or both.</p>
+      <p>Encryption uses AES-256, the current standard, and happens in your browser - so the password is never transmitted and the unencrypted file never leaves your machine. Send the password by a different channel from the file itself; emailing both together defeats the exercise.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Open Your PDF', description: 'Click to upload or drag and drop a PDF file to open it in the reader.' },
-      { step: 2, title: 'Navigate Pages', description: 'Use the page controls to go to the previous or next page, or jump to a specific page number.' },
-      { step: 3, title: 'Adjust View', description: 'Zoom in or out, rotate the view, or enter fullscreen mode for comfortable reading.' },
-      { step: 4, title: 'Print or Download', description: 'Print the document or download it for offline access when needed.' },
+      { step: 1, title: 'Load the PDF', description: 'Drop in the document you want to protect.' },
+      { step: 2, title: 'Set the passwords', description: 'A user password to control opening, an owner password to control permissions, or both.' },
+      { step: 3, title: 'Choose the permissions', description: 'Decide whether printing, copying, editing and annotating are allowed.' },
+      { step: 4, title: 'Encrypt and download', description: 'Save the protected file, and send the password separately.' },
     ],
     useCases: [
-      { title: 'Document Review', description: 'Quickly review PDF documents without installing any software.', icon: 'book-open' },
-      { title: 'Mobile Reading', description: 'Read PDF documents on any device with a web browser.', icon: 'smartphone' },
-      { title: 'Quick Preview', description: 'Preview PDFs before deciding to download or print them.', icon: 'eye' },
+      { title: 'Sending confidential documents', description: 'Salary letters, medical records and contracts that stay unreadable if forwarded.', icon: 'lock' },
+      { title: 'Regulated data', description: 'Encryption at rest is frequently a compliance requirement for stored documents.', icon: 'shield' },
+      { title: 'Controlled distribution', description: 'Readable but not printable or copyable, using an owner password.', icon: 'file-lock' },
     ],
     faq: [
-      { question: 'Is my document secure?', answer: 'Yes, your document is processed entirely in your browser and is never uploaded to any server.' },
-      { question: 'Can I annotate or edit the PDF?', answer: 'This tool is for viewing only. Use our Sign PDF or Annotate PDF tools for editing.' },
-      { question: 'Does it work on mobile devices?', answer: 'Yes, the PDF Reader works on all devices with a modern web browser.' },
+      { question: 'What is the difference between the two passwords?', answer: 'The user password is needed to open the file. The owner password governs what can be done once it is open. Use both for the strongest control.' },
+      { question: 'How strong is AES-256?', answer: 'Very. The practical weak point is the password, so use a long one - encryption cannot compensate for guessable credentials.' },
+      { question: 'What if I forget the password?', answer: 'The document cannot be recovered. Store the password somewhere reliable before you send the file.' },
+      { question: 'Is my password sent anywhere?', answer: 'No. Encryption runs in your browser and the password never leaves your device.' },
+    ],
+  },
+
+  'decrypt-pdf': {
+    title: 'Unlock PDF',
+    metaTitle: 'Unlock PDF - Remove a Known Password',
+    metaDescription: 'Remove password protection from a PDF you have the password for, so you can open and edit it without entering the password each time.',
+    keywords: ['unlock pdf', 'remove pdf password', 'decrypt pdf', 'pdf password remover', 'open protected pdf'],
+    description: `
+      <p>An encrypted document you work with daily gets tedious - a password prompt every time you open it, and most other tools refuse to touch it at all. If you know the password, there is no reason to keep re-entering it.</p>
+      <p>Provide the password and this removes the encryption, producing a normal PDF you can open, edit, merge and process like any other file.</p>
+      <p>It requires the correct password. This is not a password recovery tool - AES-256 cannot be broken by guessing, and a tool that claimed otherwise would be lying. If you have lost the password, the document cannot be opened.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the encrypted PDF', description: 'Drop in the protected file.' },
+      { step: 2, title: 'Enter the password', description: 'Type the password you use to open the document.' },
+      { step: 3, title: 'Remove the encryption', description: 'The document is decrypted and rewritten without protection.' },
+      { step: 4, title: 'Download', description: 'Save the unprotected PDF.' },
+    ],
+    useCases: [
+      { title: 'Documents you open constantly', description: 'A bank statement you reference weekly, without the password prompt every time.', icon: 'unlock' },
+      { title: 'Preparing a file for other tools', description: 'Most PDF tools refuse encrypted files. Decrypt first, then merge or convert.', icon: 'wrench' },
+      { title: 'Long-term archiving', description: 'A stored document that will still be readable when the password has been forgotten.', icon: 'archive' },
+    ],
+    faq: [
+      { question: 'Can this open a PDF whose password I do not know?', answer: 'No. The correct password is required. AES encryption cannot be bypassed, and any tool claiming otherwise is misrepresenting what it does.' },
+      { question: 'Is the password sent to a server?', answer: 'No. Decryption happens in your browser.' },
+      { question: 'What if the file has restrictions but opens without a password?', answer: 'That is an owner password, not a user password. Use Remove Restrictions for those.' },
+      { question: 'Is it legal to do this?', answer: 'For your own documents, or with the owner permission, yes. Removing protection from someone else document without authorisation generally is not.' },
+    ],
+  },
+
+  'remove-restrictions': {
+    title: 'Remove Restrictions',
+    metaTitle: 'Remove PDF Restrictions - Enable Printing & Copying',
+    metaDescription: 'Remove owner-password restrictions from a PDF that opens without a password, so printing, copying and editing work again.',
+    keywords: ['remove pdf restrictions', 'unlock pdf printing', 'enable pdf copying', 'remove pdf permissions', 'pdf secured document'],
+    description: `
+      <p>This is the frustrating category: a PDF that opens perfectly but refuses to let you print it, copy a line of text, or fill in its form. Acrobat shows SECURED in the title bar, and no password was ever needed to open it.</p>
+      <p>Those are owner-password restrictions. Unlike an open password, they are enforced by the viewer as a matter of convention rather than by encrypting the content - which is why the document displays fine but the print button is greyed out.</p>
+      <p>This removes the permission flags so the document behaves normally. No password is needed in the usual case. Where an owner password is set, providing it produces a cleaner result. If the file requires a password just to open, use Unlock PDF instead.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the restricted PDF', description: 'Drop in a file that opens without a password but blocks printing or copying.' },
+      { step: 2, title: 'Add the owner password if you have it', description: 'Optional. Providing it produces a cleaner result where one is set.' },
+      { step: 3, title: 'Remove the restrictions', description: 'Permission flags are cleared and the document is rewritten.' },
+      { step: 4, title: 'Download', description: 'Save the unrestricted PDF - printing, copying and editing now work.' },
+    ],
+    useCases: [
+      { title: 'A document that will not print', description: 'A statement or ticket with printing disabled for no good reason.', icon: 'printer' },
+      { title: 'Quoting from a report', description: 'Copy text from a document where selection was blocked.', icon: 'copy' },
+      { title: 'Forms locked against filling', description: 'Restore the ability to complete a form that was flagged as read-only.', icon: 'edit' },
+    ],
+    faq: [
+      { question: 'How is this different from Unlock PDF?', answer: 'Unlock PDF removes a password required to open the file. This removes restrictions on a file that already opens freely.' },
+      { question: 'Why can restrictions be removed without a password?', answer: 'Because they are permission flags the viewer chooses to honour, not encryption of the content. The content was never protected.' },
+      { question: 'Is this legal?', answer: 'For your own documents, or ones you are licensed to use, generally yes. Copyright and licence terms still apply to what you do with the content.' },
+      { question: 'Does the document content change?', answer: 'No. Only the permission settings are cleared.' },
+    ],
+  },
+
+  'sanitize-pdf': {
+    title: 'Sanitize PDF',
+    metaTitle: 'Sanitize PDF - Strip Metadata, Scripts & Hidden Data',
+    metaDescription: 'Remove metadata, JavaScript, embedded files and annotations from a PDF in one pass, so nothing hidden travels with the document.',
+    keywords: ['sanitize pdf', 'clean pdf metadata', 'remove pdf javascript', 'strip hidden pdf data', 'pdf privacy clean'],
+    description: `
+      <p>A PDF carries more than its pages. Author names and internal usernames sit in the metadata. Annotations record who commented and when. Embedded files ride along invisibly. JavaScript can be present and executable. None of it appears when you read the document, and all of it travels when you send it.</p>
+      <p>Sanitising removes the lot in one pass: metadata, annotations and comments, embedded files and attachments, and any scripts. What remains is the visible page content and nothing else.</p>
+      <p>This is the step to run before publishing anything externally, and the step most organisations skip - which is why document metadata is a recurring source of accidental disclosure.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the document. The tool reports what hidden data it found.' },
+      { step: 2, title: 'Choose what to remove', description: 'Metadata, annotations, embedded files, scripts - or all of it.' },
+      { step: 3, title: 'Sanitise', description: 'The selected data is stripped and the file rewritten.' },
+      { step: 4, title: 'Verify and download', description: 'Save the cleaned file, then check it with View Metadata.' },
+    ],
+    useCases: [
+      { title: 'Publishing externally', description: 'A report going on a website, with no author names or internal traces left in it.', icon: 'globe' },
+      { title: 'Freedom of information responses', description: 'Documents released publicly, stripped of internal metadata and comments.', icon: 'scale' },
+      { title: 'Removing executable content', description: 'JavaScript in a PDF from an untrusted source, removed before the file is opened widely.', icon: 'shield-check' },
+    ],
+    faq: [
+      { question: 'What exactly gets removed?', answer: 'Document metadata, annotations and comments, embedded files and attachments, and any JavaScript. Page content is untouched.' },
+      { question: 'Is this the same as redaction?', answer: 'No. Sanitising removes hidden data outside the page content. Redaction removes specific visible content - use Find and Redact for that.' },
+      { question: 'Will the document look different?', answer: 'The pages will not. Comments and highlights disappear, since those are annotations.' },
+      { question: 'How do I confirm it worked?', answer: 'Run View Metadata on the result. The fields should be empty.' },
+    ],
+  },
+
+  'remove-metadata': {
+    title: 'Remove Metadata',
+    metaTitle: 'Remove PDF Metadata - Strip Author and Dates',
+    metaDescription: 'Strip the author, title, dates, keywords and producer information from a PDF, so no identifying details travel with the file.',
+    keywords: ['remove pdf metadata', 'strip pdf author', 'clear pdf properties', 'anonymize pdf', 'pdf metadata cleaner'],
+    description: `
+      <p>The author field is the one that catches people out. It is populated automatically from the operating system account name, which means a PDF exported from a work laptop routinely carries a full name or an internal username - and nobody notices, because it never appears on a page.</p>
+      <p>This clears the document information: title, author, subject, keywords, creator and producer applications, and the creation and modification timestamps. What remains is the page content.</p>
+      <p>If you also want annotations, embedded files and scripts gone, Sanitize PDF does all of that in one pass. Use this tool when metadata is specifically what you want removed.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the file. Current metadata is shown so you can see what is there.' },
+      { step: 2, title: 'Remove', description: 'All document information fields are cleared.' },
+      { step: 3, title: 'Verify and download', description: 'Save the file and confirm with View Metadata that the fields are empty.' },
+    ],
+    useCases: [
+      { title: 'Anonymous submissions', description: 'Blind peer review and anonymous tender processes where authorship must not be inferable.', icon: 'user-x' },
+      { title: 'Publishing documents', description: 'No internal usernames or software versions disclosed to the public.', icon: 'globe' },
+      { title: 'Removing timestamps', description: 'Creation and modification dates cleared where they would reveal more than intended.', icon: 'calendar-x' },
+    ],
+    faq: [
+      { question: 'Which fields are cleared?', answer: 'Title, author, subject, keywords, creator, producer, and the creation and modification dates.' },
+      { question: 'Why is my name in there at all?', answer: 'Most authoring software fills the author field from your operating system account automatically.' },
+      { question: 'Does this remove annotations too?', answer: 'No, only metadata. Use Sanitize PDF to remove annotations, embedded files and scripts as well.' },
+      { question: 'Can removed metadata be recovered?', answer: 'Not from the new file. Keep your original if the information matters to you.' },
+    ],
+  },
+
+  'find-and-redact': {
+    title: 'Find and Redact',
+    metaTitle: 'Redact PDF Text - Search and Black Out Securely',
+    metaDescription: 'Search a PDF for text or a pattern and redact every match across all pages. Content is removed, not just covered with a black box.',
+    keywords: ['redact pdf', 'black out pdf text', 'pdf redaction tool', 'remove text from pdf', 'regex redact pdf'],
+    description: `
+      <p>The classic redaction failure is a black rectangle drawn over text. The rectangle is a graphic sitting on top; the text is still underneath, still selectable, still copyable. Organisations have disclosed exactly what they were trying to hide this way, repeatedly and publicly.</p>
+      <p>This removes the content. Matching text objects are deleted from the file and a black box is drawn where they were - so copying the area yields nothing, because there is nothing left to copy.</p>
+      <p>Search runs across the whole document, which is what makes it practical. Redacting one account number that appears on 40 pages is one operation. Regular expression support handles patterns rather than fixed strings, so every card number or national insurance number in a document can be caught in a single pass. Matches are previewed before anything is applied.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the document you need to redact.' },
+      { step: 2, title: 'Search for what must go', description: 'Enter text, or a regular expression to match a pattern such as a card or reference number format.' },
+      { step: 3, title: 'Review the matches', description: 'Every hit is listed with its page and surrounding context. Deselect any false positives.' },
+      { step: 4, title: 'Apply and download', description: 'Confirmed matches are removed from the file and blacked out on the page.' },
+    ],
+    useCases: [
+      { title: 'Disclosure and FOI responses', description: 'Personal details removed from documents before public release, properly rather than cosmetically.', icon: 'scale' },
+      { title: 'Removing account numbers', description: 'One number appearing on 40 pages, caught by a single search.', icon: 'credit-card' },
+      { title: 'Pattern-based redaction', description: 'A regular expression that matches every national insurance number in a document at once.', icon: 'search' },
+    ],
+    faq: [
+      { question: 'Is the text really gone?', answer: 'Yes. The text objects are deleted from the file. Selecting or copying the redacted area returns nothing.' },
+      { question: 'Why is a black rectangle not enough?', answer: 'Because it is a graphic drawn on top. The text underneath remains in the file and can be copied or recovered - a well-documented cause of accidental disclosure.' },
+      { question: 'Can I redact by pattern?', answer: 'Yes. Regular expressions let you match formats rather than fixed strings, which is how you catch every instance of an identifier type.' },
+      { question: 'Does it work on scanned documents?', answer: 'Text search needs a text layer, so OCR first. Note that OCR text sits behind the image, so also confirm the visible image is covered.' },
+    ],
+  },
+
+  'flatten-pdf': {
+    title: 'Flatten PDF',
+    metaTitle: 'Flatten PDF - Lock Forms and Annotations',
+    metaDescription: 'Flatten PDF form fields and annotations into the page so the values cannot be changed and display correctly in every viewer.',
+    keywords: ['flatten pdf', 'flatten pdf form', 'lock pdf fields', 'make pdf non editable', 'flatten annotations'],
+    description: `
+      <p>A completed form is still editable. The values you typed sit in live form fields, so the recipient can change a figure and forward it on with nobody able to tell. Annotations behave the same way - a signature added as an annotation can be dragged off the page.</p>
+      <p>Flattening merges all of it into the page content. Field values become part of the page, annotations become part of the page, and there is nothing left to interact with. It also fixes the viewer problem: some readers render form fields poorly or not at all, and flattened content displays identically everywhere.</p>
+      <p>It is a one-way operation. Once flattened, the values are text on a page rather than field data, so keep the fillable version if you will need to produce it again.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Add your PDFs', description: 'Drop in up to 10 files. Form fields and annotations are detected.' },
+      { step: 2, title: 'Choose what to flatten', description: 'Form fields, annotations, or both.' },
+      { step: 3, title: 'Flatten and download', description: 'Save the file with everything merged into the page.' },
+    ],
+    useCases: [
+      { title: 'Returning a completed form', description: 'Values locked in so the recipient cannot alter them.', icon: 'lock' },
+      { title: 'Fixing display problems', description: 'Fields that render inconsistently across viewers become plain page content.', icon: 'monitor' },
+      { title: 'Archiving', description: 'A record where the values are fixed rather than stored as live field data.', icon: 'archive' },
+    ],
+    faq: [
+      { question: 'Can flattening be undone?', answer: 'No. Field values become page content permanently. Keep the fillable original.' },
+      { question: 'Do the values look any different?', answer: 'No. They render in the same position with the same appearance - they simply stop being editable.' },
+      { question: 'Should I flatten before signing?', answer: 'Flatten the form content first, then sign. Signing first and flattening afterwards can invalidate a digital signature.' },
+      { question: 'How is this different from rasterising?', answer: 'Flattening keeps the text as text. Rasterising converts the whole page to pixels.' },
+    ],
+  },
+
+  'change-permissions': {
+    title: 'Change Permissions',
+    metaTitle: 'Change PDF Permissions - Print, Copy & Edit Flags',
+    metaDescription: 'Set what a PDF allows: printing, copying text, editing and annotating. Control document permissions without requiring an open password.',
+    keywords: ['pdf permissions', 'change pdf restrictions', 'disable pdf printing', 'pdf copy protection', 'set pdf permissions'],
+    description: `
+      <p>Sometimes you want a document read but not reused: readable by anyone, not printable, not copyable. PDF permissions cover exactly that - printing, text copying, editing, and annotating, each set independently.</p>
+      <p>Be clear about what these are. Permission flags are instructions that conforming viewers choose to honour. Acrobat and most readers respect them; a tool designed to ignore them can. They are a policy signal and a deterrent, not encryption.</p>
+      <p>If the content genuinely must not be read by the wrong people, encrypt the document with a user password. Permissions are for controlling what legitimate recipients can do with a file they are allowed to open.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Load the PDF', description: 'Drop in the document. Current permission settings are shown.' },
+      { step: 2, title: 'Set the permissions', description: 'Allow or block printing, copying, editing and annotating individually.' },
+      { step: 3, title: 'Add an owner password', description: 'Optional but recommended - without one, the flags are trivially cleared.' },
+      { step: 4, title: 'Apply and download', description: 'Save the PDF with the new permissions.' },
+    ],
+    useCases: [
+      { title: 'Read-only distribution', description: 'A document readers can open but not print or copy from.', icon: 'file-lock' },
+      { title: 'Protecting a licensed report', description: 'Discourage copying of content you sell, while keeping it readable.', icon: 'shield' },
+      { title: 'Locking a final version', description: 'Block editing and annotating so the approved version stays approved.', icon: 'check-check' },
+    ],
+    faq: [
+      { question: 'Are permissions actually enforced?', answer: 'By conforming viewers, yes. They are not cryptographic, so a tool built to ignore them can. Treat them as policy rather than protection.' },
+      { question: 'Do I need an owner password?', answer: 'Strongly recommended. Without one, the permission flags can be cleared by anyone in seconds.' },
+      { question: 'What if I need real protection?', answer: 'Use Encrypt PDF with a user password. That encrypts the content rather than requesting good behaviour.' },
+      { question: 'Can I still open the file myself?', answer: 'Yes. Permissions do not restrict opening, only what can be done afterwards.' },
     ],
   },
 
   'digital-sign-pdf': {
     title: 'Digital Signature',
-    metaDescription: 'Add X.509 digital signatures to PDF documents. Sign PDFs with PFX, P12, or PEM certificates for legal validity.',
-    keywords: ['digital signature pdf', 'x509 certificate', 'pfx sign pdf', 'p12 sign pdf', 'pem sign pdf', 'legally sign pdf'],
+    metaTitle: 'Digitally Sign a PDF with a Certificate',
+    metaDescription: 'Apply a cryptographic digital signature to a PDF using an X.509 certificate in PFX, P12 or PEM format, with a visible signature and timestamp.',
+    keywords: ['digital signature pdf', 'sign pdf certificate', 'x509 pdf signature', 'pfx sign pdf', 'cryptographic pdf signature'],
     description: `
-      <p>Digital Signature allows you to add cryptographic X.509 digital signatures to PDF documents. Unlike simple drawn signatures, digital signatures provide legal validity and document integrity verification.</p>
-      <p>Upload your certificate file (PFX, P12, or PEM format), enter the password, and sign your PDF. You can add visible signatures with custom text, images, and positioning, or invisible signatures for document integrity only.</p>
-      <p>All signing happens locally in your browser. Your certificate and documents are never uploaded to any server.</p>
+      <p>A drawn signature is a picture. It proves nothing about who applied it and nothing about whether the document changed afterwards. A digital signature is different: it uses a private key to produce a cryptographic seal over the document contents, which establishes both identity and integrity.</p>
+      <p>If a single byte changes after signing, verification fails. That is what makes digital signatures acceptable where a legal or regulatory standard requires proof rather than the appearance of one.</p>
+      <p>Certificates in PFX, P12 and PEM formats are supported. You can include a visible signature block on the page, a stated reason for signing, a location, and a timestamp establishing when the signature was applied. The private key is used in your browser and never transmitted.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload PDF', description: 'Upload the PDF document you want to digitally sign.' },
-      { step: 2, title: 'Load Certificate', description: 'Upload your X.509 certificate file (.pfx, .p12, or .pem) and enter the password.' },
-      { step: 3, title: 'Configure Signature', description: 'Optionally add reason, location, and visible signature with custom text or image.' },
-      { step: 4, title: 'Sign and Download', description: 'Click Sign PDF to apply the digital signature and download the signed document.' },
+      { step: 1, title: 'Load the PDF', description: 'Drop in the document to be signed.' },
+      { step: 2, title: 'Provide your certificate', description: 'Upload a PFX, P12 or PEM file and enter its password.' },
+      { step: 3, title: 'Configure the signature', description: 'Choose whether it appears on the page, and set the reason, location and timestamp.' },
+      { step: 4, title: 'Sign and download', description: 'Save the signed PDF. Any subsequent change will invalidate the signature.' },
     ],
     useCases: [
-      { title: 'Legal Documents', description: 'Sign contracts, agreements, and legal documents with legally binding digital signatures.', icon: 'scale' },
-      { title: 'Business Approvals', description: 'Digitally sign invoices, purchase orders, and approval documents for audit trails.', icon: 'briefcase' },
-      { title: 'Document Integrity', description: 'Ensure documents have not been tampered with after signing.', icon: 'shield-check' },
+      { title: 'Legally significant agreements', description: 'Contracts where a cryptographic signature is required rather than an image of one.', icon: 'file-signature' },
+      { title: 'Regulatory submissions', description: 'Filings that mandate a certificate-based signature.', icon: 'scale' },
+      { title: 'Tamper-evident documents', description: 'Certificates and official records where any later modification must be detectable.', icon: 'shield-check' },
     ],
     faq: [
-      { question: 'What certificate formats are supported?', answer: 'PFX (.pfx), PKCS#12 (.p12), and PEM (.pem) certificate formats are supported.' },
-      { question: 'Is the signature legally valid?', answer: 'Yes, X.509 digital signatures are legally recognized in most jurisdictions when using a valid certificate.' },
-      { question: 'Can I add a visible signature?', answer: 'Yes, you can add a visible signature with custom text, image, position, and styling.' },
+      { question: 'How is this different from Sign PDF?', answer: 'Sign PDF places an image of your signature. This applies a cryptographic seal using your private key, which proves identity and detects any later change.' },
+      { question: 'Where do I get a certificate?', answer: 'From a certificate authority, or your organisation IT if it operates its own. Self-signed certificates work technically but are not trusted by default in readers.' },
+      { question: 'Is my private key uploaded?', answer: 'No. The certificate is used in your browser and neither the key nor its password is transmitted.' },
+      { question: 'What happens if the document is edited afterwards?', answer: 'Verification fails and readers show the signature as invalid. That is the intended behaviour.' },
     ],
   },
 
   'validate-signature': {
     title: 'Validate Signature',
-    metaDescription: 'Verify digital signatures in PDF documents. Check certificate validity, signer information, and document integrity.',
-    keywords: ['validate pdf signature', 'verify digital signature', 'check pdf certificate', 'signature verification'],
+    metaTitle: 'Validate PDF Digital Signatures',
+    metaDescription: 'Check the digital signatures on a PDF - signer identity, certificate details, validity dates and whether the document has been altered since signing.',
+    keywords: ['validate pdf signature', 'verify pdf signature', 'check pdf certificate', 'pdf signature integrity', 'is pdf signed'],
     description: `
-      <p>Validate Signature allows you to verify digital signatures in PDF documents. Check if signatures are valid, view certificate information, and confirm document integrity.</p>
-      <p>Upload a signed PDF to see all signatures, their validity status, signer information, and whether the document has been modified after signing.</p>
-      <p>All validation happens locally in your browser. Your documents are never uploaded to any server.</p>
+      <p>A signature block on a page is a graphic. It can be copied, faked, or left over from a document that has since been modified. The only way to know whether a signature means anything is to verify it cryptographically.</p>
+      <p>This checks each signature in the document and reports what it finds: who signed, which certificate was used and by whom it was issued, the validity period, whether the certificate had expired at the time of signing, and whether the document has been altered since.</p>
+      <p>That last point is the one that matters most. Integrity checking is what distinguishes a real signature from a picture of one, and it is the check almost nobody performs.</p>
     `,
     howToUse: [
-      { step: 1, title: 'Upload Signed PDF', description: 'Upload a PDF document that contains digital signatures.' },
-      { step: 2, title: 'View Results', description: 'See all signatures found in the document with their validity status.' },
-      { step: 3, title: 'Check Details', description: 'View certificate information, signer details, and signing timestamp.' },
-      { step: 4, title: 'Export Report', description: 'Optionally download a JSON report of the validation results.' },
+      { step: 1, title: 'Add the signed PDFs', description: 'Drop in up to 10 files. Every signature in each is examined.' },
+      { step: 2, title: 'Read the report', description: 'Signer, certificate issuer, validity dates and integrity status are listed per signature.' },
+      { step: 3, title: 'Check for modifications', description: 'The report states whether the document has changed since it was signed.' },
+      { step: 4, title: 'Export if needed', description: 'Save the validation report as JSON for a compliance record.' },
     ],
     useCases: [
-      { title: 'Document Verification', description: 'Verify that signed documents are authentic and have not been tampered with.', icon: 'shield-check' },
-      { title: 'Compliance Audit', description: 'Check signature validity for compliance and audit purposes.', icon: 'clipboard-check' },
-      { title: 'Certificate Review', description: 'View certificate details and expiration dates for signed documents.', icon: 'award' },
+      { title: 'Verifying a received contract', description: 'Confirm the signature is real and the document has not been altered since signing.', icon: 'shield-check' },
+      { title: 'Compliance auditing', description: 'Batch-validate a set of signed records and keep the report as evidence.', icon: 'clipboard-check' },
+      { title: 'Detecting tampering', description: 'Establish whether a document changed after it was signed.', icon: 'search-check' },
     ],
     faq: [
-      { question: 'What does "valid" mean?', answer: 'A valid signature means the document has not been modified since signing and the certificate chain is intact.' },
-      { question: 'Can I validate multiple PDFs?', answer: 'Yes, you can upload multiple PDFs and validate all signatures in batch.' },
-      { question: 'Why might a signature be invalid?', answer: 'Signatures may be invalid if the document was modified, the certificate expired, or the certificate is not trusted.' },
+      { question: 'What does a valid signature actually tell me?', answer: 'That the document has not changed since signing, and that the signature was produced with the private key belonging to that certificate.' },
+      { question: 'Why might a signature show as invalid?', answer: 'The document was modified after signing, the certificate had expired or been revoked, or the issuing authority is not trusted.' },
+      { question: 'Can I validate several files at once?', answer: 'Yes, up to 10 per run, with a report for each.' },
+      { question: 'Does an expired certificate invalidate the signature?', answer: 'Not necessarily. If a trusted timestamp shows the signature was made while the certificate was valid, it can still verify. The report shows both dates.' },
     ],
   },
 };
-

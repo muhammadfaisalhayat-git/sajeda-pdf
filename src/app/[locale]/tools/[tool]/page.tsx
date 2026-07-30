@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { getToolById, getAllTools } from '@/config/tools';
-import { getToolContent, type Locale } from '@/config/tool-content';
+import { getToolContent, resolveToolContent, type Locale } from '@/config/tool-content';
 import { ToolPage } from '@/components/tools/ToolPage';
 import { MergePDFTool } from '@/components/tools/merge';
 import { SplitPDFTool } from '@/components/tools/split';
@@ -101,8 +101,12 @@ import {
   generateBreadcrumbSchema
 } from '@/lib/seo/structured-data';
 import type { Metadata } from 'next';
+import { locales } from '@/lib/i18n/config';
 
-  const SUPPORTED_LOCALES: Locale[] = ['en', 'ja', 'ko', 'es', 'fr', 'de', 'zh', 'zh-TW', 'pt', 'ar', 'it', 'vi'];
+// Derived from the single source of truth in lib/i18n/config so this list cannot
+// drift out of sync. A hand-maintained copy previously omitted 'id', which meant
+// every locale advertised hreflang="id" URLs that were never generated.
+const SUPPORTED_LOCALES: Locale[] = [...locales] as Locale[];
 
 interface ToolPageParams {
   params: Promise<{
@@ -140,9 +144,9 @@ export async function generateMetadata({ params }: ToolPageParams): Promise<Meta
     };
   }
 
-  const content = getToolContent(locale, tool.id);
+  const resolved = resolveToolContent(locale, tool.id);
 
-  if (!content) {
+  if (!resolved) {
     return {
       title: tool.id,
     };
@@ -150,8 +154,11 @@ export async function generateMetadata({ params }: ToolPageParams): Promise<Meta
 
   return generateToolMetadata({
     tool,
-    content,
+    content: resolved.content,
     locale,
+    // When this locale has no copy of its own we are rendering another language's
+    // text, so point the canonical at that language's URL rather than this one.
+    canonicalLocale: resolved.sourceLocale,
     path: `/tools/${toolSlug}`,
   });
 }

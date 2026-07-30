@@ -1816,31 +1816,6 @@ export const toolContentFr: Record<string, ToolContent> = {
     ],
   },
 
-  'pdf-to-xlsx': {
-    title: 'PDF en Excel',
-    metaDescription: 'Extrayez des tableaux PDF vers des feuilles de calcul Excel (XLSX). Précision des données et structure conservée.',
-    keywords: ['pdf en excel', 'extraire tableau pdf', 'pdf vers xlsx', 'conversion données pdf'],
-    description: `
-      <p>Transformez vos données PDF en feuilles de calcul Excel organisées. Cet outil identifie automatiquement les tableaux dans vos documents et les convertit en cellules XLSX éditables.</p>
-      <p>Idéal pour l'analyse financière, la gestion d'inventaire ou le traitement de données statistiques sans saisie manuelle.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Téléchargez votre PDF', description: 'Sélectionnez le fichier contenant les tableaux de données.' },
-      { step: 2, title: 'Analyse des données', description: 'L\'outil scanne le document pour détecter les lignes et colonnes.' },
-      { step: 3, title: 'Téléchargez l\'Excel', description: 'Récupérez votre fichier XLSX prêt pour vos calculs.' },
-    ],
-    useCases: [
-      { title: 'Analyse financière', description: 'Convertissez des relevés bancaires ou des rapports annuels PDF en Excel.', icon: 'bar-chart' },
-      { title: 'Saisie de données', description: 'Évitez les erreurs de saisie en extrayant directement des listes de prix ou d\'inventaires.', icon: 'database' },
-      { title: 'Études scientifiques', description: 'Récupérez des tableaux de données de publications pour vos propres recherches.', icon: 'table' },
-    ],
-    faq: [
-      { question: 'Les formules sont-elles conservées ?', answer: 'Non, les PDF ne contiennent que des valeurs. L\'outil extrait les données textuelles et numériques dans des cellules distinctes.' },
-      { question: 'Comment sont gérées les pages multiples ?', answer: 'Tous les tableaux détectés sont généralement regroupés dans une seule feuille ou des feuilles consécutives selon la structure.' },
-      { question: 'La précision est-elle garantie ?', answer: 'L\'outil est très précis pour les tableaux avec des bordures claires, mais fonctionne aussi pour les structures de colonnes simples.' },
-    ],
-  },
-
   'rotate-custom': {
     title: 'Rotation personnalisée',
     metaDescription: 'Faites pivoter les pages PDF selon n\'importe quel angle. Rotation précise pour redresser les documents.',
@@ -1863,31 +1838,6 @@ export const toolContentFr: Record<string, ToolContent> = {
       { question: 'Puis-je redresser une seule page ?', answer: 'Oui, vous pouvez choisir d\'appliquer la rotation à une seule page, à une plage ou à tout le document.' },
       { question: 'Est-ce que cela coupe le contenu ?', answer: 'Non, les dimensions de la page sont automatiquement ajustées pour que tout le contenu pivoté reste visible.' },
       { question: 'Peut-on entrer des décimales ?', answer: 'Oui, l\'outil accepte des degrés de rotation précis pour un redressement parfait.' },
-    ],
-  },
-
-  'repair-pdf-advanced': {
-    title: 'Réparation avancée PDF',
-    metaDescription: 'Réparez les fichiers PDF gravement endommagés. Restaurez la structure et récupérez vos données.',
-    keywords: ['réparer pdf corrompu', 'récupérer fichier pdf', 'pdf illisible', 'restauration pdf'],
-    description: `
-      <p>Cet outil utilise des algorithmes de reconstruction profonde pour tenter de sauver les fichiers PDF qui refusent de s'ouvrir ou qui affichent des messages d'erreur de corruption.</p>
-      <p>Il analyse la table des objets du fichier et tente de reconstruire une structure valide pour permettre l'accès au contenu texte et image.</p>
-    `,
-    howToUse: [
-      { step: 1, title: 'Téléchargez le fichier corrompu', description: 'Sélectionnez le document PDF endommagé.' },
-      { step: 2, title: 'Analyse et reconstruction', description: 'L\'outil tente de réparer les erreurs de syntaxe et les tables de références croisées.' },
-      { step: 3, title: 'Récupérez vos données', description: 'Téléchargez la version réparée et vérifiez l\'intégrité du contenu.' },
-    ],
-    useCases: [
-      { title: 'Échecs de téléchargement', description: 'Réparez les fichiers qui ont été mal téléchargés ou interrompus.', icon: 'download-cloud' },
-      { title: 'Corruption de stockage', description: 'Tentez de sauver des fichiers provenant de clés USB ou disques durs défectueux.', icon: 'database' },
-      { title: 'Erreurs logicielles', description: 'Réparez les PDF générés par des outils tiers qui ont produit un formatage invalide.', icon: 'alert-triangle' },
-    ],
-    faq: [
-      { question: 'La réparation réussit-elle toujours ?', answer: 'Le succès dépend du niveau de dommage binaire. Si les données essentielles sont effacées, la récupération totale peut être impossible.' },
-      { question: 'Mes images seront-elles sauvées ?', answer: 'L\'outil tente de récupérer chaque objet. Si l\'image n\'est pas corrompue au niveau binaire, elle sera restaurée.' },
-      { question: 'Est-ce sécurisé ?', answer: 'Comme pour tous nos outils, la réparation se fait localement. Vos fichiers confidentiels ne sont jamais envoyés sur nos serveurs.' },
     ],
   },
 
