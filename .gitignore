@@ -10,6 +10,14 @@ build
 !public/pdfjs-annotation-viewer/build
 dist
 
+# Static export artefacts left in the repo root.
+# `_next` is a stale copy of out/_next from an earlier build, and the build zip
+# is 319 MB - well over GitHub's 100 MB per-file limit, so committing it would
+# make the push fail outright.
+/_next
+sajedapdf-build.zip
+*.build.zip
+
 # Testing
 coverage
 
